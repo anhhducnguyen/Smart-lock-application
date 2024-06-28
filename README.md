@@ -201,3 +201,19 @@ DB_PASSWORD=
 DB_HOST=
 DB_PORT=
 ```
+
+8. Đẩy code lên `heroku` trừ `db.sqlite3`
+
+```
+git add .
+```
+
+```
+git commit -m "connect aiven.io"
+```
+
+```
+git push heroku master
+```
+
+8. Cấu hình `.env` trên `heroku`
