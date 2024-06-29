@@ -217,3 +217,109 @@ git push heroku master
 ```
 
 8. Cấu hình `.env` trên `heroku`
+
+
+
+### Project authentication and email
+
+**Step 1 .** Tạo `authentication`
+
+```
+python manage.py startapp authentication
+```
+
+**Step 2 .** Đảm bảo đã thêm vào `setting.py`
+
+```python
+INSTALLED_APPS = [
+        'authentication',
+]
+```
+
+**Step 3 .** Đảm bảo đã thêm vào `project/info.py`
+
+```python
+EMAIL_USE_TLS = True
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+```
+
+**Step 3 .** Đảm bảo đã thêm vào `project/urls.py`
+
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('authentication.urls'))
+]
+```
+
+**Step 4 .** Đảm bảo đã thêm vào `project/wsgi.py`
+
+```python
+app = application
+```
+
+**Step 4 .** Đảm bảo đã thêm vào `authentication/token.py`
+
+```python
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+
+from six import text_type
+
+class TokenGenerator(PasswordResetTokenGenerator):
+    def _make_hash_value(self,user,timestamp):
+        return (
+        text_type(user.pk) + text_type(timestamp) 
+        # text_type(user.profile.signup_confirmation)
+        )
+
+generate_token = TokenGenerator()
+```
+
+**Step 5 .** Tạo `authentication/urls.py`
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('signup', views.signup, name='signup'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path('signin', views.signin, name='signin'),
+    path('signout', views.signout, name='signout'),
+]
+```
+
+**Step 5 .** Cài đặt thư viện
+
+```
+pip install six
+```
+
+**Step 6 .** Đảm bảo có đoạn này để nó tìm được thư mục templates `project/settings.py`
+
+```python
+TEMPLATES = [
+    {
+        'DIRS': ["templates"],
+    },
+]
+```
+
+**Step 7 .** Cấu hình gmail trong `project/settings.py`
+
+```python
+from . info import *
+
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_PORT = EMAIL_PORT
+```

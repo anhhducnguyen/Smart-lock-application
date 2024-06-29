@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+ Chào mừng bạn đến với GFG - Đăng nhập Django!!
+ Hello {{ name }}!!
+ Vui lòng xác nhận email của bạn bằng cách nhấp vào liên kết sau.
+
+ Liên kết xác nhận: http://{{ domain }}{% url 'activate' uidb64=uid token=token %} 
+
+ {% endautoescape %}
