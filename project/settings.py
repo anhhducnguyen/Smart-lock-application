@@ -87,23 +87,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 load_dotenv()
 
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv('DB_ENGINE'),
-        "NAME": os.getenv('DB_NAME'),
-        "USER": os.getenv('DB_USER'),
-        "PASSWORD": os.getenv('DB_PASSWORD'),
-        "HOST": os.getenv('DB_HOST'),
-        "PORT": os.getenv('DB_PORT'),
-    }
-}   
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "default": {
+#         "ENGINE": os.getenv('DB_ENGINE'),
+#         "NAME": os.getenv('DB_NAME'),
+#         "USER": os.getenv('DB_USER'),
+#         "PASSWORD": os.getenv('DB_PASSWORD'),
+#         "HOST": os.getenv('DB_HOST'),
+#         "PORT": os.getenv('DB_PORT'),
 #     }
-# }
+# }   
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
@@ -140,7 +140,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# Add these settings if you have static files outside of app directories
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Directory where collectstatic will collect static files for production
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
