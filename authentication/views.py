@@ -22,7 +22,7 @@ def signup(request):
     if request.method == "POST":
         username = request.POST['username']
         fname = request.POST['fname']
-        lname = request.POST['lname']
+        # lname = request.POST['lname']
         email = request.POST['email']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
@@ -49,7 +49,7 @@ def signup(request):
         
         myuser = User.objects.create_user(username, email, pass1)
         myuser.first_name = fname
-        myuser.last_name = lname
+        # myuser.last_name = lname
         # myuser.is_active = False
         myuser.is_active = False
         myuser.save()
