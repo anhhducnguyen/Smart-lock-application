@@ -45,7 +45,7 @@ ALLOWED_HOSTS = ['project-1233-6f93642d7963.herokuapp.com']
 
 INSTALLED_APPS = [
 
-    "jazzmin",
+    "unfold",
 
     'django.contrib.admin',
     'django.contrib.auth',
