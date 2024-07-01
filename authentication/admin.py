@@ -4,6 +4,7 @@ from unfold.admin import ModelAdmin
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
+    list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     fieldsets = (
         (None, {'fields': ('username', 'email', 'date_joined')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
