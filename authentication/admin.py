@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
-from django_google_sso.models import GoogleSSOUser
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
@@ -13,15 +12,27 @@ class CustomUserAdmin(ModelAdmin):
         ('Important dates', {'fields': ('last_login',)}),
     )
 
-class GoogleSSOUserAdmin(ModelAdmin):
-    list_display = ('google_id',)  # Adjust fields as needed
-
 
 class CustomGroupAdmin(ModelAdmin):
     pass
 
 
+# Danh sách thông tin người dùng
+users_info = [
+    {'username': 'john', 'password': 'pass1234', 'email': 'john@example.com'},
+    {'username': 'jane', 'password': 'pass5678', 'email': 'jane@example.com'},
+    {'username': 'alice', 'password': 'pass91011', 'email': 'alice@example.com'},
+    # Thêm người dùng khác ở đây
+]
 
+# Tạo người dùng từ danh sách
+for user_info in users_info:
+    user = User.objects.create_user(
+        username=user_info['username'],
+        password=user_info['password'],
+        email=user_info['email']
+    )
+    user.save()
 
 
 # Đăng ký các lớp quản trị với admin site
@@ -30,7 +41,3 @@ admin.site.unregister(Group)  # Hủy đăng ký mặc định
 
 admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
 admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-
-
-# Register the GoogleSSOUser model with the custom admin class
-admin.site.register(GoogleSSOUser, GoogleSSOUserAdmin)
