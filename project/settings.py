@@ -232,7 +232,7 @@ UNFOLD = {
                     {
                         "title": _("Groups"),
                         "icon": "star",
-                        "link": reverse_lazy(""),
+                        "link": reverse_lazy("admin:auth_group_changelist"),
                     },
                 ],
             },
