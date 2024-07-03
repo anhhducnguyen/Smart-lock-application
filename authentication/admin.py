@@ -17,23 +17,6 @@ class CustomGroupAdmin(ModelAdmin):
     pass
 
 
-# Danh sách thông tin người dùng
-users_info = [
-    {'username': 'john', 'password': 'pass1234', 'email': 'john@example.com'},
-    {'username': 'jane', 'password': 'pass5678', 'email': 'jane@example.com'},
-    {'username': 'alice', 'password': 'pass91011', 'email': 'alice@example.com'},
-    # Thêm người dùng khác ở đây
-]
-
-# Tạo người dùng từ danh sách
-for user_info in users_info:
-    user = User.objects.create_user(
-        username=user_info['username'],
-        password=user_info['password'],
-        email=user_info['email']
-    )
-    user.save()
-
 
 # Đăng ký các lớp quản trị với admin site
 admin.site.unregister(User)  # Hủy đăng ký mặc định
