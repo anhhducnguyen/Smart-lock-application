@@ -13,6 +13,7 @@ class CustomUserAdmin(ModelAdmin):
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login',)}),
     )
+    actions_row = ['Co cai lon']
 
 
 class CustomGroupAdmin(ModelAdmin):
