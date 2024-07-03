@@ -217,11 +217,6 @@ UNFOLD = {
                         "badge": "sample_app.badge_callback",
                         "permission": lambda request: request.user.is_superuser,
                     },
-                    {
-                        "title": _("Users"),
-                        "icon": "people",
-                        "link": reverse_lazy("admin:users_user_changelist"),
-                    },
                 ],
             },
         ],
