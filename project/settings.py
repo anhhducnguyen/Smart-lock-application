@@ -189,6 +189,15 @@ from django.utils.translation import gettext_lazy as _
 UNFOLD = {
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "en": "🇬🇧",
+                "fr": "🇫🇷",
+                "nl": "🇧🇪",
+            },
+        },
+    },
     "SIDEBAR": {
         "show_search": False,  # Search in applications and models names
         "show_all_applications": False,  # Dropdown with all applications and models
