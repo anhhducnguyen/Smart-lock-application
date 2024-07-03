@@ -182,51 +182,56 @@ django_heroku.settings(locals())
 
 # settings.py
 
-# from django.templatetags.static import static
-# from django.urls import reverse_lazy
-# from django.utils.translation import gettext_lazy as _
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
-# UNFOLD = {
-#     "SITE_TITLE": None,
-#     "SITE_HEADER": "FLOWER SHOP",
-#     "EXTENSIONS": {
-#         "modeltranslation": {
-#             "flags": {
-#                 "en": "🇬🇧",
-#                 "fr": "🇫🇷",
-#                 "nl": "🇧🇪",
-#             },
-#         },
-#     },
-#     "SIDEBAR": {
-#         "show_search": False,  # Search in applications and models names
-#         "show_all_applications": False,  # Dropdown with all applications and models
-#         "navigation": [
-#             {
-#                 "title": _("Navigation"),
-#                 "separator": True,  # Top border
-#                 "items": [
-#                     {
-#                         "title": _("Dashboard"),
-#                         "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
-#                         "link": reverse_lazy("admin:index"),
-#                         "permission": lambda request: request.user.is_superuser,
-#                     },
-#                     {
-#                         "title": _("Users"),
-#                         "icon": "person",
-#                         "link": reverse_lazy("admin:auth_user_changelist"),
-#                     },
-#                     {
-#                         "title": _("Groups"),
-#                         "icon": "people",
-#                         "link": reverse_lazy("admin:auth_group_changelist"),
-#                     },
-#                 ],
-#             },
-#         ],
-#     },
-# }
+UNFOLD = {
+    "SITE_TITLE": None,
+    "SITE_HEADER": "FLOWER SHOP",
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "en": "🇬🇧",
+                "fr": "🇫🇷",
+                "nl": "🇧🇪",
+            },
+        },
+    },
+    "SIDEBAR": {
+        "show_search": False,  # Search in applications and models names
+        "show_all_applications": False,  # Dropdown with all applications and models
+        "navigation": [
+            {
+                "title": _("Navigation"),
+                "separator": True,  # Top border
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Users"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                    {
+                        "title": _("Google SSO User"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:django_google_sso_googlessouser"),
+                    },
+                ],
+            },
+        ],
+    },
+}
 
 
 
