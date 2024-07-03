@@ -221,9 +221,14 @@ UNFOLD = {
                     },
                     {
                         "title": _("Store"),
-                        "icon": "building-storefront",  # Supported icon set: https://fonts.google.com/icons
+                        "icon": "storefront",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:index"),
                         "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Standings"),
+                        "icon": "star",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
                     },
                     {
                         "title": _("Users"),
@@ -235,11 +240,7 @@ UNFOLD = {
                         "icon": "people",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                     },
-                    {
-                        "title": _("Groups"),
-                        "icon": "star",
-                        "link": reverse_lazy("admin:auth_group_changelist"),
-                    },
+                    
                 ],
             },
         ],
