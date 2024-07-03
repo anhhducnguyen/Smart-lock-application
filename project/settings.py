@@ -189,6 +189,7 @@ from django.utils.translation import gettext_lazy as _
 UNFOLD = {
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
+    "DASHBOARD_CALLBACK": "sample_app.dashboard_callback",
     "EXTENSIONS": {
         "modeltranslation": {
             "flags": {
