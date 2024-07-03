@@ -6,7 +6,8 @@ from unfold.admin import ModelAdmin
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
-    actions = ['add_to_students_group']
+    actions_list = ['add_to_students_group']
+    search_fields = ('username', 'email')
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
     fieldsets = (
