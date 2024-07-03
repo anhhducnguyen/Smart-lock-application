@@ -203,7 +203,7 @@ UNFOLD = {
                     },
                     {
                         "title": _("Users"),
-                        "icon": "user",
+                        "icon": "person",
                         "link": reverse_lazy("admin:auth_user_changelist"),
                     },
                     {
