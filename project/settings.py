@@ -199,8 +199,12 @@ UNFOLD = {
                         "title": _("Dashboard"),
                         "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:index"),
-                        "badge": "sample_app.badge_callback",
                         "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Users"),
+                        "icon": "people",
+                        # "link": reverse_lazy("admin:users_user_changelist"),
                     },
                 ],
             },
