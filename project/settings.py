@@ -226,7 +226,7 @@ UNFOLD = {
                     },
                     {
                         "title": _("Statistical"),
-                        "icon": "chart",  # Supported icon set: https://fonts.google.com/icons
+                        "icon": "bar_chart",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:index"),
                     },
                     {
