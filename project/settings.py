@@ -180,7 +180,7 @@ import django_heroku
 django_heroku.settings(locals())
 
 
-# settings.py
+# settings.pyy
 
 from django.templatetags.static import static
 from django.urls import reverse_lazy
