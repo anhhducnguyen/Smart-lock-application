@@ -2,12 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
 
-
-
-# Định nghĩa các lớp quản trị tùy chỉnh
+# Custom admin classes
 class CustomUserAdmin(ModelAdmin):
-    # actions_list = ['add_to_students_group']
-    # search_fields = ('username', 'email')
+    actions_list = ['add_to_students_group']
+    search_fields = ('username', 'email')  # Ensure these fields are indexed and searchable
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
     fieldsets = (
@@ -20,11 +18,10 @@ class CustomUserAdmin(ModelAdmin):
 class CustomGroupAdmin(ModelAdmin):
     pass
 
+# Unregister the default admin
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
-# Đăng ký các lớp quản trị với admin site
-admin.site.unregister(User)  # Hủy đăng ký mặc định
-admin.site.unregister(Group)  # Hủy đăng ký mặc định
-
-
-admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
+# Register custom admin
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group, CustomGroupAdmin)
