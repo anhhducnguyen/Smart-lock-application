@@ -201,11 +201,11 @@ UNFOLD = {
                         "link": reverse_lazy("admin:index"),
                         "permission": lambda request: request.user.is_superuser,
                     },
-                    {
-                        "title": _("Users"),
-                        "icon": "people",
-                        # "link": reverse_lazy("admin:users_user_changelist"),
-                    },
+                    # {
+                    #     "title": _("Users"),
+                    #     "icon": "people",
+                    #     "link": reverse_lazy("admin:users_user_changelist"),
+                    # },
                 ],
             },
         ],
