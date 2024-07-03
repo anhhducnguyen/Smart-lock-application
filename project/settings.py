@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     'authentication',
 
     "django_google_sso",  # Add django_google_sso
+
+    'modeltranslation',
     
 
 ]
