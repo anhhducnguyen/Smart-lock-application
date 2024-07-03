@@ -187,6 +187,8 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 UNFOLD = {
+    "show_search": False,  # Search in applications and models names
+    "show_all_applications": False,  # Dropdown with all applications and models
     "SIDEBAR": {
         "show_search": False,  # Search in applications and models names
         "show_all_applications": False,  # Dropdown with all applications and models
