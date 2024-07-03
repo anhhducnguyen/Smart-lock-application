@@ -19,7 +19,7 @@ class CustomUserAdmin(ModelAdmin):
 class CustomGroupAdmin(ModelAdmin):
     pass
 
-class CustomGoogleSSOUserAdmin(ModelAdmin):
+class CustomGoogleSSOUserAdmin(admin.ModelAdmin):
     pass
 
 # Đăng ký các lớp quản trị với admin site
