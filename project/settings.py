@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from . info import *
+from decouple import Config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,14 @@ EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
 
+# settings.py
 
+
+GOOGLE_SSO_CLIENT_ID = "740073010366-mrsboulhnt2b77o9r9i591r5n5snd9ie.apps.googleusercontent.com"
+GOOGLE_SSO_PROJECT_ID = "flower-shop-428110"
+GOOGLE_SSO_CLIENT_SECRET = "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"
+
+GOOGLE_SSO_ALLOWABLE_DOMAINS = ["gmail.com"]
 
 
 # Quick-start development settings - unsuitable for production
@@ -55,6 +64,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'authentication',
+
+    "django_google_sso",  # Add django_google_sso
 
 ]
 
