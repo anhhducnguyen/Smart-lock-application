@@ -190,7 +190,6 @@ from django.utils.translation import gettext_lazy as _
 UNFOLD = {
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
-    "DASHBOARD_CALLBACK": "project.dashboard_callback",
     "SIDEBAR": {
         "show_search": False,  # Search in applications and models names
         "show_all_applications": False,  # Dropdown with all applications and models
@@ -222,19 +221,4 @@ UNFOLD = {
 }
 
 
-def dashboard_callback(request, context):
-    context.update(
-        {
-            "sample": "example",
-        }
-    )
-    return context
 
-def environment_callback(request):
-    return ["Production", "danger"]
-
-def badge_callback(request):
-    return 3
-
-def permission_callback(request):
-    return request.user.has_perm("sample_app.change_model")
