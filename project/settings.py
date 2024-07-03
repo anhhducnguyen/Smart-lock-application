@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'authentication',
 
     "django_google_sso",  # Add django_google_sso
+    
 
 ]
 
@@ -180,7 +181,7 @@ import django_heroku
 django_heroku.settings(locals())
 
 
-# settings.pyy
+# settings.py
 
 from django.templatetags.static import static
 from django.urls import reverse_lazy
@@ -189,15 +190,6 @@ from django.utils.translation import gettext_lazy as _
 UNFOLD = {
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
-    "EXTENSIONS": {
-        "modeltranslation": {
-            "flags": {
-                "en": "🇬🇧",
-                "fr": "🇫🇷",
-                "nl": "🇧🇪",
-            },
-        },
-    },
     "SIDEBAR": {
         "show_search": False,  # Search in applications and models names
         "show_all_applications": False,  # Dropdown with all applications and models
