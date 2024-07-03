@@ -239,7 +239,35 @@ UNFOLD = {
                         "icon": "people",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                     },
-                    
+                ],
+                "separator": True,  # Top border
+                "items": [
+                    {
+                        "title": _("Dashboard"),
+                        "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Store"),
+                        "icon": "storefront",  # Supported icon set: https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Standings"),
+                        "icon": "star",
+                        "link": reverse_lazy("admin:index"),
+                    },
+                    {
+                        "title": _("Users"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
                 ],
             },
         ],
