@@ -225,7 +225,7 @@ UNFOLD = {
                     {
                         "title": _("Google SSO User"),
                         "icon": "people",
-                        "link": reverse_lazy("admin:django_google_sso_googlessouser"),
+                        "link": reverse_lazy("admin:googlessouser_changelist"),
                     },
                 ],
             },
