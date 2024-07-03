@@ -222,7 +222,7 @@ UNFOLD = {
                     {
                         "title": _("Store"),
                         "icon": "storefront",  # Supported icon set: https://fonts.google.com/icons
-                        "link": reverse_lazy("admin:index"),
+                        "link": reverse_lazy("admin:auth_group_changelist"),
                     },
                     {
                         "title": _("Standings"),
