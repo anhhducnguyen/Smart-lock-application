@@ -222,11 +222,6 @@ UNFOLD = {
                         "icon": "people",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                     },
-                    {
-                        "title": _("Google SSO User"),
-                        "icon": "people",
-                        "link": reverse_lazy("admin:google_sso_changelist"),
-                    },
                 ],
             },
         ],
