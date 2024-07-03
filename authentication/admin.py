@@ -13,6 +13,8 @@ class CustomUserAdmin(ModelAdmin):
         ('Important dates', {'fields': ('last_login',)}),
     )
 
+class GoogleSSOUserAdmin(ModelAdmin):
+    list_display = ('google_id',)  # Adjust fields as needed
 
 
 class CustomGroupAdmin(ModelAdmin):
@@ -31,3 +33,4 @@ admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản tr
 
 
 # Register the GoogleSSOUser model with the custom admin class
+admin.site.register(GoogleSSOUser, GoogleSSOUserAdmin)
