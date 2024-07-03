@@ -225,7 +225,7 @@ UNFOLD = {
                     {
                         "title": _("Google SSO User"),
                         "icon": "people",
-                        "link": reverse_lazy("admin:googlessouser_changelist"),
+                        "link": reverse_lazy("admin:google_sso_changelist"),
                     },
                 ],
             },
