@@ -46,29 +46,31 @@ class CustomUserAdmin(ModelAdmin):
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
     search_fields = ('username', 'email')
-    # fieldsets = (
-    #     (
-    #         None,
-    #         {'fields': ('username', 'email', 'date_joined')}
-    #     ),
-    #     (
-    #         _("Tab 1"),
-    #         {
-    #             'classes': ['tab'],
-    #             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
-    #         }
-    #     ),
-    # )
+    fieldsets = (
+        (
+            None,
+            {'fields': ('username', 'email', 'date_joined')}
+        ),
+        (
+            _("Tab 1"),
+            {
+                'classes': ['tab'],
+                'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+            }
+        ),
+        (
+            _("Tab 2"),
+            {
+                'classes': ['tab'],
+                'fields': ('last_login',)
+            }
+        ),
+    )
 
 @admin.register(Group)
 class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
 
-# Hủy đăng ký mặc định nếu cần thiết (đã có trong @admin.register phía trên)
+# Hủy đăng ký mặc định nếu cần thiết
 admin.site.unregister(User)
 admin.site.unregister(Group)
-
-# Đăng ký với lớp quản trị tùy chỉnh (đã có trong @admin.register phía trên)
-admin.site.register(User, CustomUserAdmin)
-admin.site.register(Group, CustomGroupAdmin)
-
