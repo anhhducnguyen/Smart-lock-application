@@ -17,7 +17,8 @@ class CustomUserAdmin(ModelAdmin):
 
 
 class CustomGroupAdmin(ModelAdmin):
-    pass
+    search_fields = ('name')
+    # pass
 
 
 # Đăng ký các lớp quản trị với admin site
