@@ -12,8 +12,8 @@ from unfold.admin import ModelAdmin
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
 
-@register(User)
-class UserAdmin(BaseUserAdmin, ModelAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
-    change_password_form = AdminPasswordChangeForm
+# @register(User)
+# class UserAdmin(BaseUserAdmin, ModelAdmin):
+#     form = UserChangeForm
+#     add_form = UserCreationForm
+#     change_password_form = AdminPasswordChangeForm
