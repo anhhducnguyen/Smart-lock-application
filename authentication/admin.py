@@ -8,6 +8,7 @@ from unfold.admin import ModelAdmin
 class CustomUserAdmin(ModelAdmin):
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
+    search_fields = ('username', 'email')
     fieldsets = (
         (None, {'fields': ('username', 'email', 'date_joined')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
