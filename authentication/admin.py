@@ -65,10 +65,10 @@ class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
 
 # Hủy đăng ký mặc định nếu cần thiết (đã có trong @admin.register phía trên)
-# admin.site.unregister(User)
-# admin.site.unregister(Group)
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
 # Đăng ký với lớp quản trị tùy chỉnh (đã có trong @admin.register phía trên)
-# admin.site.register(User, CustomUserAdmin)
-# admin.site.register(Group, CustomGroupAdmin)
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group, CustomGroupAdmin)
 
