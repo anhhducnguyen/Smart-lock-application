@@ -50,6 +50,13 @@ class CustomUserAdmin(ModelAdmin):
         ),
     )
 
+from unfold.admin import TabularInline
+
+
+class MyInline(TabularInline):
+    model = User
+    tab = True
+
 
 
 class CustomGroupAdmin(ModelAdmin):
