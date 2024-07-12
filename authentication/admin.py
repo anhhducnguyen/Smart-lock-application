@@ -18,7 +18,7 @@ class CustomUserAdmin(ModelAdmin):
 
 
 class CustomGroupAdmin(ModelAdmin):
-    search_fields = ('name')
+    search_fields = ('name',)
     # pass
 
 
