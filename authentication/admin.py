@@ -1,11 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
+from unfold.admin import AdminView, Tab
 
 
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
+    tabs = [
+        Tab(label='Clocked', url='/admin/django_celery_beat/clockedschedule/'),
+        Tab(label='Crontabs', url='/admin/django_celery_beat/crontabschedule/'),
+        Tab(label='Intervals', url='/admin/django_celery_beat/intervalschedule/'),
+        Tab(label='Periodic tasks', url='/admin/django_celery_beat/periodictask/'),
+        Tab(label='Solar events', url='/admin/django_celery_beat/solareventschedule/'),
+    ]
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
     search_fields = ('username', 'email')
