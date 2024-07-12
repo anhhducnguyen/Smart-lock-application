@@ -188,6 +188,14 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 UNFOLD = {
+    "EXTENSIONS": {
+        "modeltranslation": {
+            "flags": {
+                "fr": "🇫🇷",
+                "nl": "🇧🇪",
+            },
+        },
+    },
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
     "COLORS": {
