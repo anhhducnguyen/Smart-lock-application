@@ -272,7 +272,7 @@ UNFOLD = {
                         "title": _("Tasks"),
                         "icon": "task_alt",
                         "link": reverse_lazy(
-                            "admin:admin:auth_group_changelist"
+                            "admin:auth_group_changelist"
                         ),
                     },
                 ],
