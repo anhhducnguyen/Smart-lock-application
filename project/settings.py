@@ -191,6 +191,7 @@ UNFOLD = {
     "EXTENSIONS": {
         "modeltranslation": {
             "flags": {
+                "en": "🇬🇧",
                 "fr": "🇫🇷",
                 "nl": "🇧🇪",
             },
@@ -252,6 +253,28 @@ UNFOLD = {
                         "icon": "people",
                         "link": reverse_lazy("admin:auth_group_changelist"),
                     },  
+                ],
+            },
+            {
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "people",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    }, 
+                    {
+                        "title": _("Tasks"),
+                        "icon": "task_alt",
+                        "link": reverse_lazy(
+                            "admin:admin:auth_group_changelist"
+                        ),
+                    },
                 ],
             },
         ],
