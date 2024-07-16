@@ -199,6 +199,7 @@ UNFOLD = {
     },
     "SITE_TITLE": None,
     "SITE_HEADER": "FLOWER SHOP",
+    "SITE_SYMBOL": "home",
     "TABS": 
     [
         {
