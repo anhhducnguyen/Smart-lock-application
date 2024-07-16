@@ -217,6 +217,23 @@ UNFOLD = {
     "SIDEBAR": {
         "show_search": True,  # Search in applications and models names
         "show_all_applications": True,  # Dropdown with all applications and models
+        "TABS": [
+            {
+                "models": ["project.user"],
+                "items": [
+                    {
+                        "title": _("Drivers"),
+                        "icon": "sports_motorsports",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                    {
+                        "title": _("Constructors"),
+                        "icon": "precision_manufacturing",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
         "navigation": [
             {
                 "title": _("Navigation"),
