@@ -258,6 +258,7 @@ UNFOLD = {
                         "title": _("Users"),
                         "icon": "person",
                         "link": reverse_lazy("admin:auth_user_changelist"),
+                        "badge": "project.utils.badge_callback",
                     },
                     {
                         "title": _("Groups"),
