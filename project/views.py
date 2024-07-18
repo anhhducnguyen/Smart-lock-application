@@ -111,7 +111,7 @@ def dashboard_callback(request, context):
                         {
                             "label": "Example 2",
                             "data": positive,
-                            "backgroundColor": "#12681c",
+                            "backgroundColor": "#9333ea",
                         },
                         {
                             "label": "Example 3",
