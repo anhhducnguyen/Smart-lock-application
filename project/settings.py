@@ -211,12 +211,12 @@ UNFOLD = {
             ],
             "items": [
                 {
-                    "title": _("Drivers"),
+                    "title": _("Users"),
                     "icon": "sports_motorsports",
-                    "link": reverse_lazy("admin:auth_group_changelist"),
+                    "link": reverse_lazy("admin:auth_user_changelist"),
                 },
                 {
-                    "title": _("Constructors"),
+                    "title": _("Groups"),
                     "icon": "precision_manufacturing",
                     "link": reverse_lazy("admin:auth_group_changelist"),
                 },
