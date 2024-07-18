@@ -205,7 +205,10 @@ UNFOLD = {
     "TABS": 
     [
         {
-            "models": ["auth.user"],
+            "models": [
+                "auth.user",
+                "auth.group"
+            ],
             "items": [
                 {
                     "title": _("Drivers"),
