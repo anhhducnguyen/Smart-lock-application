@@ -69,6 +69,13 @@ def dashboard_callback(request, context):
                         '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
                     ),
                 },
+                {
+                    "title": "Product D Performance",
+                    "metric": "$1,234.56",
+                    "footer": mark_safe(
+                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
+                    ),
+                },
             ],
             "progress": [
                 {
