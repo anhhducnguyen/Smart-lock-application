@@ -27,6 +27,17 @@ def dashboard_callback(request, context):
     performance_positive = [[1, random.randrange(8, 28)] for i in range(1, 28)]
     performance_negative = [[-1, -random.randrange(8, 28)] for i in range(1, 28)]
 
+
+    pie_chart_data = {
+        "labels": ["Category A", "Category B", "Category C", "Category D"],
+        "datasets": [
+            {
+                "data": [random.randint(10, 30), random.randint(20, 40), random.randint(15, 35), random.randint(10, 25)],
+                "backgroundColor": ["#f87171", "#34d399", "#60a5fa", "#fbbf24"],
+            }
+        ],
+    }
+
     context.update(
         {
             "navigation": [
@@ -121,6 +132,7 @@ def dashboard_callback(request, context):
                     ],
                 }
             ),
+            "pie_chart": json.dumps(pie_chart_data),
             "performance": [
                 {
                     "title": _("Last week revenue"),
