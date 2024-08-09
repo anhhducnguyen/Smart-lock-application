@@ -70,35 +70,6 @@ def dashboard_callback(request, context):
                     ),
                 },
             ],
-            "kpi": [
-                {
-                    "title": "Product A Performance",
-                    "metric": "$1,234.56",
-                    "footer": mark_safe(
-                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
-                    ),
-                    "chart": json.dumps(
-                        {
-                            "labels": [WEEKDAYS[day % 7] for day in range(1, 28)],
-                            "datasets": [{"data": average, "borderColor": "#9333ea"}],
-                        }
-                    ),
-                },
-                {
-                    "title": "Product B Performance",
-                    "metric": "$1,234.56",
-                    "footer": mark_safe(
-                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
-                    ),
-                },
-                {
-                    "title": "Product C Performance",
-                    "metric": "$1,234.56",
-                    "footer": mark_safe(
-                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
-                    ),
-                },
-            ],
             "progress": [
                 {
                     "title": "Social marketing e-book",
