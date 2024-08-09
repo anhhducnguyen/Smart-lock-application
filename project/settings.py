@@ -200,8 +200,8 @@ UNFOLD = {
     },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
     "SITE_TITLE": None,
-    "SITE_HEADER": "FLOWER SHOP",
-    "SITE_SYMBOL": "local_florist",
+    "SITE_HEADER": "Smart car park",
+    "SITE_SYMBOL": "local_shipping",
     "TABS": 
     [
         {

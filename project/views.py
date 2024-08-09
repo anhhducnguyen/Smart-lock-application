@@ -9,6 +9,7 @@ from django.views.generic import RedirectView
 class HomeView(RedirectView):
     pattern_name = "admin:index"
 
+
 def dashboard_callback(request, context):
     WEEKDAYS = [
         "Mon",
@@ -25,17 +26,6 @@ def dashboard_callback(request, context):
     average = [r[1] - random.randint(3, 5) for r in positive]
     performance_positive = [[1, random.randrange(8, 28)] for i in range(1, 28)]
     performance_negative = [[-1, -random.randrange(8, 28)] for i in range(1, 28)]
-
-    # Thêm dữ liệu cho biểu đồ tròn
-    pie_chart_data = {
-        "labels": ["Category A", "Category B", "Category C", "Category D"],
-        "datasets": [
-            {
-                "data": [random.randint(10, 30), random.randint(20, 40), random.randint(15, 35), random.randint(10, 25)],
-                "backgroundColor": ["#f87171", "#34d399", "#60a5fa", "#fbbf24"],
-            }
-        ],
-    }
 
     context.update(
         {
@@ -163,7 +153,6 @@ def dashboard_callback(request, context):
                     ),
                 },
             ],
-            "pie_chart": json.dumps(pie_chart_data),  # Thêm dữ liệu biểu đồ tròn vào context
         },
     )
 
