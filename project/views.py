@@ -171,13 +171,16 @@ def analytics(request, context):
     ]
 
     positive = [[1, random.randrange(8, 28)] for i in range(1, 28)]
+    negative = [[-1, -random.randrange(8, 28)] for i in range(1, 28)]
     average = [r[1] - random.randint(3, 5) for r in positive]
-   
+    performance_positive = [[1, random.randrange(8, 28)] for i in range(1, 28)]
+    performance_negative = [[-1, -random.randrange(8, 28)] for i in range(1, 28)]
+
     context.update(
         {
             "navigation": [
                 {"title": _("Dashboard"), "link": "/", "active": True},
-                {"title": _("Analytics"), "link": "#"},
+                {"title": _("Analytics"), "link": "/analytics"},
                 {"title": _("Settings"), "link": "#"},
             ],
             "filters": [
@@ -241,6 +244,62 @@ def analytics(request, context):
                     "title": "Other income",
                     "description": " $1,234.56",
                     "value": random.randint(10, 90),
+                },
+            ],
+            "chart": json.dumps(
+                {
+                    "labels": [WEEKDAYS[day % 7] for day in range(1, 28)],
+                    "datasets": [
+                        {
+                            "label": "Example 1",
+                            "type": "line",
+                            "data": average,
+                            "backgroundColor": "#f0abfc",
+                            "borderColor": "#f0abfc",
+                        },
+                        {
+                            "label": "Example 2",
+                            "data": positive,
+                            "backgroundColor": "#9333ea",
+                        },
+                        {
+                            "label": "Example 3",
+                            "data": negative,
+                            "backgroundColor": "#f43f5e",
+                        },
+                    ],
+                }
+            ),
+            "performance": [
+                {
+                    "title": _("Last week revenue"),
+                    "metric": "$1,234.56",
+                    "footer": mark_safe(
+                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
+                    ),
+                    "chart": json.dumps(
+                        {
+                            "labels": [WEEKDAYS[day % 7] for day in range(1, 28)],
+                            "datasets": [
+                                {"data": performance_positive, "borderColor": "#9333ea"}
+                            ],
+                        }
+                    ),
+                },
+                {
+                    "title": _("Last week expenses"),
+                    "metric": "$1,234.56",
+                    "footer": mark_safe(
+                        '<strong class="text-green-600 font-medium">+3.14%</strong>&nbsp;progress from last week'
+                    ),
+                    "chart": json.dumps(
+                        {
+                            "labels": [WEEKDAYS[day % 7] for day in range(1, 28)],
+                            "datasets": [
+                                {"data": performance_negative, "borderColor": "#f43f5e"}
+                            ],
+                        }
+                    ),
                 },
             ],
         },
