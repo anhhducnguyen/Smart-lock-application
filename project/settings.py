@@ -201,7 +201,8 @@ UNFOLD = {
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
     "SITE_TITLE": None,
     "SITE_HEADER": "Smart car park",
-    "SITE_SYMBOL": "directions_car",
+    # "SITE_SYMBOL": "directions_car",
+    "SITE_SYMBOL": "icons/icon.svg",
     "TABS": 
     [
         {
