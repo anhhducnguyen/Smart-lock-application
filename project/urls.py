@@ -27,5 +27,5 @@ from project import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
-    path('analytics', views.analytics, name='analytics'),
+    path('admin/analytics/', views.analytics, name='admin-analytics'),
 ]
