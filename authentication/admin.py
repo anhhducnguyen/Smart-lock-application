@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group  
+from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
 
@@ -10,39 +10,16 @@ class CustomUserAdmin(ModelAdmin):
     search_fields = ('username', 'email')
 
     fieldsets = (
-        (
-            None,
-            {
-                "fields": [
-                    "username",
-                    "email",
-                    "date_joined",
-                ],
-            },
-        ),
-        (
-            ("Permissions"),
-            {
-                "classes": ["tab"],
-                "fields": [
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ],
-            },
-        ),
-        (
-            ("Important dates"),
-            {
-                "classes": ["tab"],
-                "fields": [
-                    "last_login",
-                ],
-            },
-        ),
+        (None, {'fields': ('username', 'email', 'date_joined')}),
+        ('Permissions', {'classes': ['tab'], 'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Important dates', {'classes': ['tab'], 'fields': ('last_login',)}),
     )
+
+from unfold.admin import TabularInline
+
+class MyInline(TabularInline):
+    model = User
+    tab = True
 
 class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
@@ -54,13 +31,10 @@ class CustomGoogleSSOUserAdmin(ModelAdmin):
         (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
     )
 
-# Hủy đăng ký các mô hình mặc định nếu cần
 admin.site.unregister(User)  # Hủy đăng ký mặc định
 admin.site.unregister(Group)  # Hủy đăng ký mặc định
+# Đảm bảo không hủy đăng ký GoogleSSOUser nếu nó đã được đăng ký trong django_google_sso
 
-# Đăng ký các mô hình với lớp quản trị tùy chỉnh
-admin.site.register(User, CustomUserAdmin)
-admin.site.register(Group, CustomGroupAdmin)
-
-# Đăng ký GoogleSSOUser nếu bạn muốn sử dụng mô hình này trong Django Admin
-admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
+admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
+admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
+admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
