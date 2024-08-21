@@ -65,21 +65,22 @@ class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
     # pass
 
-
-# class GoogleSSOUserAdmin(ModelAdmin):
-#     pass
-    # list_display = ('google_id')  # Hiển thị các trường mong muốn trong danh sách
    
-
+class CustomGoogleSSOUserAdmin(ModelAdmin):
+    list_display = ('user', 'google_id', 'picture_url', 'locale')
+    search_fields = ('user__username', 'google_id', 'locale')
+    fieldsets = (
+        (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
+    )
 
 admin.site.unregister(User)  # Hủy đăng ký mặc định
 admin.site.unregister(Group)  # Hủy đăng ký mặc định
-# admin.site.unregister(GoogleSSOUser)
+admin.site.unregister(GoogleSSOUser)
 
 
 admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
 admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-# admin.site.register(GoogleSSOUser, GoogleSSOUserAdmin)
+admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
 
 
 
