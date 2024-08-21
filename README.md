@@ -435,3 +435,61 @@ Google SSO button.
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+
+
+# Django Framework
+
+## Giới thiệu
+
+Django là một trong những framework web phổ biến nhất được xây dựng bằng Python, nổi tiếng với khả năng phát triển nhanh chóng và tập trung vào thiết kế sạch sẽ, dễ bảo trì. Django được tạo ra bởi các lập trình viên với mục tiêu giảm thiểu các công việc lặp đi lặp lại trong phát triển web, giúp bạn tập trung vào phát triển ứng dụng với chất lượng cao hơn mà không cần phải lo lắng quá nhiều về các chi tiết kỹ thuật như bảo mật hay tối ưu hóa hiệu suất.
+
+## Tính năng nổi bật
+
+Django được xây dựng với nhiều tính năng mạnh mẽ, giúp nó trở thành một lựa chọn lý tưởng cho cả các dự án nhỏ lẫn các ứng dụng quy mô lớn:
+
+### 1. Kiến trúc MTV (Model-Template-View)
+Django sử dụng mô hình kiến trúc MTV (Model-Template-View), tương tự với MVC (Model-View-Controller), giúp phân tách rõ ràng các thành phần của ứng dụng web. Điều này không chỉ giúp mã nguồn dễ quản lý, mà còn hỗ trợ bảo trì và mở rộng ứng dụng một cách linh hoạt.
+
+### 2. ORM (Object-Relational Mapping)
+Một trong những tính năng nổi bật của Django là ORM mạnh mẽ, giúp bạn tương tác với cơ sở dữ liệu thông qua các mô hình Python mà không cần viết câu lệnh SQL trực tiếp. ORM của Django hỗ trợ nhiều hệ quản trị cơ sở dữ liệu như PostgreSQL, MySQL, SQLite và Oracle, cho phép bạn dễ dàng chuyển đổi giữa các hệ quản trị cơ sở dữ liệu mà không phải sửa đổi mã nguồn.
+
+### 3. Giao diện quản trị tự động (Admin Interface)
+Django đi kèm với một trang quản trị tự động, cung cấp đầy đủ các chức năng để quản lý và thao tác dữ liệu mà không cần phải phát triển từ đầu. Giao diện này có khả năng tùy biến cao và có thể mở rộng theo nhu cầu của ứng dụng, giúp tiết kiệm thời gian và công sức cho các tác vụ quản lý dữ liệu.
+
+### 4. Hệ thống xác thực và phân quyền
+Django cung cấp một hệ thống xác thực và phân quyền mạnh mẽ, bao gồm các tính năng như đăng ký, đăng nhập, thay đổi mật khẩu, và phân quyền cho người dùng. Hệ thống này dễ dàng tích hợp và mở rộng, đáp ứng nhu cầu bảo mật của các ứng dụng web hiện đại.
+
+### 5. Bảo mật hàng đầu
+Bảo mật là một trong những ưu tiên hàng đầu của Django. Framework này được thiết kế để bảo vệ ứng dụng của bạn khỏi các lỗ hổng bảo mật phổ biến như SQL Injection, XSS (Cross-Site Scripting), CSRF (Cross-Site Request Forgery), và nhiều hình thức tấn công khác. Django cũng liên tục cập nhật các bản vá bảo mật để đảm bảo rằng ứng dụng của bạn luôn được bảo vệ trước các mối đe dọa mới.
+
+### 6. Khả năng mở rộng và tích hợp
+Django rất linh hoạt, cho phép bạn mở rộng và tùy chỉnh ứng dụng của mình một cách dễ dàng. Framework này hỗ trợ việc xây dựng các ứng dụng nhỏ gọn (apps) có thể tái sử dụng và dễ dàng tích hợp với các hệ thống khác thông qua REST API hoặc GraphQL.
+
+### 7. Cộng đồng và tài liệu phong phú
+Django có một cộng đồng phát triển lớn và tích cực, luôn sẵn sàng hỗ trợ bạn trong quá trình phát triển. Ngoài ra, Django đi kèm với tài liệu phong phú, chi tiết và dễ hiểu, giúp bạn dễ dàng tiếp cận và giải quyết các vấn đề phát sinh trong quá trình làm việc.
+
+## Cài đặt Django
+
+Django có thể được cài đặt dễ dàng bằng công cụ quản lý gói `pip`. Bạn chỉ cần chạy lệnh sau trong môi trường ảo Python:
+
+```bash
+pip install django
+```
+
+## Để xác nhận Django đã được cài đặt thành công, bạn có thể kiểm tra phiên bản bằng lệnh
+
+```bash
+python -m django --version
+```
+
+## Để khởi tạo một dự án mới trong Django, bạn có thể sử dụng lệnh `django-admin` như sau
+
+```bash
+django-admin startproject myproject
+cd myproject
+python manage.py runserver
+```
+
+[Django Official Documentation](https://docs.djangoproject.com/en/5.1/)
+
