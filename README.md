@@ -493,3 +493,33 @@ python manage.py runserver
 
 [Django Official Documentation](https://docs.djangoproject.com/en/5.1/)
 
+
+## Cấu trúc thư mục cơ bản
+
+```python 
+
+myproject/
+    manage.py
+    myproject/
+        __init__.py
+        settings.py
+        urls.py
+        asgi.py
+        wsgi.py
+    app_name/
+        migrations/
+        __init__.py
+        admin.py
+        apps.py
+        models.py
+        tests.py
+        views.py
+```
+
+### Trong đó:
+
+**manage.py:** Tập lệnh dùng để quản lý các tác vụ liên quan đến dự án như chạy server, di chuyển cơ sở dữ liệu, và nhiều hơn nữa.
+**settings.py:** File cấu hình chính của dự án, nơi bạn thiết lập các tùy chọn như cơ sở dữ liệu, ứng dụng cài đặt, bảo mật, và các thông số khác.
+**urls.py:** File định tuyến, nơi bạn cấu hình các URL của ứng dụng và chỉ định view tương ứng.
+**models.py:** Nơi bạn định nghĩa các mô hình dữ liệu (Models) cho ứng dụng của mình.
+**views.py:** Nơi bạn định nghĩa các hàm xử lý logic ứng dụng và trả về phản hồi cho người dùng.
