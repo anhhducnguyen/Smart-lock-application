@@ -70,12 +70,12 @@ class CustomGroupAdmin(ModelAdmin):
 
 admin.site.unregister(User)  # Hủy đăng ký mặc định
 admin.site.unregister(Group)  # Hủy đăng ký mặc định
-# admin.site.unregister(GoogleSSOUser)
+admin.site.unregister(GoogleSSOUser)
 
 
 admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
 admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-# admin.site.register(GoogleSSOUser)
+admin.site.register(GoogleSSOUser)
 
 
 
