@@ -31,7 +31,7 @@ def dashboard_callback(request, context):
         {
             "navigation": [
                 {"title": _("Dashboard"), "link": "/", "active": True},
-                {"title": _("Analytics"), "link": "/admin", "active": True},
+                {"title": _("Analytics"), "link": "/admin/auth/user/"},
                 {"title": _("Settings"), "link": "/admin/auth/group/"},
             ],
             "filters": [
