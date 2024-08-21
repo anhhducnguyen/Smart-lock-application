@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User, Group, GoogleSSOUser  
+from django.contrib.auth.models import User, Group  
 from unfold.admin import ModelAdmin
 
 
@@ -64,23 +64,6 @@ class CustomGroupAdmin(ModelAdmin):
     # pass
 
 
-class GoogleSSOUserAdmin(ModelAdmin):
-    list_display = ('google_id', 'locale', 'user', 'picture_url')  # Hiển thị các trường mong muốn trong danh sách
-    search_fields = ('google_id', 'locale', 'user__username')  # Cho phép tìm kiếm theo các trường này
-    list_filter = ('locale',)  # Thêm bộ lọc theo trường locale
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": [
-                    "google_id",
-                    "locale",
-                    "user",
-                    "picture_url",
-                ],
-            },
-        ),
-    )
 
 
 admin.site.unregister(User)  # Hủy đăng ký mặc định
@@ -89,6 +72,5 @@ admin.site.unregister(Group)  # Hủy đăng ký mặc định
 
 admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
 admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(GoogleSSOUser, GoogleSSOUserAdmin)
 
 
