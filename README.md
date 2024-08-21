@@ -679,11 +679,8 @@ for model in auth_models:
 ```python
 from django.apps import apps
 
-# Duyệt qua tất cả các ứng dụng đã cài đặt trong dự án
 for app in apps.get_app_configs():
-    # Duyệt qua tất cả các model trong mỗi ứng dụng
     for model in app.get_models():
-        # Kiểm tra nếu tên model là GoogleSSOUser
         if model.__name__ == 'GoogleSSOUser':
             print(f"Found GoogleSSOUser in app: {app.name}")
             print(model)
