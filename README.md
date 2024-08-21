@@ -527,3 +527,134 @@ myproject/
 **models.py:** Nơi bạn định nghĩa các mô hình dữ liệu (Models) cho ứng dụng của mình.
 
 **views.py:** Nơi bạn định nghĩa các hàm xử lý logic ứng dụng và trả về phản hồi cho người dùng.
+
+
+# Security in Django
+
+## Potential Risks
+
+1. **SQL Injection Vulnerabilities**:
+   SQL Injection xảy ra khi một ứng dụng web cho phép người dùng nhập dữ liệu vào các truy vấn SQL một cách không an toàn, dẫn đến khả năng thực thi các lệnh SQL độc hại.
+
+2. **Cross-Site Scripting (XSS)**:
+   XSS xảy ra khi một ứng dụng cho phép người dùng nhập dữ liệu có thể chứa mã JavaScript độc hại, sau đó hiển thị lại cho người dùng khác mà không kiểm tra hoặc mã hóa.
+
+3. **Cross-Site Request Forgery (CSRF)**:
+   CSRF xảy ra khi người dùng không biết họ đang gửi một yêu cầu độc hại đến một ứng dụng web mà họ đã xác thực, dẫn đến việc thực hiện các hành động không mong muốn.
+
+4. **Insecure Direct Object References (IDOR)**:
+   IDOR xảy ra khi một ứng dụng cho phép truy cập trực tiếp vào các đối tượng dựa trên dữ liệu đầu vào của người dùng mà không kiểm tra quyền truy cập, dẫn đến việc lộ thông tin hoặc dữ liệu của người dùng khác.
+
+5. **Broken Authentication and Session Management**:
+   Vấn đề này xảy ra khi cơ chế xác thực và quản lý phiên không được cấu hình hoặc triển khai đúng cách, dẫn đến nguy cơ tấn công từ việc đoán mật khẩu, đánh cắp phiên, hoặc chiếm đoạt tài khoản.
+
+6. **Security Misconfiguration**:
+   Cấu hình bảo mật không chính xác xảy ra khi hệ thống hoặc ứng dụng không được cấu hình bảo mật đúng cách, dẫn đến các lỗ hổng bảo mật.
+
+7. **Sensitive Data Exposure**:
+   Lộ thông tin nhạy cảm xảy ra khi thông tin như mật khẩu, thông tin thẻ tín dụng, hoặc dữ liệu cá nhân không được bảo vệ đúng cách.
+
+8. **Using Components with Known Vulnerabilities**:
+   Sử dụng các thư viện, mô-đun hoặc phần mềm có các lỗ hổng bảo mật đã biết mà chưa được vá.
+
+9. **Insufficient Logging and Monitoring**:
+   Không ghi đầy đủ hoặc giám sát hoạt động của hệ thống, dẫn đến việc không phát hiện kịp thời các hành vi bất thường hoặc tấn công.
+
+10. **File Upload Vulnerabilities**:
+    Lỗ hổng liên quan đến việc tải lên tệp mà không kiểm tra đúng cách, có thể dẫn đến việc thực thi mã độc hoặc lộ thông tin.
+
+11. **500 Internal Server Error**:
+    Lỗi 500 xảy ra khi máy chủ gặp vấn đề không rõ và không thể xử lý yêu cầu.
+
+12. **Key Exposure or Rubbish Characters**:
+    Tiết lộ thông tin nhạy cảm như API keys, khóa mã hóa hoặc các ký tự không mong muốn xuất hiện trong dữ liệu.
+
+## How to Mitigate These Risks
+
+1. **SQL Injection**:
+   - Sử dụng Django ORM: Django cung cấp ORM để xây dựng các truy vấn an toàn.
+
+   ```python
+   users = User.objects.filter(email=email)
+   ```
+
+   - Tránh viết các truy vấn SQL thô mà không có biện pháp bảo vệ.
+
+2. **Cross-Site Scripting (XSS)**:
+    - Sử dụng Django template engine: Django tự động mã hóa các biến trong template.
+
+    ```python
+    <h1>{{ user.name }}</h1>
+    ```
+
+    - Mã hóa đầu ra khi cần thiết: Sử dụng `django.utils.html.escape()` để mã hóa đầu ra.
+
+3. **Cross-Site Request Forgery (CSRF)**:
+    - Sử dụng CSRF tokens: Django tự động bảo vệ chống lại CSRF thông qua các token.
+
+    - Kiểm tra CSRF token trong các yêu cầu quan trọng: Django xử lý điều này thông qua middleware CSRF.
+
+4. **Insecure Direct Object References (IDOR)**:
+    - Sử dụng middleware và decorators: Django cung cấp middleware và decorators để kiểm soát quyền truy cập vào tài nguyên.
+    
+    ```python
+    @login_required
+    def my_view(request, id):
+        if request.user.id != id:
+            return redirect('home')
+    ```
+
+    - Kiểm tra quyền sở hữu trước khi truy cập dữ liệu.
+
+5. **Broken Authentication and Session Management**:
+
+    - Sử dụng hệ thống xác thực tích hợp của Django: Django cung cấp cơ chế xác thực mạnh mẽ và dễ sử dụng.
+
+    ```python 
+    @login_required
+    def profile_view(request):
+        return render(request, 'profile.html')
+    ```
+    
+    - Sử dụng HTTPS để bảo vệ thông tin đăng nhập và các phiên.
+    - Cấu hình thời gian hết hạn phiên hợp lý trong `settings.py`:
+
+6. **Security Misconfiguration**:
+
+    - Kiểm tra và cấu hình đúng các tệp `.env`: Đảm bảo thông tin nhạy cảm không bị lộ.
+    - Đặt `DEBUG=False` trong môi trường sản xuất để tránh lộ thông tin lỗi chi tiết.
+    - Cấu hình quyền truy cập tệp và thư mục đúng cách.
+
+7. **Sensitive Data Exposure**:
+
+    - Sử dụng cơ chế mã hóa của Django: Django cung cấp phương thức mã hóa dữ liệu.
+
+    ```python
+    from django.core.exceptions import ImproperlyConfigured
+    from django.conf import settings
+    from cryptography.fernet import Fernet
+
+    def encrypt_data(data):
+        fernet = Fernet(settings.ENCRYPTION_KEY)
+        return fernet.encrypt(data.encode())
+
+    def decrypt_data(data):
+        fernet = Fernet(settings.ENCRYPTION_KEY)
+        return fernet.decrypt(data).decode()
+    ```
+
+    - Không lưu trữ thông tin nhạy cảm dưới dạng plain text: Sử dụng hàm `hash` để lưu trữ mật khẩu.
+    - Sử dụng `HTTPS` để bảo vệ dữ liệu trong quá trình truyền tải.
+
+8. **Using Components with Known Vulnerabilities**:
+
+    - Thường xuyên cập nhật thư viện và `dependencies`: Sử dụng `pip` để cập nhật thư viện.
+
+    ```python
+    pip install --upgrade -r requirements.txt
+    ```
+
+    - Sử dụng các công cụ kiểm tra lỗ hổng như `Snyk` hoặc `OWASP Dependency-Check`.
+
+
+
