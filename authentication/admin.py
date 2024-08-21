@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group  
 from unfold.admin import ModelAdmin
-from models import GoogleSSOUser
+# from models import GoogleSSOUser
 
 
 
