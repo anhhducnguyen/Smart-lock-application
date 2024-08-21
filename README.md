@@ -662,12 +662,12 @@ myproject/
 
 
 
-```
+```shell
 heroku run python manage.py shell --app project-1233
 ```
 
 
-```
+```python
 from django.apps import apps
 
 auth_models = apps.get_app_config('auth').get_models()
@@ -676,7 +676,7 @@ for model in auth_models:
 
 ```
 
-```
+```python
 from django.apps import apps
 
 # Duyệt qua tất cả các ứng dụng đã cài đặt trong dự án
@@ -688,6 +688,20 @@ for app in apps.get_app_configs():
             print(f"Found GoogleSSOUser in app: {app.name}")
             print(model)
 
+```
+
+```shell
+heroku run python manage.py migrate --app project-1233
+```
+
+```shell
+heroku run python manage.py makemigrations --app chat-123
+```
+
+
+
+```shell
+heroku run python manage.py shell --app project-1233
 ```
 
 
