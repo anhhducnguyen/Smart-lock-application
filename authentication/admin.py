@@ -3,19 +3,11 @@ from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
 
-
-
-
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
     search_fields = ('username', 'email')
-    # fieldsets = (
-    #     (None, {'fields': ('username', 'email', 'date_joined')}),
-    #     ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-    #     ('Important dates', {'fields': ('last_login',)}),
-    # )
 
     fieldsets = (
         (
@@ -52,20 +44,9 @@ class CustomUserAdmin(ModelAdmin):
         ),
     )
 
-from unfold.admin import TabularInline
-
-
-class MyInline(TabularInline):
-    model = User
-    tab = True
-
-
-
 class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
-    # pass
 
-   
 class CustomGoogleSSOUserAdmin(ModelAdmin):
     list_display = ('user', 'google_id', 'picture_url', 'locale')
     search_fields = ('user__username', 'google_id', 'locale')
@@ -73,14 +54,13 @@ class CustomGoogleSSOUserAdmin(ModelAdmin):
         (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
     )
 
+# Hủy đăng ký các mô hình mặc định nếu cần
 admin.site.unregister(User)  # Hủy đăng ký mặc định
 admin.site.unregister(Group)  # Hủy đăng ký mặc định
-# admin.site.unregister(GoogleSSOUser)
 
+# Đăng ký các mô hình với lớp quản trị tùy chỉnh
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group, CustomGroupAdmin)
 
-admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-# admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
-
-
-
+# Đăng ký GoogleSSOUser nếu bạn muốn sử dụng mô hình này trong Django Admin
+admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
