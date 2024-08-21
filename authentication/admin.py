@@ -80,7 +80,7 @@ admin.site.unregister(Group)  # Hủy đăng ký mặc định
 
 admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
 admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
+# admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
 
 
 
