@@ -2,6 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.models import User, Group  
 from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
+from unfold.contrib.filters.admin import (
+    ChoicesDropdownFilter,
+    RangeDateFilter,
+    RangeNumericFilter,
+    SingleNumericFilter,
+    TextFilter,
+)
 
 
 
@@ -17,40 +24,46 @@ class CustomUserAdmin(ModelAdmin):
     #     ('Important dates', {'fields': ('last_login',)}),
     # )
 
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": [
-                    "username",
-                    "email",
-                    "date_joined",
-                ],
-            },
-        ),
-        (
-            ("Permissions"),
-            {
-                "classes": ["tab"],
-                "fields": [
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                ],
-            },
-        ),
-        (
-            ("Important dates"),
-            {
-                "classes": ["tab"],
-                "fields": [
-                    "last_login",
-                ],
-            },
-        ),
-    )
+    list_filter = [
+        ("is_active", ChoicesDropdownFilter),
+    ]
+    list_filter_submit = True
+    list_fullwidth = True
+
+    # fieldsets = (
+    #     (
+    #         None,
+    #         {
+    #             "fields": [
+    #                 "username",
+    #                 "email",
+    #                 "date_joined",
+    #             ],
+    #         },
+    #     ),
+    #     (
+    #         ("Permissions"),
+    #         {
+    #             "classes": ["tab"],
+    #             "fields": [
+    #                 "is_active",
+    #                 "is_staff",
+    #                 "is_superuser",
+    #                 "groups",
+    #                 "user_permissions",
+    #             ],
+    #         },
+    #     ),
+    #     (
+    #         ("Important dates"),
+    #         {
+    #             "classes": ["tab"],
+    #             "fields": [
+    #                 "last_login",
+    #             ],
+    #         },
+    #     ),
+    # )
 
 from unfold.admin import TabularInline
 
