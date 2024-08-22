@@ -12,8 +12,6 @@ from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
 from django.utils.encoding import force_bytes, force_str
 
-def forgotPassword(request):
-    return render(request, "password_reset_form.html")
 
 
 # Create your views here.
