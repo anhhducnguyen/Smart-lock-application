@@ -38,7 +38,7 @@ class CustomUserAdmin(ModelAdmin):
 
     list_filter = [
         FullNameFilter,
-        # ("is_active", ChoicesDropdownFilter),
+        ("is_active", ChoicesDropdownFilter),
     ]
     list_filter_submit = True
     list_fullwidth = True
