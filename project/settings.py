@@ -66,6 +66,8 @@ INSTALLED_APPS = [
     'authentication',
 
     "django_google_sso",  
+
+    "unfold.contrib.filters",
     
 
 ]
