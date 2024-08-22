@@ -259,18 +259,13 @@ UNFOLD = {
             {
                         "title": _("Users & Groups"),
                         "collapsible": True,
-                        # "items": [
-                        #     {
-                        #         "title": _("Users"),
-                        #         "icon": "person",
-                        #         "link": reverse_lazy("admin:auth_user_changelist"),
-                        #     },
-                        #     {
-                        #         "title": _("Groups"),
-                        #         "icon": "group",
-                        #         "link": reverse_lazy("admin:auth_group_changelist"),
-                        #     },
-                        # ],
+                        "items": [
+                            {
+                                "title": _("Groups"),
+                                "icon": "people",
+                                "link": reverse_lazy("admin:auth_group_changelist"),
+                            }, 
+                        ],
                     },
             {
                 "separator": True,
