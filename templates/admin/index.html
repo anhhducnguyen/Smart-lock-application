@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block branding %}
+    {% load static %}
+    <link rel="icon" href="{%static 'icons/fa.ico' %}" type="image/x-icon">
+
     <h1 id="site-name">
         <a href="{% url 'admin:index' %}">
             {{ site_header }}
