@@ -105,6 +105,25 @@ def activate(request,uidb64,token):
         return render(request,'activation_failed.html')
 
 
+# def signin(request):
+#     if request.method == 'POST':
+#         username = request.POST['username']
+#         pass1 = request.POST['pass1']
+        
+#         user = authenticate(username=username, password=pass1)
+        
+#         if user is not None:
+#             login(request, user)
+#             fname = user.first_name
+#             # messages.success(request, "Logged In Sucessfully!!")
+#             return render(request, "authentication/index.html",{"fname":fname})
+#             # return redirect('home')
+#         else:
+#             messages.error(request, "Bad Credentials!!")
+#             return redirect('home')
+    
+#     return render(request, "authentication/signin.html")
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -116,11 +135,10 @@ def signin(request):
             login(request, user)
             fname = user.first_name
             # messages.success(request, "Logged In Sucessfully!!")
-            return render(request, "authentication/index.html",{"fname":fname})
-            # return redirect('home')
+            return redirect('home')  # Chuyển hướng đến trang chủ sau khi đăng nhập thành công
         else:
             messages.error(request, "Bad Credentials!!")
-            return redirect('home')
+            return redirect('signin')  # Chuyển hướng lại trang đăng nhập nếu thông tin không hợp lệ
     
     return render(request, "authentication/signin.html")
 
