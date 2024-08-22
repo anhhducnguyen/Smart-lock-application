@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
 
-# Định nghĩa các lớp quản trị tùy chỉnh
+# Định nghĩa các lớp quản trị tùy chỉnh cho User
 class CustomUserAdmin(ModelAdmin):
     list_display = ('username', 'email', 'date_joined', 'is_active', 'is_staff', 'is_superuser')
     list_filter = ('username', 'email', 'is_active', 'is_staff', 'is_superuser')
@@ -15,15 +15,15 @@ class CustomUserAdmin(ModelAdmin):
         ('Important dates', {'classes': ['tab'], 'fields': ('last_login',)}),
     )
 
-from unfold.admin import TabularInline
-
-class MyInline(TabularInline):
-    model = User
-    tab = True
-
+# Định nghĩa lớp quản trị tùy chỉnh cho Group
 class CustomGroupAdmin(ModelAdmin):
     search_fields = ('name',)
+    list_display = ('name',)
+    fieldsets = (
+        (None, {'fields': ('name', 'permissions')}),
+    )
 
+# Định nghĩa lớp quản trị tùy chỉnh cho GoogleSSOUser
 class CustomGoogleSSOUserAdmin(ModelAdmin):
     list_display = ('user', 'google_id', 'picture_url', 'locale')
     search_fields = ('user__username', 'google_id', 'locale')
@@ -31,10 +31,11 @@ class CustomGoogleSSOUserAdmin(ModelAdmin):
         (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
     )
 
-admin.site.unregister(User)  # Hủy đăng ký mặc định
-admin.site.unregister(Group)  # Hủy đăng ký mặc định
-# Đảm bảo không hủy đăng ký GoogleSSOUser nếu nó đã được đăng ký trong django_google_sso
+# Hủy đăng ký mặc định
+admin.site.unregister(User)
+admin.site.unregister(Group)
 
-admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-# admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
+# Đăng ký lại với lớp quản trị tùy chỉnh
+admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group, CustomGroupAdmin)
+admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
