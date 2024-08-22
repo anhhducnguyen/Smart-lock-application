@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block branding %}
+    {% load static %}
+    <link rel="icon" href="{%static 'assets/images/logo.ico' %}" type="image/x-icon">
     <h1 id="site-name">
         <a href="{% url 'admin:index' %}">
             {{ site_header }}
