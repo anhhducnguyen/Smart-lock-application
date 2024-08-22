@@ -9,9 +9,21 @@ from unfold.contrib.filters.admin import (
     SingleNumericFilter,
     TextFilter,
 )
+from django.core.validators import EMPTY_VALUES
+from django.db.models import Q
 
 
+class FullNameFilter(TextFilter):
+    title = ("username")
+    parameter_name = "username"
 
+    def queryset(self, request, queryset):
+        if self.value() in EMPTY_VALUES:
+            return queryset
+
+        return queryset.filter(
+            Q(first_name__icontains=self.value()) | Q(last_name__icontains=self.value())
+        )
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
@@ -25,7 +37,8 @@ class CustomUserAdmin(ModelAdmin):
     # )
 
     list_filter = [
-        ("is_active", ChoicesDropdownFilter),
+        FullNameFilter,
+        # ("is_active", ChoicesDropdownFilter),
     ]
     list_filter_submit = True
     list_fullwidth = True
