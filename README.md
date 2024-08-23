@@ -328,7 +328,7 @@ EMAIL_PORT = EMAIL_PORT
 
 
 <p align="center">
-  <img src="docs/images/django-google-sso.png" alt="Django Google SSO"/>
+  <img src="https://github.com/megalus/django-google-sso/blob/main/docs/images/django-google-sso.png" alt="Django Google SSO"/>
 </p>
 <p align="center">
 <em>Easily integrate Google Authentication into your Django projects</em>
