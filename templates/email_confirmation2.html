@@ -1,0 +1,54 @@
+ {% autoescape off %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333333;
+        }
+        p {
+            color: #666666;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #008cba;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #005f5f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Chào mừng bạn đến với GFG, {{ name }}!</h2>
+        <p>Vui lòng xác nhận email của bạn bằng cách nhấp vào liên kết sau:</p>
+        <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Xác nhận Email</a>
+        <p>Nếu bạn không tạo tài khoản này, vui lòng bỏ qua email này.</p>
+    </div>
+</body>
+</html>
+{% endautoescape %}
