@@ -309,4 +309,7 @@ UNFOLD = {
 
 # https://github.com/topics/responsive
 
+DEFAULT_CONTENT_TYPE = 'text/html'
+
+
 
