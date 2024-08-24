@@ -18,7 +18,7 @@
       <div class="forms-container">
         <div class="signin-signup">
           <form action="/signin" method="post" class="sign-in-form" id="loginForm"  autocomplete="off">
-            <h2 class="title">Đăng nhập</h2>
+            <h2 class="title">Sign in</h2>
             {% csrf_token %}
              {% if messages %}
                  {% for message in messages %}
@@ -61,15 +61,15 @@
                </div>
                <div class="login-content">
                  <div class="form-item">
-                     <label for="email">Tên đăng nhập*</label>
+                     <label for="email">Username*</label>
                      <input type="text" class="form-control" id="username" name="username" placeholder="Enter Your Username" Required>
                  </div>
                  <div class="form-item">
-                     <label for="password">Mật khẩu*</label>
+                     <label for="password">Password*</label>
                      <label for="text"></label>
                      <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Enter Your Password" Required>
                  </div>
-                 <button type="submit" id="loginButton">Đăng nhập</button>
+                 <button type="submit" id="loginButton">Sign in</button>
              </div>
           </form>
 
