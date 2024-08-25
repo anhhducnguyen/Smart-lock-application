@@ -686,11 +686,11 @@ button:hover{
 @media (max-width: 600px) {
     .error-message {
         padding: 10px;
-        font-size: 14px;
+        font-size: 13.6px;
     }
 
     .error-message .close {
-        font-size: 18px;
+        font-size: 13.6px;
     }
 }
 
@@ -708,8 +708,8 @@ button:hover{
     font-family: Arial, sans-serif;
     position: relative;
     animation: fadeIn 0.5s ease-in-out;
-    margin-bottom: 35px;
-    width: 400px;
+    margin-bottom: 10px;
+    width: 300px;
 }
 
 .success-message .close {
@@ -718,7 +718,7 @@ button:hover{
     right: 10px;
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 13.6px;
     cursor: pointer;
     color: #155724;
 }
@@ -744,6 +744,6 @@ button:hover{
 
     .error-message .close,
     .success-message .close {
-        font-size: 18px;
+        font-size: 13.6px;
     }
 }
