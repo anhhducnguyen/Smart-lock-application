@@ -760,6 +760,7 @@ button:hover{
 .password-reset{
     font-size: 13.6px;
     text-decoration: none;
+    color: #333;
 }
 
 .password-reset:hover{

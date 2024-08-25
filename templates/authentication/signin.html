@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/dc2a236791.js" crossorigin="anonymous"></script>
     {% load static %}
     <script src="https://kit.fontawesome.com/dc2a236791.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="{%static 'assets/images/logo.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'assets/css/signinn.css' %}"> 
     <title>Sign in & Sign up Form</title>
   </head>
@@ -18,7 +19,8 @@
       <div class="forms-container">
         <div class="signin-signup">
           <form action="/signin" method="post" class="sign-in-form" id="loginForm"  autocomplete="off">
-            <h2 class="title">Sign in</h2>
+            <img style="margin-bottom: 20px;" src="{%static 'assets/images/logo-phenikaa-uni-02.png' %}" class="image" alt="" />
+            <h2 class="title">Smart parking system</h2>
             {% csrf_token %}
              {% if messages %}
                  {% for message in messages %}
@@ -136,10 +138,9 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>Welcome to website !</h3>
+            <h3>Welcome to Smart parking system !</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+                Modern solutions help you manage and optimize parking easily and conveniently.
             </p>
             <button style="line-height: 0.9rem;" class="btn transparent" id="sign-up-btn">
                 <a href="/signup" style="text-decoration: none; color: white;">Sign up</a>
