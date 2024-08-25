@@ -202,7 +202,7 @@ UNFOLD = {
     },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
     "LOGIN": {
-        "image": lambda request: static("icons/undraw_jewelry_iima.svg"),
+        "image": lambda request: static("icons/undraw_hacker_mind_-6-y85.svg"),
     },
     # "SITE_TITLE": None,
     "SITE_TITLE": _("Smart car park"),
