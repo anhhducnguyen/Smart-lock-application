@@ -14,7 +14,8 @@ input {
 .container {
   position: relative;
   width: 100%;
-  background-color: #fff;
+  background-color: #eeeeee;
+  /* background-color: #fff; */
   min-height: 100vh;
   overflow: hidden;
 }
@@ -32,7 +33,9 @@ input {
   top: 50%;
   transform: translate(-50%, -50%);
   left: 75%;
-  width: 50%;
+  width: 27%;
+  border-radius: 5px;
+  background-color: #fff;
   transition: 1s 0.7s ease-in-out;
   display: grid;
   grid-template-columns: 1fr;
@@ -470,7 +473,6 @@ input[type='email']:hover{
 
 input[type='password']:hover{
     border: 1px solid rgb(18, 115, 156);
-    
 }
 
 button{
@@ -746,4 +748,21 @@ button:hover{
     .success-message .close {
         font-size: 18px;
     }
+}
+
+.copyright-text {
+    text-align: center;
+    margin-top: 10px; /* Hoặc tùy chỉnh khoảng cách phía trên nếu cần */
+    font-size: 10px;
+    color: gray;
+}
+
+.password-reset{
+    font-size: 13.6px;
+    text-decoration: none;
+}
+
+.password-reset:hover{
+    text-decoration: underline;
+    color:#0072BC;
 }
