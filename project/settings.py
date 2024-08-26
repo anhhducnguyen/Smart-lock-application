@@ -20,6 +20,9 @@ from decouple import Config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ________________________________________
+# send mail
+# ________________________________________
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
 EMAIL_HOST_USER = EMAIL_HOST_USER
@@ -29,11 +32,16 @@ EMAIL_PORT = EMAIL_PORT
 
 # settings.py
 
-
+# ________________________________________
+# google sso
+# ________________________________________
 GOOGLE_SSO_CLIENT_ID = "740073010366-mrsboulhnt2b77o9r9i591r5n5snd9ie.apps.googleusercontent.com"
 GOOGLE_SSO_PROJECT_ID = "flower-shop-428110"
 GOOGLE_SSO_CLIENT_SECRET = "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"
 
+# ________________________________________
+# send mail
+# ________________________________________
 GOOGLE_SSO_ALLOWABLE_DOMAINS = ["gmail.com"]
 
 
@@ -46,7 +54,11 @@ SECRET_KEY = 'django-insecure-f7bv8qrx=j^kl(tvvjo5+g&a)+8ut^j@wbc4m+!kswr=(68_^-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['project-1233-6f93642d7963.herokuapp.com']
+ALLOWED_HOSTS = [
+    'project-1233-6f93642d7963.herokuapp.com'
+    ]
+# ALLOWED_HOSTS = ['*']
+
 # ALLOWED_HOSTS = []
 
 
@@ -108,6 +120,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # load_dotenv()
 
+# ________________________________________
+# connect aiven.io
+# ________________________________________
 DATABASES = {
     "default": {
         "ENGINE": os.getenv('DB_ENGINE'),
@@ -118,6 +133,25 @@ DATABASES = {
         "PORT": os.getenv('DB_PORT'),
     }
 }   
+
+# ________________________________________
+# connect xampp v3.3.0 mysql
+# ________________________________________
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'parking',
+#         'USER': 'root',
+#         'PASSWORD': 'ducanh12',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
+# ________________________________________
+# connect sqlite3
+# ________________________________________
 
 # DATABASES = {
 #     'default': {
@@ -178,14 +212,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
+# ________________________________________
+# connect heroku
+# ________________________________________
 import django_heroku
 django_heroku.settings(locals())
 
 
-
-# settings.py
-
+# ________________________________________
+# theme django unfold
+# ________________________________________
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
