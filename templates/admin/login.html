@@ -119,6 +119,7 @@
                 
 
                 <form action="/admin/login/?next=/admin/" method="post" id="login-form">
+                    {% csrf_token %}
                     <input type="hidden" name="csrfmiddlewaretoken" value="bKX5nfcc5tat1s6n872Rm2Tes516QBPUHEcY8wk9XBJT66cYTN18EiBBoE5k9861">
 
                     
