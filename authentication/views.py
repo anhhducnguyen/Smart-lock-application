@@ -32,6 +32,9 @@ def index(request):
 def capture(request):
     return render(request, 'capture/capture.html')
 
+def test(request):
+    return render(request, 'capture/test.html')
+
 def capture_image(request):
     if request.method == 'POST':
         name = request.POST.get('name')
