@@ -12,11 +12,46 @@ from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
 from django.utils.encoding import force_bytes, force_str
 
+from django.shortcuts import render
+from django.http import JsonResponse
+import os
+import cv2
+import base64
+import numpy as np
+from django.conf import settings
+
 
 
 # Create your views here.
 def home(request):
     return render(request, "authentication/index.html")
+
+def index(request):
+    return render(request, 'capture/index.html')
+
+def capture_image(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        image_data = request.POST.get('image')
+
+        # Tạo thư mục lưu ảnh nếu chưa có
+        folder_path = os.path.join(settings.MEDIA_ROOT, 'images', name)
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+
+        # Xử lý dữ liệu ảnh từ base64
+        image_data = image_data.split(",")[1]
+        img = base64.b64decode(image_data)
+        np_img = np.frombuffer(img, dtype=np.uint8)
+        frame = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
+
+        # Đặt tên file và lưu
+        file_name = f"{folder_path}/captured_image.png"
+        cv2.imwrite(file_name, frame)
+
+        return JsonResponse({"message": "Đã lưu ảnh thành công!"})
+
+    return JsonResponse({"message": "Lỗi khi lưu ảnh!"}, status=400)
 
 # def signup(request):
 #     if request.method == "POST":
