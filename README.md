@@ -703,4 +703,20 @@ heroku run python manage.py makemigrations --app chat-123
 heroku run python manage.py shell --app project-1233
 ```
 
+
+Cài thêm package
+
+```
+
+heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
+
+touch Aptfile
+
+libgl1-mesa-glx
+
+```
+
+
+
+
 https://undraw.co/illustrations

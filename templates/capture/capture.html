@@ -5,7 +5,7 @@
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Face Recognition</title>
-    <!-- <meta name="csrf-token" content="{{ csrf_token }}"> -->
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <style>
         /* Tổng quát cho toàn bộ trang */
         body {
@@ -224,33 +224,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="content-left">
-            <div class="main-image">
-                <img class="image" src="{% static 'assets/images/new_face.png' %}" alt="face">
-                <div class="red-line"></div>
-                <div class="corner top-left"></div>
-                <div class="corner top-right"></div>
-                <div class="corner bottom-left"></div>
-                <div class="corner bottom-right"></div>
-            </div>
-            <div class="main-title">
-                <h2>Regulations when taking photos for facial recognition</h2>
-                <p>To ensure the facial recognition system works effectively, the following regulations must be followed:</p>
-                <ol>
-                    <li><strong>Image quality:</strong> Photos must be clear, not blurred or bright.</li>
-                    <li><strong>Lighting:</strong> Even light source, avoid shadows and do not shoot against the light.</li>
-                    <li><strong>Face position:</strong> Face in the middle of the photo, not obscured.</li>
-                    <li><strong>Expression:</strong> Natural, eyes open, mouth closed.</li>
-                    <li><strong>Shooting angle:</strong> Shoot straight, do not tilt the head.</li>
-                    <li><strong>Clothes:</strong> Simple, avoid too many accessories.</li>
-                    <li><strong>Background:</strong> Should be simple, avoid too many distracting details.</li>
-                </ol>
-                <p>Complying with these regulations helps improve the accuracy of facial recognition systems.</p>
-            </div>
-            <a href="/capImage"><button>Start now</button></a>
-        </div>
-
-        <!-- <div class="content-right">
+        <div class="content-right">
             <h1>Take photo from webcam</h1>
             <input type="text" id="name" placeholder="Nhập tên">
             <br><br>
@@ -258,9 +232,9 @@
             <br>
             <button id="capture">Take a photo</button>
             <canvas id="canvas" style="display:none;"></canvas>
-        </div> -->
+        </div>
     </div>
 
-    <!-- <script src="{% static 'assets/js/camera.js' %}"></script> -->
+    <script src="{% static 'assets/js/camera.js' %}"></script>
 </body>
 </html>

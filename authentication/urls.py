@@ -24,6 +24,8 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     
     # Capicture
-    path('capImage', views.index, name='index'),
+    path('regulations', views.index, name='index'),
     path('capture/', views.capture_image, name='capture_image'),
+
+    path('capImage', views.capture, name='capture'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
