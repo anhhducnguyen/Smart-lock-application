@@ -2,4 +2,5 @@
 db.sqlite3
 venv/
 test/
-media
+media/
+config/firebase/smartlock.json

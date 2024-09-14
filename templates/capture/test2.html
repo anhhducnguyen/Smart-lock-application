@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Image</title>
+</head>
+<body>
+    <h1>Capture Image</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="capture">Capture Photo</button>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <img id="photo" alt="The screen capture will appear in this box.">
+    <form id="photoForm" method="POST">
+        <input type="hidden" name="image_data" id="image_data">
+        <button type="submit">Upload Photo</button>
+    </form>
+
+    <script>
+        // Access the camera
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const photo = document.getElementById('photo');
+        const imageDataInput = document.getElementById('image_data');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            });
+
+        // Capture the photo
+        document.getElementById('capture').addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/png');
+            photo.src = imageData;
+            imageDataInput.value = imageData;
+        });
+
+        // Handle form submission via AJAX
+        document.getElementById('photoForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Image uploaded successfully! URL: ' + data.image_url);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

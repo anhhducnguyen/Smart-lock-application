@@ -36,4 +36,7 @@ urlpatterns = [
     path('capImage', views.capture, name='capture'),
 
     path('test', views.test, name='test'),
+
+    # test
+    path('test2/', views.test2, name='test2'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

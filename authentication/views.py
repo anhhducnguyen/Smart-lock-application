@@ -20,7 +20,62 @@ import base64
 import numpy as np
 from django.conf import settings
 
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.base import ContentFile
+from firebase_admin import storage
+from datetime import datetime
 
+# bucket = storage.bucket()
+
+# @csrf_exempt
+# def test2(request):
+#     if request.method == 'POST':
+#         try:
+#             # Get the base64 image from the request
+#             image_data = request.POST.get('image_data')
+#             format, imgstr = image_data.split(';base64,')
+#             ext = format.split('/')[-1]
+#             img_data = ContentFile(base64.b64decode(imgstr), name=f"capture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{ext}")
+
+#             # Upload to Firebase
+#             blob = bucket.blob(f'images/{img_data.name}')
+#             blob.upload_from_file(img_data)
+
+#             # Make the image publicly accessible
+#             blob.make_public()
+
+#             return JsonResponse({'status': 'success', 'image_url': blob.public_url})
+
+#         except Exception as e:
+#             return JsonResponse({'status': 'error', 'message': str(e)})
+
+#     return render(request, 'capture/test2.html')
+
+bucket = storage.bucket()
+
+@csrf_exempt
+def test2(request):
+    if request.method == 'POST':
+        try:
+            # Lấy ảnh base64 từ request
+            image_data = request.POST.get('image_data')
+            format, imgstr = image_data.split(';base64,')
+            ext = format.split('/')[-1]
+            img_data = ContentFile(base64.b64decode(imgstr), name=f"capture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{ext}")
+
+            # Tải lên Firebase
+            blob = bucket.blob(f'images/{img_data.name}')
+            blob.upload_from_file(img_data)
+
+            # Làm cho ảnh có thể truy cập công khai
+            blob.make_public()
+
+            return JsonResponse({'status': 'success', 'image_url': blob.public_url})
+
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+
+    return render(request, 'capture/test2.html')
 
 # Create your views here.
 def home(request):

@@ -13,3 +13,5 @@ google-auth-oauthlib==1.2.0
 python-decouple==3.8
 opencv-python==4.10.0.84
 
+
+firebase-admin==6.5.0

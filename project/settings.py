@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import json
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -361,6 +362,40 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'anhnguyen2k373@gmail.com'
 EMAIL_HOST_PASSWORD = 'apjahlrpflvncpfy'
+
+
+import firebase_admin
+from firebase_admin import credentials, storage 
+
+# cred = credentials.Certificate('smartlock.json')
+# firebase_admin.initialize_app(cred, {
+#     'storageBucket': 'smartlock-ff808.appspot.com'
+# })
+
+
+firebase_config = {
+  "type": "service_account",
+  "project_id": "smartlock-ff808",
+  "private_key_id": "c140c110b79205d854c369ed3ae92138912e5837",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDLokBpcEay2kQg\nS5JfdI3bKDLIyLn1rSwrmvx2gHbX5/3GmZwz4Ya1kKurTHeFRlaMtCsFslyEERff\n6iNkOYhf4W9x+68WYxbSy5UTZQWmzNSY7zVUosCnjo/fKmeHB6bKZNXgqOvePy+q\nXqRndiFgUf3z3jNjpbFcb7sMn2HlsYRRpbVE6HXFlyDndYQieUikP39+aYzfcCb1\nMZtCXJFTAx90w5WBpqmCAu+OFeB7jooefm9dPxgX+1Q2TqYn7IObA1kFn+YuSc3d\ncYJUgJ54zInhIZrXBFV2d7nhShlBg4I7AXw0U6vFoPC+yLO+mT6/YEHSYZIatKkb\nxxFiX/hvAgMBAAECggEABDgpnv1U+P6fq+IS5teHjUviJ2p5V0G5S+0juOyGV8uL\nSQFdvEzyOX2sZR9ZUtL7i9xMMSHPHphjNOiCQZLo06ph2xXbUwc1+7nWAZdZ5A/9\ngf9M+XZIH2WOLHwA7cSv/kYLIbD4yjHnrEkOWsSLo7eCsH+m0j90dIiznx0H5gyb\niDucTXcp9nss0fKrUkRGceBJRr0PPkQw1UxxNODUheNgsfnYON6N4DVNcqj49jGK\nS1Wn1EmiZ8Sj9SEQOVuWqHTxJMLGZx8p2M44bxpG2Hep7qXBcmaJRp7wTA5gTsjA\nnuN7nd6ZLBRqSwWYHBPSeGpc4BaTTM1Vflz3HgynuQKBgQD4I4KT1i9SpkMwUZku\naOxuHp/yDOoOE2IxHmMlHgicv+ksSYrXTYVBkM+gaeEwnfNoH0cDvluPF0E87xwC\nRTMKN4TMdEG+zdZ2ZW/A3yHRppuLULyDaw7Ydn3Ia6SxNUycGoAadpFOV+N+BGgL\nkUBOb3TGfZKmaQxkR/sf/+b9BQKBgQDSFcqbM39vcvrDTSXW0JFy5f2UAQljRPG6\ntS6PVbRmttcatRt17pfJTbRvd5U477+dCouVYlYMY9Rx8QyRDYEe28EhZ+8DAxvs\nlag60/7ey4FiOTXrYq8I/6QNNJ6f+58lqwOknYPLJD8UIdzbkLWk2g2uEHaUb+Rw\n0USBEvG54wKBgHcoHjk93kWzH4qhdIyrx/VtcWM7vl16A2oQ7I1TadFT+vXQbwLK\n8BW3I20lywScpNk4Q9LRY4hII4TOUcXpUwQx+uxvW27zy2vZdBvLSqMxfXoeEBiP\nnXZnGCnZPyH1tU81DpUmoMpdPBo0pX4Ahz/jF9GFVZnh0hiJ1FbefR69AoGBAL+Z\nNDCbpOuF14FqyMnDagN6Eex7jY5FgJihSRdcOK08r60h4yuJMFFdVuQaEbPdo8mb\npnXVO1kNauGHz8gyosH79YV7/pWmrj70tnsAgP+8ZgGo364PUEdKrtmEVe7eUuTN\ntQLazSnlosm/oGd28NKqM7O+PAdgjNz/XhTBrEe1AoGAY4639KNqDD3xaIDAWpV/\nMwHHx4uU3DvQl4dwDdiEVQndk7xREVnM7n/v6zbQNlQ8udDguXjtN3kZgxIN+jJp\nMOEs9tM7RWLo7lCH+BB9I079StzRDqZu/6pAimAyY3XUzvxo0QMo2svaW/1OVCnD\ncSqIIKNMPbKQTcbzm3BdjQ4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-x9e32@smartlock-ff808.iam.gserviceaccount.com",
+  "client_id": "116672876437269111573",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-x9e32%40smartlock-ff808.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+
+cred = credentials.Certificate(firebase_config)
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'smartlock-ff808.appspot.com'
+})
+
+
+
+
+
 
 
 
