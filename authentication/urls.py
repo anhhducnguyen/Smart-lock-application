@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', views.index, name='index'),
+    
     # HomePage
     path('', views.home, name='home'),
 
@@ -30,13 +31,8 @@ urlpatterns = [
     
     # Regulations
     path('regulations', views.index, name='index'),
-    path('capture/', views.capture_image, name='capture_image'),
 
     # Capture image
-    path('capImage', views.capture, name='capture'),
+    path('capture/', views.capture_img, name='capture_img'),
 
-    path('test', views.test, name='test'),
-
-    # test
-    path('test2/', views.test2, name='test2'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

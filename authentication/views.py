@@ -25,47 +25,48 @@ from django.core.files.base import ContentFile
 from firebase_admin import storage
 from datetime import datetime
 
-# bucket = storage.bucket()
 
-# @csrf_exempt
-# def test2(request):
-#     if request.method == 'POST':
-#         try:
-#             # Get the base64 image from the request
-#             image_data = request.POST.get('image_data')
-#             format, imgstr = image_data.split(';base64,')
-#             ext = format.split('/')[-1]
-#             img_data = ContentFile(base64.b64decode(imgstr), name=f"capture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{ext}")
 
-#             # Upload to Firebase
-#             blob = bucket.blob(f'images/{img_data.name}')
-#             blob.upload_from_file(img_data)
+from PIL import Image
+from io import BytesIO
 
-#             # Make the image publicly accessible
-#             blob.make_public()
-
-#             return JsonResponse({'status': 'success', 'image_url': blob.public_url})
-
-#         except Exception as e:
-#             return JsonResponse({'status': 'error', 'message': str(e)})
-
-#     return render(request, 'capture/test2.html')
 
 bucket = storage.bucket()
 
 @csrf_exempt
-def test2(request):
+def capture_img(request):
     if request.method == 'POST':
         try:
+            # Lấy tên người dùng từ request
+            name = request.POST.get('name', 'unknown_user').strip().replace(' ', '_')
+            
             # Lấy ảnh base64 từ request
             image_data = request.POST.get('image_data')
             format, imgstr = image_data.split(';base64,')
-            ext = format.split('/')[-1]
-            img_data = ContentFile(base64.b64decode(imgstr), name=f"capture_{datetime.now().strftime('%Y%m%d_%H%M%S')}.{ext}")
+            img_data = base64.b64decode(imgstr)
+            
+            # Mở ảnh từ dữ liệu base64
+            image = Image.open(BytesIO(img_data))
+            
+            # Chuyển ảnh sang định dạng JPG nếu cần
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
+                
+            buffer = BytesIO()
+            image.save(buffer, format="JPEG")
+            buffer.seek(0)
 
-            # Tải lên Firebase
-            blob = bucket.blob(f'images/{img_data.name}')
-            blob.upload_from_file(img_data)
+            # Kiểm tra số lượng ảnh hiện có trong thư mục `images/{name}` trên Firebase
+            blobs = bucket.list_blobs(prefix=f'images/{name}/')
+            img_count = len([blob for blob in blobs])  # Đếm số lượng file trong thư mục
+            
+            # Tạo tên file dựa trên số lượng file hiện tại
+            img_name = f"{img_count}.jpg"
+            img_path = f"images/{name}/{img_name}"
+
+            # Tạo đối tượng blob để upload lên Firebase
+            blob = bucket.blob(img_path)
+            blob.upload_from_file(buffer, content_type='image/jpeg')
 
             # Làm cho ảnh có thể truy cập công khai
             blob.make_public()
@@ -75,7 +76,8 @@ def test2(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 
-    return render(request, 'capture/test2.html')
+    return render(request, 'capture/test3.html')
+
 
 # Create your views here.
 def home(request):
@@ -86,9 +88,6 @@ def index(request):
 
 def capture(request):
     return render(request, 'capture/capture.html')
-
-def test(request):
-    return render(request, 'capture/test.html')
 
 def capture_image(request):
     if request.method == 'POST':
