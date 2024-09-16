@@ -443,7 +443,7 @@ This project is licensed under the terms of the MIT license.
 # Django Framework
 
 <p align="center">
-  <img src="https://miro.medium.com/v2/resize:fit:1400/1*Bd5dYeGhFGhYuqJUpHjrNA.png" alt="Django"/>
+  <img style="height: 200px;" src="https://miro.medium.com/v2/resize:fit:1400/1*Bd5dYeGhFGhYuqJUpHjrNA.png" alt="Django"/>
 </p>
 
 ## Giới thiệu
