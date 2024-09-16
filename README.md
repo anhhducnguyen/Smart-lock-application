@@ -442,6 +442,10 @@ This project is licensed under the terms of the MIT license.
 
 # Django Framework
 
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:1400/1*Bd5dYeGhFGhYuqJUpHjrNA.png" alt="Django"/>
+</p>
+
 ## Giới thiệu
 
 Django là một trong những framework web phổ biến nhất được xây dựng bằng Python, nổi tiếng với khả năng phát triển nhanh chóng và tập trung vào thiết kế sạch sẽ, dễ bảo trì. Django được tạo ra bởi các lập trình viên với mục tiêu giảm thiểu các công việc lặp đi lặp lại trong phát triển web, giúp bạn tập trung vào phát triển ứng dụng với chất lượng cao hơn mà không cần phải lo lắng quá nhiều về các chi tiết kỹ thuật như bảo mật hay tối ưu hóa hiệu suất.
