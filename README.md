@@ -196,12 +196,12 @@ DATABASES = {
 7. Cấu hình kết nối `aiven.io`
 
 ```
-DB_ENGINE=
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
-DB_HOST=
-DB_PORT=
+DB_ENGINE=your_database_engine
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+DB_HOST=your_database_host
+DB_PORT=your_database_port
 ```
 
 8. Đẩy code lên `heroku` trừ `db.sqlite3`
@@ -241,11 +241,11 @@ INSTALLED_APPS = [
 **Step 3 .** Đảm bảo đã thêm vào `project/info.py`
 
 ```python
-EMAIL_USE_TLS = True
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 587
+EMAIL_USE_TLS=True
+EMAIL_HOST=your_email_host
+EMAIL_HOST_USER=your_email_user
+EMAIL_HOST_PASSWORD=your_email_password
+EMAIL_PORT=587
 ```
 
 **Step 3 .** Đảm bảo đã thêm vào `project/urls.py`
