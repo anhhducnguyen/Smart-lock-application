@@ -4,7 +4,7 @@
 
 - [Installation](#installation)
 - [Deployment](#deployment)
-- [SendEmail](#SendEmail)
+- [Send Email](#SendEmail)
 - [License](#license)
 
 
