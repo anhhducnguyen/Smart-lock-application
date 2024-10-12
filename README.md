@@ -232,7 +232,7 @@ git push heroku master
 
 
 
-## SendEmail
+## Send Email
 
 **Step 1 .** Tạo `authentication`
 
