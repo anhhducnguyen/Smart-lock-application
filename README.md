@@ -5,8 +5,9 @@
 - [Installation](#installation)
 - [Deployment](#deployment)
 - [Send Email](#send-email)
+- [Google SSO](google-sso)
 - [License](#license)
-- [Welcome to Django Google SSO](welcome-to-django-google-sso)
+
 
 
 ## Installation
@@ -359,7 +360,7 @@ EMAIL_PORT = EMAIL_PORT
 </a>
 </p>
 
-## Welcome to Django Google SSO
+## Google SSO
 
 This library aims to simplify the process of authenticating users with Google in Django Admin pages,
 inspired by libraries like [django_microsoft_auth](https://github.com/AngellusMortis/django_microsoft_auth)
