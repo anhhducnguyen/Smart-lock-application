@@ -4,7 +4,7 @@
 
 - [Installation](#installation)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
+- [Project authentication and email](#Projectauthenticationandemail)
 - [License](#license)
 
 
@@ -232,7 +232,7 @@ git push heroku master
 
 
 
-### Project authentication and email
+## Project authentication and email
 
 **Step 1 .** Tạo `authentication`
 
