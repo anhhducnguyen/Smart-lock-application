@@ -4,7 +4,7 @@
 
 - [Installation](#installation)
 - [Deployment](#deployment)
-- [Project authentication and email](#Projectauthenticationandemail)
+- [Projectauthenticationandemail](#Projectauthenticationandemail)
 - [License](#license)
 
 
