@@ -6,6 +6,7 @@
 - [Deployment](#deployment)
 - [Send Email](#send-email)
 - [License](#license)
+- [Welcome to Django Google SSO](welcome-to-django-google-sso)
 
 
 ## Installation
