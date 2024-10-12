@@ -2,6 +2,14 @@
 
 [Liên kết đến trang web](https://project-1233-6f93642d7963.herokuapp.com/)
 
+- [Installation](#installation)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+
+
+## Installation
+
 **Step 1 .** Tạo dự án có tên `project`
 
 ```bash
@@ -89,6 +97,8 @@ touch .env
       'chat-123-b5f27fe98cab.herokuapp.com',
   ]
   ```
+
+## Deployment
 
 **Step 9 .** Tạo app trên `Heroku` tại [Heroku](https://dashboard.heroku.com/)
 
