@@ -5,7 +5,7 @@
 - [Installation](#installation)
 - [Deployment](#deployment)
 - [Send Email](#send-email)
-- [Google SSO](google-sso)
+- [Google SSO](#google-sso)
 - [License](#license)
 
 
