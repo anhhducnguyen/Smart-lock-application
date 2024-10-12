@@ -4,7 +4,7 @@
 
 - [Installation](#installation)
 - [Deployment](#deployment)
-- [Send Email](#SendEmail)
+- [Send Email](#Email)
 - [License](#license)
 
 
@@ -232,7 +232,7 @@ git push heroku master
 
 
 
-## Send Email
+## Email
 
 **Step 1 .** Tạo `authentication`
 
