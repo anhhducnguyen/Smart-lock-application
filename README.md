@@ -6,6 +6,8 @@
 - [Deployment](#deployment)
 - [Send Email](#send-email)
 - [Google SSO](#google-sso)
+- [Django Framework](#django-framework)
+- [Security in Django](#security-in-django)
 - [License](#license)
 
 
@@ -452,7 +454,7 @@ This project is licensed under the terms of the MIT license.
 
 
 
-# Django Framework
+## Django Framework
 
 <p align="center">
   <img style="height: 200px;" src="https://miro.medium.com/v2/resize:fit:1400/1*Bd5dYeGhFGhYuqJUpHjrNA.png" alt="Django"/>
@@ -547,7 +549,7 @@ myproject/
 **views.py:** Nơi bạn định nghĩa các hàm xử lý logic ứng dụng và trả về phản hồi cho người dùng.
 
 
-# Security in Django
+## Security in Django
 
 ## Potential Risks
 
