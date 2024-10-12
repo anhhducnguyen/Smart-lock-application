@@ -104,6 +104,8 @@ touch .env
   ]
   ```
 
+---
+
 ## Deployment
 
 **Step 1 .** Tạo app trên `Heroku` tại [Heroku](https://dashboard.heroku.com/)
@@ -370,13 +372,11 @@ This library aims to simplify the process of authenticating users with Google in
 inspired by libraries like [django_microsoft_auth](https://github.com/AngellusMortis/django_microsoft_auth)
 and [django-admin-sso](https://github.com/matthiask/django-admin-sso/)
 
----
+
 
 ### Documentation
 
 * Docs: https://megalus.github.io/django-google-sso/
-
----
 
 ### Install
 
