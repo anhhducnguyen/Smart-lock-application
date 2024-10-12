@@ -219,5 +219,45 @@ def signout(request):
     messages.success(request, "Logged Out Successfully!!")
     return redirect('home')
 
+# def list_user_directories():
+#     bucket = storage.bucket()
+#     blobs = bucket.list_blobs(prefix='images/')
+#     directories = set()  # Use a set to avoid duplicates
+
+#     for blob in blobs:
+#         # Extract directory name
+#         parts = blob.name.split('/')
+#         if len(parts) > 1:  # Check if there's a subfolder
+#             directories.add(parts[1])  # Add the first subfolder under 'images/'
+    
+#     return list(directories)  # Return as a list
+def list_user_directories():
+    bucket = storage.bucket()
+    blobs = bucket.list_blobs(prefix='images/')
+    directories = {}  # Use a dictionary to store directory names and their corresponding image URLs
+
+    for blob in blobs:
+        # Extract directory name
+        parts = blob.name.split('/')
+        if len(parts) > 1:  # Check if there's a subfolder
+            user_directory = parts[1]  # Get the user directory name
+            if user_directory not in directories:
+                directories[user_directory] = None  # Initialize with None
+
+            # Check if this blob is the first image (0.jpg)
+            if parts[-1] == '0.jpg':
+                directories[user_directory] = blob.public_url  # Store the public URL of 0.jpg
+
+    return directories  # Return the dictionary of directories and image URLs
+
+# def display_user_images(request):
+#     user_directories = list_user_directories()  # Get the list of user directories
+#     return render(request, 'capture/display_images.html', {'user_directories': user_directories})
+
+def display_user_images(request):
+    user_directories = list_user_directories()  # Get the list of user directories and image URLs
+    return render(request, 'capture/display_images.html', {'user_directories': user_directories})
+
+
 
 

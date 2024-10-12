@@ -1,0 +1,82 @@
+<!-- <ul>
+    {% for directory in user_directories %}
+        <li>{{ directory }}</li>
+    {% endfor %}
+</ul> -->
+
+
+<!-- <ul>
+    {% for directory, image_url in user_directories.items %}
+        <li>
+            <strong>{{ directory }}</strong>
+            {% if image_url %}
+                <img src="{{ image_url }}" alt="Image of {{ directory }}" style="width: 100px; height: auto;">
+            {% else %}
+                <span>No image available</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Images</title>
+    {% load static %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .image-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+        .image-item {
+            border: 1px solid #ddd; 
+            border-radius: 3px; 
+            padding: 10px; 
+            text-align: center; 
+            background-color: #f9f9f9; 
+            transition: transform 0.2s; 
+        }
+        .image-item:hover {
+            transform: scale(1.05); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+        img {
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 3px; 
+        }
+        h5 {
+            margin-top: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>User Images</h2>
+        <div class="row image-list">
+            {% for directory, image_url in user_directories.items %}
+                <div class="image-item col-md-2"> <!-- Chỉnh thành col-md-3 để có 4 người 1 hàng -->
+                    
+                    {% if image_url %}
+                        <img src="{{ image_url }}" alt="Image of {{ directory }}">
+                    {% else %}
+                        <img src="{%static 'assets/images/avatar.jpg' %}">
+                        <!-- <span>No image available</span> -->
+                    {% endif %}
+                    <strong>{{ directory }}</strong>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -34,5 +34,7 @@ urlpatterns = [
 
     # Capture image
     path('capture/', views.capture_img, name='capture_img'),
+    path('display_name', views.display_user_images, name='display_name'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
