@@ -106,22 +106,22 @@ touch .env
 
 ## Deployment
 
-**Step 9 .** Tạo app trên `Heroku` tại [Heroku](https://dashboard.heroku.com/)
+**Step 1 .** Tạo app trên `Heroku` tại [Heroku](https://dashboard.heroku.com/)
 
 
-**Step 10 .** Đăng nhập `Heroku` bằng cách sử dụng câu lệnh sau trên `powershell` sau đó nhấn `Enter`
+**Step 2 .** Đăng nhập `Heroku` bằng cách sử dụng câu lệnh sau trên `powershell` sau đó nhấn `Enter`
 
   ```
   heroku login
   ```
 
-**Step 11 .** Tạo kho lưu trữ
+**Step 3 .** Tạo kho lưu trữ
 
 ```
 git init
 ```
 
-**Step 12 .** Tạo kho file `.gitignore`
+**Step 4 .** Tạo kho file `.gitignore`
 
 ```
 touch .gitignore
@@ -134,7 +134,7 @@ touch .gitignore
 venv/
 ```
 
-**Step 13 .** Kết nối với `project-1233` tên app mà bạn đã đặt trên `Heroku`
+**Step 5 .** Kết nối với `project-1233` tên app mà bạn đã đặt trên `Heroku`
 
 ```
 heroku git:remote -a project-1233
@@ -153,12 +153,12 @@ git commit -am "make it better"
 git push heroku master
 ```
 
-**Step 14 .** Cài đặt thư viện
+**Step 6 .** Cài đặt thư viện
 ```
 pip install -r requirements.txt
 ```
 
-**Step 15 .** Chú ý lần này không đẩy file `db.sqlite3` lên `heroku` nữa mà kết nối `aiven.io`
+**Step 7 .** Chú ý lần này không đẩy file `db.sqlite3` lên `heroku` nữa mà kết nối `aiven.io`
 
 1. Tài khoản `aiven.io` là bắt buộc, bạn có thể đăng ký tài khoản tại [aiven](https://console.aiven.io/)
 
