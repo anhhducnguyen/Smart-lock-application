@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,4 +23,263 @@
 
     <script src="{% static 'assets/js/capicture.js' %}"></script>
 </body>
+</html> -->
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Image</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/test3.css' %}"> 
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="content-left">
+            <div class="main-image">
+                <img class="image" src="{% static 'assets/images/new_face.png' %}" alt="face">
+                <div class="red-line"></div>
+                <div class="corner top-left"></div>
+                <div class="corner top-right"></div>
+                <div class="corner bottom-left"></div>
+                <div class="corner bottom-right"></div>
+            </div>
+            <div class="main-title">
+                <h2>Regulations when taking photos for facial recognition</h2>
+                <p>To ensure the facial recognition system works effectively, the following regulations must be followed:</p>
+                <ol>
+                    <li><strong>Image quality:</strong> Photos must be clear, not blurred or bright.</li>
+                    <li><strong>Lighting:</strong> Even light source, avoid shadows and do not shoot against the light.</li>
+                    <li><strong>Face position:</strong> Face in the middle of the photo, not obscured.</li>
+                    <li><strong>Expression:</strong> Natural, eyes open, mouth closed.</li>
+                    <li><strong>Shooting angle:</strong> Shoot straight, do not tilt the head.</li>
+                    <li><strong>Clothes:</strong> Simple, avoid too many accessories.</li>
+                    <li><strong>Background:</strong> Should be simple, avoid too many distracting details.</li>
+                </ol>
+                <p>Complying with these regulations helps improve the accuracy of facial recognition systems.</p>
+            </div>
+        </div>
+        <div class="capture-container">
+            <h1>Capture Image</h1>
+            <div class="mb-3">
+                <label for="name" class="form-label">Enter your name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            
+            <video id="video" autoplay class="mb-3"></video>
+            <button id="capture" class="btn btn-primary btn-custom"><i class="fas fa-camera"></i> Capture Photo</button>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            <img id="photo" alt="The screen capture will appear in this box." class="img-fluid">
+            
+            <form id="photoForm" method="POST" class="mt-3">
+                <input type="hidden" name="image_data" id="image_data">
+                <button type="submit" class="btn btn-success btn-custom"><i class="fas fa-upload"></i> Upload Photo</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="{% static 'assets/js/capicture.js' %}"></script>
+</body>
 </html>
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     {% load static %}
+     <title>Chia đôi màn hình 4:6</title>
+ 
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+     <style>
+         /* Tổng quát cho toàn bộ trang */
+         body {
+             font-family: Arial, sans-serif;
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+ 
+         .container-fluid {
+             height: 100vh;
+         }
+ 
+         .left {
+             background-color: #f0ad4e;
+             height: 100%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 20px;
+         }
+ 
+         .right {
+             background-color: #5bc0de;
+             height: 100%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 20px;
+         }
+ 
+         .main-title {
+             font-size: 16px;
+             color: #333;
+             max-width: 500px;
+             margin: 0 auto;
+             padding: 15px;
+             background-color: #fff;
+             border-radius: 8px;
+         }
+ 
+         .main-title h2 {
+             color: #1746ab;
+             margin-bottom: 10px;
+         }
+ 
+         .main-title ol {
+             list-style-type: decimal;
+             padding-left: 20px;
+         }
+ 
+         /* Video and buttons */
+         .capture-container {
+             max-width: 1000px; /* Điều chỉnh giới hạn độ rộng lớn hơn */
+             width: 100%;
+             padding: 30px;
+         }
+ 
+         /* Điều chỉnh kích thước video */
+         #video {
+             border: none;
+             border-radius: 8px;
+             width: 100%; /* Chiếm 100% chiều rộng của khối chứa */
+             max-width: 1000px; /* Đặt chiều rộng tối đa */
+             height: auto; /* Giữ nguyên tỷ lệ khung hình */
+             background: #e0e0e0;
+         }
+ 
+         /* Điều chỉnh canvas */
+         #canvas {
+             width: 100%; /* Điều chỉnh giống như video */
+             max-width: 1000px;
+             height: auto;
+         }
+ 
+         .btn-custom {
+             width: 100%;
+             padding: 12px 25px;
+             margin: 10px 0;
+         }
+ 
+         /* Điều chỉnh hiển thị trên màn hình điện thoại */
+         @media (max-width: 768px) {
+             .container-fluid {
+                 display: flex;
+                 flex-direction: column;
+                 justify-content: space-between;
+                 height: auto;
+             }
+ 
+             .left, .right {
+                 width: 100%;
+                 height: auto;
+                 flex: none;
+             }
+ 
+             .left {
+                 margin-bottom: 20px;
+             }
+ 
+             /* Tăng kích thước video trên điện thoại */
+             #video {
+                 width: 100%;
+                 max-width: 100%;
+                 height: auto;
+             }
+ 
+             #canvas {
+                 width: 100%;
+                 max-width: 100%;
+                 height: auto;
+             }
+         }
+ 
+         @media (max-width: 576px) {
+             .main-title {
+                 font-size: 14px;
+                 padding: 10px;
+             }
+ 
+             #video {
+                 max-width: 100%;
+             }
+ 
+             h1 {
+                 font-size: 24px;
+             }
+         }
+     </style>
+ </head>
+ 
+ <body>
+     <div class="container-fluid">
+         <div class="row">
+             <!-- Left column (4 parts) -->
+             <div class="col-md-4 left d-flex">
+                 <div class="main-title">
+                     <h2>Regulations when taking photos for facial recognition</h2>
+                     <p>To ensure the facial recognition system works effectively, follow these rules:</p>
+                     <ol>
+                         <li><strong>Image quality:</strong> Clear photos, not blurry.</li>
+                         <li><strong>Lighting:</strong> Even light, no shadows, and avoid shooting against the light.</li>
+                         <li><strong>Face position:</strong> Center the face, unobstructed.</li>
+                         <li><strong>Expression:</strong> Neutral, eyes open, mouth closed.</li>
+                         <li><strong>Shooting angle:</strong> Shoot straight, no tilting.</li>
+                         <li><strong>Clothes:</strong> Simple, no excessive accessories.</li>
+                         <li><strong>Background:</strong> Simple, without too many distracting details.</li>
+                     </ol>
+                     <p>Following these rules improves the system's accuracy.</p>
+                 </div>
+             </div>
+ 
+             <!-- Right column (6 parts) -->
+             <div class="col-md-8 right">
+                 <div class="capture-container">
+                     <div class="mb-3">
+                         <!-- <label for="name" class="form-label">Enter your name:</label> -->
+                         <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your name (ex: Nguyen Duc Anh)">
+                     </div>
+                     <video id="video" autoplay class="mb-3"></video>
+                     <button id="capture" class="btn btn-primary btn-custom"><i class="fas fa-camera"></i> Capture Photo</button>
+                     <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+                     <img id="photo" alt="Captured image will appear here." class="img-fluid mt-3">
+                     <form id="photoForm" method="POST" class="mt-3">
+                         <input type="hidden" name="image_data" id="image_data">
+                         <button type="submit" class="btn btn-success btn-custom"><i class="fas fa-upload"></i> Upload Photo</button>
+                     </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+ 
+     <!-- Bootstrap JS -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="{% static 'assets/js/capicture.js' %}"></script>
+ </body>
+ 
+ </html>
+ 
