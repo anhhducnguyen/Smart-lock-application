@@ -202,6 +202,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Media files
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -249,8 +253,8 @@ UNFOLD = {
         "image": lambda request: static("icons/illustration.jpg"),
     },
     # "SITE_TITLE": None,
-    "SITE_TITLE": _("Smart car park"),
-    "SITE_HEADER": "Smart car park",
+    "SITE_TITLE": _("Smart lock"),
+    "SITE_HEADER": "Smart lock",
     # "SITE_SYMBOL": "directions_car",
     "SITE_SYMBOL": "fingerprint",
     # "SITE_SYMBOL": "icons/icon.svg",
@@ -301,9 +305,9 @@ UNFOLD = {
                         "link": reverse_lazy("admin:index"),
                     },
                     {
-                        "title": _("Standings"),
+                        "title": _("User profiles"),
                         "icon": "star",
-                        "link": reverse_lazy("admin:index"),
+                        "link": reverse_lazy("admin:authentication_userprofile_changelist"),
                     }, 
                 ],
             },
@@ -372,12 +376,11 @@ from firebase_admin import credentials, storage
 #     'storageBucket': 'smartlock-ff808.appspot.com'
 # })
 
-
 firebase_config = {
   "type": "service_account",
   "project_id": "smartlock-ff808",
-  "private_key_id": "c140c110b79205d854c369ed3ae92138912e5837",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDLokBpcEay2kQg\nS5JfdI3bKDLIyLn1rSwrmvx2gHbX5/3GmZwz4Ya1kKurTHeFRlaMtCsFslyEERff\n6iNkOYhf4W9x+68WYxbSy5UTZQWmzNSY7zVUosCnjo/fKmeHB6bKZNXgqOvePy+q\nXqRndiFgUf3z3jNjpbFcb7sMn2HlsYRRpbVE6HXFlyDndYQieUikP39+aYzfcCb1\nMZtCXJFTAx90w5WBpqmCAu+OFeB7jooefm9dPxgX+1Q2TqYn7IObA1kFn+YuSc3d\ncYJUgJ54zInhIZrXBFV2d7nhShlBg4I7AXw0U6vFoPC+yLO+mT6/YEHSYZIatKkb\nxxFiX/hvAgMBAAECggEABDgpnv1U+P6fq+IS5teHjUviJ2p5V0G5S+0juOyGV8uL\nSQFdvEzyOX2sZR9ZUtL7i9xMMSHPHphjNOiCQZLo06ph2xXbUwc1+7nWAZdZ5A/9\ngf9M+XZIH2WOLHwA7cSv/kYLIbD4yjHnrEkOWsSLo7eCsH+m0j90dIiznx0H5gyb\niDucTXcp9nss0fKrUkRGceBJRr0PPkQw1UxxNODUheNgsfnYON6N4DVNcqj49jGK\nS1Wn1EmiZ8Sj9SEQOVuWqHTxJMLGZx8p2M44bxpG2Hep7qXBcmaJRp7wTA5gTsjA\nnuN7nd6ZLBRqSwWYHBPSeGpc4BaTTM1Vflz3HgynuQKBgQD4I4KT1i9SpkMwUZku\naOxuHp/yDOoOE2IxHmMlHgicv+ksSYrXTYVBkM+gaeEwnfNoH0cDvluPF0E87xwC\nRTMKN4TMdEG+zdZ2ZW/A3yHRppuLULyDaw7Ydn3Ia6SxNUycGoAadpFOV+N+BGgL\nkUBOb3TGfZKmaQxkR/sf/+b9BQKBgQDSFcqbM39vcvrDTSXW0JFy5f2UAQljRPG6\ntS6PVbRmttcatRt17pfJTbRvd5U477+dCouVYlYMY9Rx8QyRDYEe28EhZ+8DAxvs\nlag60/7ey4FiOTXrYq8I/6QNNJ6f+58lqwOknYPLJD8UIdzbkLWk2g2uEHaUb+Rw\n0USBEvG54wKBgHcoHjk93kWzH4qhdIyrx/VtcWM7vl16A2oQ7I1TadFT+vXQbwLK\n8BW3I20lywScpNk4Q9LRY4hII4TOUcXpUwQx+uxvW27zy2vZdBvLSqMxfXoeEBiP\nnXZnGCnZPyH1tU81DpUmoMpdPBo0pX4Ahz/jF9GFVZnh0hiJ1FbefR69AoGBAL+Z\nNDCbpOuF14FqyMnDagN6Eex7jY5FgJihSRdcOK08r60h4yuJMFFdVuQaEbPdo8mb\npnXVO1kNauGHz8gyosH79YV7/pWmrj70tnsAgP+8ZgGo364PUEdKrtmEVe7eUuTN\ntQLazSnlosm/oGd28NKqM7O+PAdgjNz/XhTBrEe1AoGAY4639KNqDD3xaIDAWpV/\nMwHHx4uU3DvQl4dwDdiEVQndk7xREVnM7n/v6zbQNlQ8udDguXjtN3kZgxIN+jJp\nMOEs9tM7RWLo7lCH+BB9I079StzRDqZu/6pAimAyY3XUzvxo0QMo2svaW/1OVCnD\ncSqIIKNMPbKQTcbzm3BdjQ4=\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "335f9c56d17eed00233622bdbf5797a6f9098566",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCm0oUTl5/mIlLm\nDd8+EvqL2DDIieFzVtjCchxMMiwwfkOMOAzIwA/qKtVkl3v73nRoheAqAlR+NBt1\nBwr/uF5LCxwhO5dllYDGSe1Kb7N5vfK2ayQUBskIqmy32BAtR+v1ld1nmEjn7+ZA\nvy4g/fjQRybPsNwULJrXA7CJk5zQktxZWi5vwjdx/w/J00scgKjZWgZksGf/Xzt9\nNfGMQobu7PvQDH2z6W99V6rhXL3qsIPtwjzV0Q82w11J/nO+DI2wvDiiMpruoG1K\n75Kt2mh4hGxmyZid6UAdwkBIlM8KJ6WckNZ2AreSLF4bis1xET0UmciE09WKht5T\nNBX2VSvjAgMBAAECggEABmXlj7JNgiSH3GXkzXsp28ovWMmc+XD3wEFjH3L/Kd71\n1T9jEiH3mkoJRCHhMfA+s7GKvuG2/t4dvXfHLraR+zvSWN3xuQYqWbCFJskw73bf\nA6sJR7FY7Xmn0Mc7G5l6DcGxK6N2DFsxkAMlEEPdUpOgA/ArCKULTTrJfwVHyuH/\nHkoX4eSooeaWj4TXgyqBHz/URg2HCfGUzDWEeqjGrXLALvp4eQPO0WCHhucmQgeK\noplS3n76he60PjSGIHE2QSfGV+LQ8WmXQm2U5dG/z2aiE5PY+0rMRN5qtkobh763\nRcWUcyJnCU3+yPIhzeFrtbDT5mkPT6H6zLxLjZLMFQKBgQDkTBvRLa8S9Duv3acb\nzpZI2iKiJjBC+qXrU0BpD+xPhCTz1kUpjrPvsO/kU+OiIBKf67SVZmXUGxfH2SJg\njp7JiBeUkZvrBI0Yw5p4uq+xT7F2AvSvzuynYcXCxb22V3Wn6lOCIH3blnZP7dR2\nVuXf+cxlzO/DwS9mZ5GNGCtQFQKBgQC7ELxi3Hmm53YGB21qoZVnGcDV+MDpcGsE\nTpfP3VKrGIt3yJ7MIEqmboPlXoCUAdcDAc2K74LBnC6LhQy5tqauLDR0BrFjqAW3\nOCkEn1RO2YokWpIxDpBF3MNYHHLK5k7jn7fIEJTiH8NJaQxgxtVKjoAFc0yLh1Ax\naxcsp/GSFwKBgQDNsWU+yxJ62WMNyX/PJgtyCFg8EHxbXMoxhQj7oEUiP8WrjNsz\n3kdxJtJ9vrfSU2N0g0JpeaE1wlNi1NiMdvPKULwuOCNrVOZr8ZE0RcAW2d7inTcp\nUB8ZkJZGLzQHHjX73Lzw+aVsO9zNl1NebF0huEfZURSWI3E5qwcRQT2FIQKBgQCr\nDW+l2sMmumnys2H66kwqXaM2RWNpUlGZO6CYA2Jvb19ApeOG9lQsgcv7tgFO1avd\nZQ2laMOg9IafL4dmXj1l8Kf6HJCidubbFfBz+JloDIXEHkmlsBJ+v5KkhEb3f8dN\nXyP3PipV5wN0oikeaVJp/YnU8gxhXdcXiTxEqkE7+wKBgDi37bLZbFUWKARL+EUJ\ndKPujGysPeTa45DG1PjUMdkwxhwAIOQMjWTizvq3gh56A1AmterZyVYcE5wKoadg\nY995MIG0AhuPdvyDwm8GSLDhQJyQAzQMjIFxB6d9LuDD5dI1oYGXjjbuL7GUJRPn\naLpEn2PViknqKRI/AFpJkpFQ\n-----END PRIVATE KEY-----\n",
   "client_email": "firebase-adminsdk-x9e32@smartlock-ff808.iam.gserviceaccount.com",
   "client_id": "116672876437269111573",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -386,7 +389,6 @@ firebase_config = {
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-x9e32%40smartlock-ff808.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }
-
 cred = credentials.Certificate(firebase_config)
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'smartlock-ff808.appspot.com'

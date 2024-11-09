@@ -7,10 +7,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # path('', views.index, name='index'),
+    path('', views.index, name='index'),
     
     # HomePage
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
 
     # Signup, Sign in, Sign out and activate account
     path('signup', views.signup, name='signup'),

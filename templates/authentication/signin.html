@@ -32,7 +32,7 @@
         <div class="signin-signup">
           <form action="/signin" method="post" class="sign-in-form" id="loginForm"  autocomplete="off">
             <img style="margin-bottom: 20px;" src="{%static 'assets/images/logo-phenikaa-uni-02.png' %}" class="image" alt="" />
-            <h2 class="title">Smart parking system</h2>
+            <h2 class="title">Smart lock system</h2>
             {% csrf_token %}
              {% if messages %}
                  {% for message in messages %}
@@ -150,15 +150,15 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>Welcome to Smart parking system !</h3>
+            <h3>Welcome to Smart lock system !</h3>
             <p>
-                Modern solutions help you manage and optimize parking easily and conveniently.
+              Our advanced smart lock solutions provide enhanced security and convenience, allowing you to manage access effortlessly while keeping your property safe.
             </p>
             <button style="line-height: 0.9rem;" class="btn transparent" id="sign-up-btn">
                 <a href="/signup" style="text-decoration: none; color: white;">Sign up</a>
             </button>
           </div>
-          <img style="height: 800px; width: 870px;" src="{%static 'assets/images/Parking.svg' %}" class="image" alt="" />
+          <!-- <img style="height: 800px; width: 870px;" src="{%static 'assets/images/Parking.svg' %}" class="image" alt="" /> -->
           <!-- <div class="div"></div>
 
           <script>
