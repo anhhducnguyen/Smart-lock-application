@@ -1,4 +1,4 @@
-# Một dự án chưa có tên
+# Smart lock application
 
 [Liên kết đến trang web](https://project-1233-6f93642d7963.herokuapp.com/)
 
