@@ -1,112 +1,13 @@
-# from django.db import models
-
-# # django-unfold==0.29.1
-    
-# from firebase_admin import storage
-# from django.db import models
-
-# class UserProfile(models.Model):
-#     name = models.CharField(max_length=100, unique=True)
-#     picture = models.ImageField(("picture"), null=True, blank=True, default=None)
-
-#     def __str__(self):
-#         return self.name
-    
-#     def delete_images_from_firebase(folder_path):
-#         bucket = storage.bucket()
-#         blobs = bucket.list_blobs(prefix=folder_path)  # Lấy tất cả blobs bắt đầu với folder_path
-
-#         # Xóa từng blob trong thư mục
-#         for blob in blobs:
-#             blob.delete()
-#             print(f"Đã xóa file {blob.name} thành công.")
-
-#     def delete(self, *args, **kwargs):
-#         # Gọi hàm xóa ảnh từ Firebase trước khi xóa người dùng
-#         # self.delete_images_from_firebase()
-#         self.delete_images_from_firebase("images/test/")
-#         super().delete(*args, **kwargs)
-
-# from django.utils import timezone
-# from django.db import models
-# from firebase_admin import storage
-
-# class UserProfile(models.Model):
-#     name = models.CharField(max_length=100, unique=True)
-#     picture = models.ImageField("picture", null=True, blank=True, default=None)
-#     age = models.IntegerField(default=18)  # Thay CharField thành IntegerField cho trường 'age' nếu nó là tuổi
-#     sex = models.CharField(max_length=10, default="Male")  # Giả sử "Male" là giá trị mặc định
-#     status = models.CharField(max_length=100, default="Active")  # Giả sử "Active" là trạng thái mặc định
-#     date_join = models.DateField(default=timezone.now)  # Ngày tham gia, mặc định là ngày hiện tại
-#     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
-
-#     def __str__(self):
-#         return self.name
-    
-#     def delete_images_from_firebase(self, folder_path):
-#         bucket = storage.bucket()
-#         blobs = bucket.list_blobs(prefix=folder_path)
-
-#         for blob in blobs:
-#             blob.delete()
-#             print(f"Đã xóa file {blob.name} thành công.")
-
-#     def delete_folder_from_firebase(self, folder_path):
-#         bucket = storage.bucket()
-#         print(f"Bucket: {bucket.name}")  # In ra tên bucket để kiểm tra kết nối
-#         blobs = bucket.list_blobs(prefix=folder_path)
-
-#         for blob in blobs:
-#             blob.delete()
-#             print(f"Đã xóa file {blob.name} thành công.")
-
-
-#     def delete(self, *args, **kwargs):
-#         # Xóa thư mục dựa trên tên của người dùng
-#         folder_path = f"images/{self.name}/"
-#         self.delete_folder_from_firebase(folder_path)
-#         super().delete(*args, **kwargs)
-
-# from django.utils import timezone
-# from django.db import models
-# from firebase_admin import storage
-
-# class UserProfile(models.Model):
-#     name = models.CharField(max_length=100, unique=True)
-#     picture = models.ImageField("picture", null=True, blank=True, default=None)
-#     age = models.IntegerField(default=18)  # Tuổi mặc định là 18
-#     sex = models.CharField(max_length=10, default="Male")  # Giả sử "Male" là giá trị mặc định
-#     status = models.CharField(max_length=100, default="Active")  # Trạng thái mặc định là "Active"
-#     date_join = models.DateField(default=timezone.now)  # Ngày tham gia mặc định là ngày hiện tại
-#     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
-
-#     def __str__(self):
-#         return self.name
-
-#     def save(self, *args, **kwargs):
-#         # Kiểm tra nếu là đối tượng mới
-#         if not self.pk:
-#             # Tạo thư mục trên Firebase nếu chưa tồn tại
-#             folder_path = f"images/{self.name}/"
-#             bucket = storage.bucket()
-
-#             try:
-#                 # Kiểm tra nếu thư mục đã tồn tại
-#                 blob = bucket.blob(folder_path)
-#                 if not blob.exists():
-#                     # Tạo thư mục trống bằng cách tải lên một file rỗng
-#                     empty_blob = bucket.blob(f"{folder_path}placeholder.txt")
-#                     empty_blob.upload_from_string("", content_type="text/plain")
-#                     print(f"Đã tạo thư mục {folder_path} trên Firebase.")
-#             except Exception as e:
-#                 print(f"Lỗi khi kết nối tới Firebase hoặc tạo thư mục: {e}")
-
-#         # Lưu đối tượng `UserProfile`
-#         super().save(*args, **kwargs)
-
 from django.utils import timezone
 from django.db import models
 from firebase_admin import storage
+import os
+import requests
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 class Status(models.TextChoices):
     ACTIVE = "ACTIVE", ("Active")
@@ -129,43 +30,68 @@ class UserProfile(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            # Tạo thư mục trên Firebase nếu chưa tồn tại
-            folder_path = f"images/{self.name}/"
-            bucket = storage.bucket()
-
+        if not self.pk and self.picture:
+            # Nếu có link ảnh, tải ảnh về và lưu vào thư mục media
             try:
-                blob = bucket.blob(folder_path)
-                if not blob.exists():
-                    empty_blob = bucket.blob(f"{folder_path}placeholder.txt")
-                    empty_blob.upload_from_string("", content_type="text/plain")
-                    print(f"Đã tạo thư mục {folder_path} trên Firebase.")
+                response = requests.get(self.picture.url, stream=True)
+                if response.status_code == 200:
+                    # Tạo tệp tạm thời để lưu ảnh
+                    temp_file = NamedTemporaryFile(delete=True)
+                    temp_file.write(response.content)
+                    temp_file.flush()
+                    
+                    # Lưu ảnh vào trường picture
+                    file_name = os.path.basename(self.picture.url)
+                    self.picture.save(file_name, File(temp_file), save=False)
+                    print(f"Ảnh đã được lưu vào thư mục media: {self.picture.path}")
+                else:
+                    print("Không thể tải ảnh từ link được cung cấp.")
             except Exception as e:
-                print(f"Lỗi khi kết nối tới Firebase hoặc tạo thư mục: {e}")
+                print(f"Lỗi khi tải ảnh: {e}")
         
+        # Tiếp tục với phương thức lưu như cũ
         super().save(*args, **kwargs)
+        
+        # Đẩy ảnh lên Firebase với tên là "0.<định dạng ảnh>"
+        if self.picture:
+            folder_path = f"images/{self.name}/"
+            extension = os.path.splitext(self.picture.path)[-1]  # Lấy định dạng ảnh từ đường dẫn
+            bucket = storage.bucket()
+            blob = bucket.blob(f"{folder_path}0{extension}")  # Đặt tên ảnh là "0.<định dạng>"
 
-    def delete_folder_from_firebase(self):
-        """Xóa tất cả các blobs trong thư mục của người dùng trên Firebase theo tên và lưu tên thư mục đã xóa"""
-        folder_path = f"images/{self.name}/"  # Lấy thư mục theo tên người dùng
-        bucket = storage.bucket()
-        blobs = bucket.list_blobs(prefix=folder_path)
-
-        deleted_files = []
-
-        # Xóa từng blob trong thư mục
-        for blob in blobs:
             try:
-                blob.delete()
-                deleted_files.append(blob.name)
-                print(f"Đã xóa file {blob.name} thành công.")
+                blob.upload_from_filename(self.picture.path)
+                print(f"Ảnh đã được tải lên Firebase tại {folder_path}0{extension}")
             except Exception as e:
-                print(f"Lỗi khi xóa file {blob.name}: {e}")
+                print(f"Lỗi khi đẩy ảnh lên Firebase: {e}")
+    
+    # Tín hiệu để xóa ảnh trên Firebase khi xóa UserProfile
+@receiver(post_delete, sender=UserProfile)
+def delete_picture_on_firebase(sender, instance, **kwargs):
+    if instance.picture:
+        folder_path = f"images/{instance.name}/"
+        extension = os.path.splitext(instance.picture.path)[-1]
+        bucket = storage.bucket()
+        blob = bucket.blob(f"{folder_path}0{extension}")
 
-        # Lưu lại tên các thư mục đã xóa vào trường `deleted_folders`
-        if deleted_files:
-            deleted_folders = "\n".join(deleted_files)
-            self.deleted_folders = deleted_folders
-            self.save()  # Lưu lại thông tin vào cơ sở dữ liệu
+        try:
+            blob.delete()
+            print(f"Ảnh đã được xóa khỏi Firebase tại {folder_path}0{extension}")
+        except Exception as e:
+            print(f"Lỗi khi xóa ảnh trên Firebase: {e}")
 
-        return deleted_files
+
+
+# from authentication.models import UserProfile
+
+
+# profiles = UserProfile.objects.all()
+# for profile in profiles:
+#     print(f"Name: {profile.name}")
+#     print(f"Picture: {profile.picture}")
+#     print(f"Age: {profile.age}")
+#     print(f"Sex: {profile.sex}")
+#     print(f"Date join: {profile.date_join}")
+#     print(f"Email: {profile.email}")
+#     print(f"Status: {profile.data}")
+#     print("------------")

@@ -725,6 +725,28 @@ libgl1-mesa-glx
 
 ```
 
+```bash
+python manage.py shell
+```
+
+
+```python
+from authentication.models import UserProfile
+```
+
+```python
+profiles = UserProfile.objects.all()
+for profile in profiles:
+    print(f"Name: {profile.name}")
+    print(f"Picture: {profile.picture}")
+    print(f"Age: {profile.age}")
+    print(f"Sex: {profile.sex}")
+    print(f"Date join: {profile.date_join}")
+    print(f"Email: {profile.email}")
+    print(f"Status: {profile.data}")
+    print("------------")
+```
+
 ## License
 
 This project is licensed under the terms of the MIT license.

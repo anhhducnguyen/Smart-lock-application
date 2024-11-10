@@ -59,7 +59,9 @@ SECRET_KEY = 'django-insecure-f7bv8qrx=j^kl(tvvjo5+g&a)+8ut^j@wbc4m+!kswr=(68_^-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'project-1233-6f93642d7963.herokuapp.com'
+    'project-1233-6f93642d7963.herokuapp.com',
+    '127.0.0.1',
+    'localhost',
     ]
 # ALLOWED_HOSTS = ['*']
 
@@ -125,7 +127,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 load_dotenv()
 
 # ________________________________________
-# connect aiven.io
+# connect aiven.io or mysql 
 # ________________________________________
 DATABASES = {
     "default": {
@@ -249,9 +251,9 @@ UNFOLD = {
         },
     },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
-    "LOGIN": {
-        "image": lambda request: static("icons/illustration.jpg"),
-    },
+    # "LOGIN": {
+    #     "image": lambda request: static("icons/illustration.jpg"),
+    # },
     # "SITE_TITLE": None,
     "SITE_TITLE": _("Smart lock"),
     "SITE_HEADER": "Smart lock",
