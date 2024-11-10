@@ -8,6 +8,7 @@
 - [Deployment](#deployment)
 - [Send Email](#send-email)
 - [Google SSO](#google-sso)
+- [Firebase](#firebase)
 - [Django Framework](#django-framework)
 - [Security in Django](#security-in-django)
 - [License](#license)

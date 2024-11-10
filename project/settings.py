@@ -251,9 +251,9 @@ UNFOLD = {
         },
     },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
-    # "LOGIN": {
-    #     "image": lambda request: static("icons/banner-BdwIal-V.jpg"),
-    # },
+    "LOGIN": {
+        "image": lambda request: static("icons/banner-BdwIal-V.jpg"),
+    },
     # "SITE_TITLE": None,
     "SITE_TITLE": _("Smart lock"),
     "SITE_HEADER": "Smart lock",

@@ -5,6 +5,8 @@ from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
 from django.templatetags.static import static
 from unfold.decorators import action, display
+from authentication.sites import formula_admin_site
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from unfold.contrib.filters.admin import (
     ChoicesDropdownFilter,
     RangeDateFilter,
@@ -14,6 +16,9 @@ from unfold.contrib.filters.admin import (
 )
 from django.core.validators import EMPTY_VALUES
 from django.db.models import Q
+
+from authentication import models
+from unfold.contrib.forms.widgets import WysiwygWidget
 
 
 class FullNameFilter(TextFilter):
@@ -80,6 +85,32 @@ class CustomUserAdmin(ModelAdmin):
     #         },
     #     ),
     # )
+    filter_horizontal = (
+        "groups",
+        "user_permissions",
+    )
+    # formfield_overrides = {
+    #     models.TextField: {
+    #         "widget": WysiwygWidget,
+    #     }
+    # }
+    readonly_fields = ["last_login", "date_joined"]
+
+    @display(description=("User"))
+    def display_header(self, instance: User):
+        return instance.username
+
+    @display(description=("Staff"), boolean=True)
+    def display_staff(self, instance: User):
+        return instance.is_staff
+
+    @display(description=("Superuser"), boolean=True)
+    def display_superuser(self, instance: User):
+        return instance.is_superuser
+
+    @display(description=("Created"))
+    def display_created(self, instance: User):
+        return instance.created_at
 
 from unfold.admin import TabularInline
 
@@ -90,9 +121,12 @@ class MyInline(TabularInline):
 
 
 
-class CustomGroupAdmin(ModelAdmin):
-    search_fields = ('name',)
-    # pass
+# class CustomGroupAdmin(ModelAdmin):
+#     search_fields = ('name',)
+
+@admin.register(Group, site=formula_admin_site)
+class CustomGroupAdmin(BaseGroupAdmin, ModelAdmin):
+    pass
 
    
 class CustomGoogleSSOUserAdmin(ModelAdmin):
@@ -155,6 +189,7 @@ from django.utils.html import mark_safe
 
 class UserProfileAdmin(unfold_admin.ModelAdmin):
     list_display = ('display_picture', 'name', 'age', 'sex', 'date_join', 'email', "display_status",)  # Hiển thị tên và ảnh đầu tiên
+    # list_display = ('picture', 'name', 'age', 'sex', 'date_join', 'email', "display_status",)
     search_fields = ('name',)  # Tìm kiếm theo tên (chú ý dấu phẩy để định nghĩa tuple)
     list_filter = ('name', 'age', 'sex', 'date_join', 'email')
 
@@ -166,7 +201,7 @@ class UserProfileAdmin(unfold_admin.ModelAdmin):
     ]
     list_filter_submit = True
     list_fullwidth = True
-    change_list_template = "train/button_form.html"
+    # change_list_template = "train/button_form.html"
 
     
 
