@@ -252,7 +252,7 @@ UNFOLD = {
     },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
     # "LOGIN": {
-    #     "image": lambda request: static("icons/illustration.jpg"),
+    #     "image": lambda request: static("icons/banner-BdwIal-V.jpg"),
     # },
     # "SITE_TITLE": None,
     "SITE_TITLE": _("Smart lock"),
@@ -265,7 +265,8 @@ UNFOLD = {
         {
             "models": [
                 "auth.user",
-                "auth.group"
+                # "auth.group",
+                "authentication.userprofile"
             ],
             "items": [
                 {
@@ -273,10 +274,15 @@ UNFOLD = {
                     "icon": "sports_motorsports",
                     "link": reverse_lazy("admin:auth_user_changelist"),
                 },
+                # {
+                #     "title": _("Groups"),
+                #     "icon": "precision_manufacturing",
+                #     "link": reverse_lazy("admin:auth_group_changelist"),
+                # },
                 {
-                    "title": _("Groups"),
-                    "icon": "precision_manufacturing",
-                    "link": reverse_lazy("admin:auth_group_changelist"),
+                    "title": _("User Profiles"),  # Tên tiêu đề cho UserProfile
+                    "icon": "person_outline",     # Biểu tượng phù hợp cho UserProfile
+                    "link": reverse_lazy("admin:authentication_userprofile_changelist"),  # Đường link đến danh sách UserProfile
                 },
             ],
         },
@@ -306,11 +312,11 @@ UNFOLD = {
                         "icon": "bar_chart",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:index"),
                     },
-                    {
-                        "title": _("User profiles"),
-                        "icon": "star",
-                        "link": reverse_lazy("admin:authentication_userprofile_changelist"),
-                    }, 
+                    # {
+                    #     "title": _("User profiles"),
+                    #     "icon": "star",
+                    #     "link": reverse_lazy("admin:authentication_userprofile_changelist"),
+                    # }, 
                 ],
             },
             {

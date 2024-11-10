@@ -4,16 +4,22 @@
 <style>
     .button-container {
         display: flex;
-        justify-content: flex-end; /* Căn sang bên phải */
+        justify-content: flex-end;
         margin-bottom: 10px;
     }
     .my-custom-button {
-        background-color: #9333ea;
+        /* background-color: #9333ea; */
         color: white;
         border: none;
-        border-radius: 5px;
-        padding: 8px 16px;
+        border-radius: 50%;
+        width: 40px; /* Chiều rộng của nút */
+        height: 40px; /* Chiều cao của nút, đảm bảo bằng chiều rộng */
         cursor: pointer;
+        
+        /* Center icon */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .my-custom-button:hover {
         background-color: #9333ea;
@@ -23,7 +29,9 @@
 
 {% block content %}
     <div class="button-container">
-        <button class="my-custom-button">My Custom Button</button>
+        <button class="my-custom-button">
+            <span class="material-symbols-outlined">download_2</span> 
+        </button>
     </div>
     {{ block.super }}
 {% endblock %}
