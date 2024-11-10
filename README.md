@@ -447,6 +447,18 @@ Google SSO button.
 
 ## Firebase
 
+Step 1: Đầu tiên bạn cần vào trang [firebase](https://firebase.google.com/), đăng nhập tài khoản là bắt buộc.
+
+Step 2: Chọn `Go to console` ở góc trên phía bên phải màn hình
+
+Step 3: Chọn `Create a project` để tạo dự án mới, đặt tên cho dự án và chọn `Continue` 
+
+Step 4: Chọn `Default Account for Firebase`, rồi chọn `Create project` chờ và chọn `Continue`
+
+Step 5: Tại `Project Overview` chọn `Storage` 
+
+[Video hướng dẫn](https://www.youtube.com/watch?v=-IFRVMEhZDc)
+
 
 ## Django Framework
 
