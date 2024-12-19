@@ -762,6 +762,12 @@ for profile in profiles:
     print("------------")
 ```
 
+Nạp dữ liệu cho models
+
+```bash
+python manage.py loaddata 0001_userprofile.json
+```
+
 ## License
 
 This project is licensed under the terms of the MIT license.

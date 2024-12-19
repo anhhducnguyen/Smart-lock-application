@@ -7,6 +7,7 @@ from django.templatetags.static import static
 from unfold.decorators import action, display
 from authentication.sites import formula_admin_site
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from unfold.contrib.filters.admin import RangeDateFilter, RangeDateTimeFilter
 from unfold.contrib.filters.admin import (
     ChoicesDropdownFilter,
     RangeDateFilter,
@@ -198,6 +199,7 @@ class UserProfileAdmin(unfold_admin.ModelAdmin):
     list_filter = [
         FullNameFilter,
         ("data", ChoicesDropdownFilter),
+        ("date_join", RangeDateFilter),
     ]
     list_filter_submit = True
     list_fullwidth = True
