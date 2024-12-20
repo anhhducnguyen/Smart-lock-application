@@ -255,11 +255,22 @@ UNFOLD = {
         "image": lambda request: static("icons/banner-BdwIal-V.jpg"),
     },
     # "SITE_TITLE": None,
-    "SITE_TITLE": _("Smart lock"),
-    "SITE_HEADER": "Smart lock",
-    # "SITE_SYMBOL": "directions_car",
-    "SITE_SYMBOL": "fingerprint",
-    # "SITE_SYMBOL": "icons/icon.svg",
+    # "SITE_TITLE": _("Smart lock"),
+    # "SITE_HEADER": "Smart lock",
+
+    # "SITE_SYMBOL": "fingerprint",
+
+    "SITE_ICON": {
+        "light": lambda request: static("logo/pka.png"),  # light mode
+        "dark": lambda request: static("logo/pka.png"),   # dark mode
+    },
+
+    "SITE_LOGO": {
+        "light": lambda request: static("logo/pka.png"),  # light mode
+        "dark": lambda request: static("logo/pka.png"),   # dark mode
+    },
+
+
     "TABS": 
     [
         {
