@@ -33,7 +33,7 @@ python manage.py runserver
 
 **Step 4 .** Create the virtual machine
 
-`` `bash
+```bash
 python -m venv myenv
 ```
 
@@ -95,7 +95,7 @@ gunicorn==22.0.0
 web: gunicorn project.wsgi --log-file -
 ```
 
-* *Step 10 .** Make sure `settings.py` contains
+**Step 10 .** Make sure `settings.py` contains
 
 - Helps avoid losing `css`
 
