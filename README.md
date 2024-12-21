@@ -9,6 +9,7 @@
 - [Send Email](#send-email)
 - [Google SSO](#google-sso)
 - [Firebase](#firebase)
+- [Check](#check)
 - [Django Framework](#django-framework)
 - [Security in Django](#security-in-django)
 - [License](#license)
@@ -53,13 +54,24 @@ python -m venv myenv
 touch .env
 ```
 
-**Step 6 .** Kích hoạt máy ảo
+**Step 7 .** Trong file `.env`
+
+```bash
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+DB_HOST=your_database_host
+DB_PORT=your_database_port
+```
+
+**Step 8 .** Kích hoạt máy ảo
 
 ```bash
 .\venv\Scripts\activate
 ```
 
-**Step 7 .** Tạo file `requirements.txt` và file `Procfile `
+**Step 9 .** Tạo file `requirements.txt` và file `Procfile `
 
 - Tạo file `requirements.txt`
 
@@ -88,7 +100,7 @@ touch .env
     web: gunicorn project.wsgi --log-file -
     ```
 
-**Step 8 .** Đảm bảo `settings.py` có chứa
+**Step 10 .** Đảm bảo `settings.py` có chứa
 
 - Giúp không bị mất `css`
 
@@ -100,10 +112,32 @@ touch .env
 - Đảm bảo có chứa tên miền
   
   ```python
-  ALLOWED_HOSTS = [
-      'chat-123-b5f27fe98cab.herokuapp.com',
-  ]
+    ALLOWED_HOSTS = [
+        'project-1233-6f93642d7963.herokuapp.com',
+        '127.0.0.1',
+        'localhost',
+    ]
   ```
+**Step 11 .** Tạo dữ liệu giả vào các file .json
+
+```bash
+python authentication\fake_data\employees.py
+python authentication\fake_data\users.py
+```
+
+**Step 12 .** Nạp dữ liệu cho models
+
+```bash
+python manage.py loaddata 0001_userprofile.json
+python manage.py loaddata 0002_user.json
+python manage.py loaddata 0003_employee.json
+```
+
+**Step 13 .** Chạy chương trình
+
+```bash
+python manage.py runserver
+```
 
 ## Deployment
 
@@ -137,25 +171,26 @@ venv/
 
 **Step 5 .** Kết nối với `project-1233` tên app mà bạn đã đặt trên `Heroku`
 
-```
+```bash
 heroku git:remote -a project-1233
 ```
 
 
-```
+```bash
 git add .
 ```
 
-```
+```bash
 git commit -am "make it better"
 ```
 
-```
+```bash
 git push heroku master
 ```
 
 **Step 6 .** Cài đặt thư viện
-```
+
+```bash
 pip install -r requirements.txt
 ```
 
@@ -165,7 +200,7 @@ pip install -r requirements.txt
 
 2. Đảm bảo requirements.txt chứa các thư viện sau
 
-```
+```python
 Django==5.0.6
 django-heroku==0.3.1
 gunicorn==22.0.0
@@ -175,19 +210,19 @@ python-dotenv==1.0.1
 
 3. Cài lại các thư viện trên bằng
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 4. Đảm bảo chứa tên miền trong `setting.py`
 
-```
+```python
 ALLOWED_HOSTS = ['project-1233-6f93642d7963.herokuapp.com']
 ```
 
 5. Đảm bảo có các dòng này trong `setting.py`
 
-```
+```python
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -212,7 +247,7 @@ DATABASES = {
 
 7. Cấu hình kết nối `aiven.io`
 
-```
+```python
 DB_ENGINE=your_database_engine
 DB_NAME=your_database_name
 DB_USER=your_database_user
@@ -223,15 +258,15 @@ DB_PORT=your_database_port
 
 8. Đẩy code lên `heroku` trừ `db.sqlite3`
 
-```
+```bash
 git add .
 ```
 
-```
+```bash
 git commit -m "connect aiven.io"
 ```
 
-```
+```bash
 git push heroku master
 ```
 
@@ -243,7 +278,7 @@ git push heroku master
 
 **Step 1 .** Tạo `authentication`
 
-```
+```bash
 python manage.py startapp authentication
 ```
 
@@ -317,7 +352,7 @@ urlpatterns = [
 
 **Step 5 .** Cài đặt thư viện
 
-```
+```bash
 pip install six
 ```
 
@@ -401,8 +436,6 @@ INSTALLED_APPS = [
    Project Credentials and add them in your `settings.py`:
 
 ```python
-# settings.py
-
 GOOGLE_SSO_CLIENT_ID = "your client id here"
 GOOGLE_SSO_PROJECT_ID = "your project id here"
 GOOGLE_SSO_CLIENT_SECRET = "your client secret here"
@@ -458,6 +491,77 @@ Step 4: Chọn `Default Account for Firebase`, rồi chọn `Create project` ch�
 Step 5: Tại `Project Overview` chọn `Storage` 
 
 [Video hướng dẫn](https://www.youtube.com/watch?v=-IFRVMEhZDc)
+
+
+
+## Check
+
+```shell
+heroku run python manage.py shell --app project-1233
+```
+
+```python
+from django.apps import apps
+
+auth_models = apps.get_app_config('auth').get_models()
+for model in auth_models:
+    print(model)
+
+```
+
+```python
+from django.apps import apps
+
+for app in apps.get_app_configs():
+    for model in app.get_models():
+        if model.__name__ == 'GoogleSSOUser':
+            print(f"Found GoogleSSOUser in app: {app.name}")
+            print(model)
+```
+
+```shell
+heroku run python manage.py migrate --app project-1233
+```
+
+```shell
+heroku run python manage.py makemigrations --app chat-123
+```
+
+```shell
+heroku run python manage.py shell --app project-1233
+```
+
+Cài thêm package
+
+```bash
+heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
+
+touch Aptfile
+
+libgl1-mesa-glx
+```
+
+```bash
+python manage.py shell
+```
+
+
+```python
+from authentication.models import UserProfile
+```
+
+```python
+profiles = UserProfile.objects.all()
+for profile in profiles:
+    print(f"Name: {profile.name}")
+    print(f"Picture: {profile.picture}")
+    print(f"Age: {profile.age}")
+    print(f"Sex: {profile.sex}")
+    print(f"Date join: {profile.date_join}")
+    print(f"Email: {profile.email}")
+    print(f"Status: {profile.data}")
+    print("------------")
+```
 
 
 ## Django Framework
@@ -682,95 +786,6 @@ myproject/
 
     - Sử dụng các công cụ kiểm tra lỗ hổng như `Snyk` hoặc `OWASP Dependency-Check`.
 
-
-
-
-
-
-
-```shell
-heroku run python manage.py shell --app project-1233
-```
-
-
-```python
-from django.apps import apps
-
-auth_models = apps.get_app_config('auth').get_models()
-for model in auth_models:
-    print(model)
-
-```
-
-```python
-from django.apps import apps
-
-for app in apps.get_app_configs():
-    for model in app.get_models():
-        if model.__name__ == 'GoogleSSOUser':
-            print(f"Found GoogleSSOUser in app: {app.name}")
-            print(model)
-
-```
-
-```shell
-heroku run python manage.py migrate --app project-1233
-```
-
-```shell
-heroku run python manage.py makemigrations --app chat-123
-```
-
-
-
-```shell
-heroku run python manage.py shell --app project-1233
-```
-
-
-Cài thêm package
-
-```
-
-heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
-
-touch Aptfile
-
-libgl1-mesa-glx
-
-```
-
-```bash
-python manage.py shell
-```
-
-
-```python
-from authentication.models import UserProfile
-```
-
-```python
-profiles = UserProfile.objects.all()
-for profile in profiles:
-    print(f"Name: {profile.name}")
-    print(f"Picture: {profile.picture}")
-    print(f"Age: {profile.age}")
-    print(f"Sex: {profile.sex}")
-    print(f"Date join: {profile.date_join}")
-    print(f"Email: {profile.email}")
-    print(f"Status: {profile.data}")
-    print("------------")
-```
-
-Nạp dữ liệu cho models
-
-```bash
-python manage.py loaddata 0001_userprofile.json
-```
-
 ## License
 
 This project is licensed under the terms of the MIT license.
-
-
-https://undraw.co/illustrations
