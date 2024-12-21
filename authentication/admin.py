@@ -1,10 +1,14 @@
+from django.utils.timezone import now, timedelta
 from pyexpat.errors import messages
+import random
 from django.contrib import admin
 from django.contrib.auth.models import User, Group  
 from unfold.admin import ModelAdmin
 from django_google_sso.models import GoogleSSOUser
 from django.templatetags.static import static
 from unfold.decorators import action, display
+from django.urls import path, reverse_lazy
+from unfold.components import BaseComponent, register_component
 from authentication.sites import formula_admin_site
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from unfold.contrib.filters.admin import RangeDateFilter, RangeDateTimeFilter
@@ -21,6 +25,9 @@ from django.db.models import Q
 from authentication import models
 from unfold.contrib.forms.widgets import WysiwygWidget
 
+from authentication.views import MyStore, MyStatistical
+
+
 
 class FullNameFilter(TextFilter):
     title = ("username")
@@ -33,6 +40,41 @@ class FullNameFilter(TextFilter):
         return queryset.filter(
             Q(first_name__icontains=self.value()) | Q(last_name__icontains=self.value())
         )
+    
+class GreaterSalaryFilter(TextFilter):
+    title = "Salary (greater than)"  # Tiêu đề của bộ lọc
+    parameter_name = "salary"
+
+    def queryset(self, request, queryset):
+        # Kiểm tra nếu không có giá trị được nhập
+        if self.value() in [None, ""]:
+            return queryset
+
+        try:
+            # Chuyển giá trị nhập vào thành số và lọc
+            salary_value = float(self.value())
+            return queryset.filter(salary__gt=salary_value)
+        except ValueError:
+            # Nếu nhập không phải là số, trả về queryset ban đầu
+            return queryset
+
+class LessSalaryFilter(TextFilter):
+    title = "Salary (less than)"  # Tiêu đề của bộ lọc
+    parameter_name = "salary"
+
+    def queryset(self, request, queryset):
+        # Kiểm tra nếu không có giá trị được nhập
+        if self.value() in [None, ""]:
+            return queryset
+
+        try:
+            # Chuyển giá trị nhập vào thành số và lọc
+            salary_value = float(self.value())
+            return queryset.filter(salary__lt=salary_value)
+        except ValueError:
+            # Nếu nhập không phải là số, trả về queryset ban đầu
+            return queryset
+
 
 # Định nghĩa các lớp quản trị tùy chỉnh
 class CustomUserAdmin(ModelAdmin):
@@ -138,7 +180,7 @@ class CustomGoogleSSOUserAdmin(ModelAdmin):
     )
 
 from django.contrib import admin
-from .models import Status, UserProfile
+from .models import Employee, Status, UserProfile
 from firebase_admin import storage
 from django.utils.html import format_html
 
@@ -248,19 +290,144 @@ class UserProfileAdmin(unfold_admin.ModelAdmin):
     first_image.short_description = "First Image"  # Tiêu đề cho cột ảnh
     first_image.allow_tags = True  # Cho phép hiển thị HTML (nếu cần)
 
+    def get_urls(self):
+        return super().get_urls() + [
+            path(
+                "custom-url-path",
+                MyStatistical.as_view(model_admin=self),
+                name="custom_view",
+            ),
+            path(
+                "store-url-path",
+                MyStore.as_view(model_admin=self),
+                name="store_view",
+            ),
+        ]
+    
+@register_component
+class TrackerComponent(BaseComponent):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = []
+
+        for i in range(1, 72):
+            has_value = random.choice([True, True, True, True, False])
+            color = None
+            tooltip = None
+            if has_value:
+                value = random.randint(2, 6)
+                color = f"bg-primary-{value}00 dark:bg-primary-{9 - value}00"
+                tooltip = f"Value {value}"
+
+            data.append(
+                {
+                    "color": color,
+                    "tooltip": tooltip,
+                }
+            )
+
+        context["data"] = data
+        return context
+
+@register_component
+class CohortComponent(BaseComponent):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rows = []
+        headers = []
+        cols = []
+
+        dates = reversed(
+            [(now() - timedelta(days=x)).strftime("%B %d, %Y") for x in range(8)]
+        )
+        groups = range(1, 10)
+
+        for row_index, date in enumerate(dates):
+            cols = []
+
+            for col_index, _col in enumerate(groups):
+                color_index = 8 - row_index - col_index
+                col_classes = []
+
+                if color_index > 0:
+                    col_classes.append(
+                        f"bg-primary-{color_index}00 dark:bg-primary-{9 - color_index}00"
+                    )
+
+                if color_index >= 4:
+                    col_classes.append("text-white dark:text-gray-600")
+
+                value = random.randint(
+                    4000 - (col_index * row_index * 225),
+                    5000 - (col_index * row_index * 225),
+                )
+
+                subtitle = f"{random.randint(10, 100)}%"
+
+                if value <= 0:
+                    value = 0
+                    subtitle = None
+
+                cols.append(
+                    {
+                        "value": value,
+                        "color": " ".join(col_classes),
+                        "subtitle": subtitle,
+                    }
+                )
+
+            rows.append(
+                {
+                    "header": {
+                        "title": date,
+                        "subtitle": f"Total {sum(col['value'] for col in cols):,}",
+                    },
+                    "cols": cols,
+                }
+            )
+
+        for index, group in enumerate(groups):
+            total = sum(row["cols"][index]["value"] for row in rows)
+
+            headers.append(
+                {
+                    "title": f"Group #{group}",
+                    "subtitle": f"Total {total:,}",
+                }
+            )
+        context["data"] = {
+            "headers": headers,
+            "rows": rows,
+        }
+
+
+class EmployeeAdmin(unfold_admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'gender', 'age', 'salary')
+    search_fields = ('first_name', 'last_name')  # Tìm kiếm theo tên (chú ý dấu phẩy để định nghĩa tuple)
+    list_filter = ('first_name', 'last_name', 'gender', 'age', 'salary')
+
+    list_filter = [
+        FullNameFilter,
+        GreaterSalaryFilter,
+    ]
+    list_filter_submit = True
+    list_fullwidth = True
+
+admin.site.register(Employee, EmployeeAdmin)
+
+
+
 # Đăng ký model
 admin.site.register(UserProfile, UserProfileAdmin)
 
-
-
-admin.site.unregister(User)  # Hủy đăng ký mặc định
-admin.site.unregister(Group)  # Hủy đăng ký mặc định
+admin.site.unregister(User)  
+admin.site.unregister(Group)  
 # admin.site.unregister(GoogleSSOUser)
 # admin.site.register(GoogleSSOUser)
 # admin.site.unregister(UserProfile) 
 
-admin.site.register(User, CustomUserAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
-admin.site.register(Group, CustomGroupAdmin)  # Đăng ký với lớp quản trị tùy chỉnh
+admin.site.register(User, CustomUserAdmin)  
+admin.site.register(Group, CustomGroupAdmin) 
 # admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
 
 

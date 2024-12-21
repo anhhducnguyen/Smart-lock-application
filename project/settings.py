@@ -271,33 +271,33 @@ UNFOLD = {
     },
 
 
-    "TABS": 
-    [
-        {
-            "models": [
-                "auth.user",
-                # "auth.group",
-                "authentication.userprofile"
-            ],
-            "items": [
-                {
-                    "title": _("Users"),
-                    "icon": "sports_motorsports",
-                    "link": reverse_lazy("admin:auth_user_changelist"),
-                },
-                # {
-                #     "title": _("Groups"),
-                #     "icon": "precision_manufacturing",
-                #     "link": reverse_lazy("admin:auth_group_changelist"),
-                # },
-                {
-                    "title": _("User Profiles"),  # Tên tiêu đề cho UserProfile
-                    "icon": "person_outline",     # Biểu tượng phù hợp cho UserProfile
-                    "link": reverse_lazy("admin:authentication_userprofile_changelist"),  # Đường link đến danh sách UserProfile
-                },
-            ],
-        },
-    ],
+    # "TABS": 
+    # [
+    #     {
+    #         "models": [
+    #             "auth.user",
+    #             # "auth.group",
+    #             "authentication.userprofile"
+    #         ],
+    #         "items": [
+    #             {
+    #                 "title": _("Users"),
+    #                 "icon": "sports_motorsports",
+    #                 "link": reverse_lazy("admin:auth_user_changelist"),
+    #             },
+    #             # {
+    #             #     "title": _("Groups"),
+    #             #     "icon": "precision_manufacturing",
+    #             #     "link": reverse_lazy("admin:auth_group_changelist"),
+    #             # },
+    #             {
+    #                 "title": _("User Profiles"),  # Tên tiêu đề cho UserProfile
+    #                 "icon": "person_outline",     # Biểu tượng phù hợp cho UserProfile
+    #                 "link": reverse_lazy("admin:authentication_userprofile_changelist"),  # Đường link đến danh sách UserProfile
+    #             },
+    #         ],
+    #     },
+    # ],
     "SIDEBAR": {
         "show_search": True,  # Search in applications and models names
         "show_all_applications": True,  # Dropdown with all applications and models
@@ -315,19 +315,23 @@ UNFOLD = {
                     {
                         "title": _("Store"),
                         "icon": "storefront",  # Supported icon set: https://fonts.google.com/icons
-                        "link": reverse_lazy("admin:index"),
-                        "badge": "project.utils.badge_callback",
+                        "link": reverse_lazy("admin:store_view"),
                     },
                     {
-                        "title": _("Statistical"),
-                        "icon": "bar_chart",  # Supported icon set: https://fonts.google.com/icons
-                        "link": reverse_lazy("admin:index"),
+                        "title": _("ChatGPT"),
+                        "icon": "forum",  # Supported icon set: https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:custom_view"),
                     },
                     # {
-                    #     "title": _("User profiles"),
-                    #     "icon": "star",
-                    #     "link": reverse_lazy("admin:authentication_userprofile_changelist"),
-                    # }, 
+                    #     "title": _("Users"),
+                    #     "icon": "person",
+                    #     "link": reverse_lazy("admin:auth_user_changelist"),
+                    # },
+                    # {
+                    #     "title": _("Groups"),
+                    #     "icon": "group",
+                    #     "link": reverse_lazy("admin:auth_group_changelist"),
+                    # },
                 ],
             },
             {
@@ -343,9 +347,10 @@ UNFOLD = {
                         "title": _("Groups"),
                         "icon": "group",
                         "link": reverse_lazy("admin:auth_group_changelist"),
-                    },
+                    },                  
                 ],
             },
+            
             # {
             #     "separator": True,
             #     "items": [

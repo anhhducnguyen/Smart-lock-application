@@ -30,6 +30,18 @@ from datetime import datetime
 from PIL import Image
 from io import BytesIO
 
+from django.views.generic import RedirectView, TemplateView
+from unfold.views import UnfoldModelAdminViewMixin
+
+class MyStatistical(UnfoldModelAdminViewMixin, TemplateView):
+    title = "ChatGPT"  # required: custom page header title
+    permission_required = ()  # required: tuple of permissions
+    template_name = "authentication/statistical_page.html"
+
+class MyStore(UnfoldModelAdminViewMixin, TemplateView):
+    title = "Store Title"  # required: custom page header title
+    permission_required = ()  # required: tuple of permissions
+    template_name = "authentication/store_page.html"
 
 bucket = storage.bucket()
 

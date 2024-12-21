@@ -13,6 +13,20 @@ class Status(models.TextChoices):
     ACTIVE = "ACTIVE", ("Active")
     INACTIVE = "INACTIVE", ("Inactive")
 
+from django.db import models
+
+class Employee(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+    gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female')])
+    age = models.PositiveIntegerField()
+    salary = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
 class UserProfile(models.Model):
     name = models.CharField(max_length=100, unique=True)
     picture = models.ImageField("picture", null=True, blank=True, default=None)

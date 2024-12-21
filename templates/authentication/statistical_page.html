@@ -1,0 +1,95 @@
+{% extends "unfold/layouts/base.html" %}
+
+{% block head %}
+    <!-- Thêm link font Inter từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto p-4 flex flex-col justify-between h-screen font-sans bg-gray-100 dark:bg-gray-900 dark:text-white">
+        <!-- Vùng hiển thị phản hồi của ChatGPT -->
+        <div id="chat-output" class="mt-6 border-t pt-4 flex-1 overflow-auto max-h-[70vh] p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <div class="chat-message mb-4 flex items-start justify-start">
+                <!-- Thay thế tên ChatGPT bằng hình ảnh -->
+                {% load static %}
+                <img src="{% static 'logo/chat-pka.png' %}" alt="ChatGPT" class="w-6 h-6 inline-block mr-2">
+                <p class="text-gray-700 dark:text-gray-300 text-base font-inter">Hi! Try asking me a question.</p>
+            </div>
+        </div>
+
+        <!-- Form nhập liệu và nút gửi -->
+        <div class="relative flex justify-center items-center mb-4 mt-6">
+            <div class="relative w-3/5 max-w-lg"> <!-- Thêm div bao ngoài -->
+                <!-- Textarea được căn giữa và cố định ở đáy -->
+                <textarea id="user-input" class="w-full p-3 border-2 border-indigo-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder-gray-400 dark:bg-gray-700 dark:text-white text-base font-inter" rows="2" placeholder="ChatGPT Message..."></textarea>
+                <!-- Nút gửi -->
+                <div class="absolute bottom-4 right-4 bg-red-600 hover:bg-red-700 p-2 w-12 h-12 rounded-full flex items-center justify-center">
+                    <button id="send-button" class="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full focus:outline-none transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', function() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput) {
+                const chatOutput = document.getElementById('chat-output');
+                
+                // Tạo tin nhắn người dùng
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('chat-message', 'mb-4', 'flex', 'items-start', 'justify-end');
+                newMessage.innerHTML = `<strong class="text-blue-600 dark:text-blue-400"></strong><p class="text-gray-800 dark:text-gray-200 text-base font-inter">${userInput}</p>`;
+                chatOutput.appendChild(newMessage);
+                
+                // Xóa input sau khi gửi
+                document.getElementById('user-input').value = ''; 
+
+                // Đảm bảo cuộn xuống cuối sau khi người dùng gửi tin nhắn
+                chatOutput.scrollTop = chatOutput.scrollHeight;
+
+                // Phản hồi từ ChatGPT (Giả lập)
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.classList.add('chat-message', 'mb-4', 'flex', 'items-start', 'justify-start');
+                    botMessage.innerHTML = `<img src="{% static 'logo/chat-pka.png' %}" alt="ChatGPT" class="w-6 h-6 inline-block mr-2"><strong class="text-indigo-600 dark:text-indigo-300"></strong><p class="text-gray-700 dark:text-gray-300 text-base font-inter">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam quam ut, eos iure unde quaerat aliquid ullam optio eligendi aperiam. Nam magni vero, voluptate corporis cumque nihil. Nobis, soluta et.
+                        
+                        
+                        </p>`;
+                    chatOutput.appendChild(botMessage);
+                    
+                    // Tự động cuộn xuống cuối sau khi hệ thống phản hồi
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                }, 1000); // Giả lập thời gian phản hồi
+            }
+        });
+    </script>
+{% endblock %}
