@@ -1,6 +1,6 @@
 # Smart lock application
 
-[Link to website](https://project-1233-6f93642d7963.herokuapp.com/)
+[Liên kết đến trang web](https://project-1233-6f93642d7963.herokuapp.com/)
 
 ## Table of Contents
 
@@ -10,48 +10,53 @@
 - [Google SSO](#google-sso)
 - [Firebase](#firebase)
 - [Check](#check)
+- [Django Framework](#django-framework)
+- [Security in Django](#security-in-django)
+- [License](#license)
+
+
 
 ## Installation
 
-**Step 1 .** Create a project named `project`
+**Step 1 .** Tạo dự án có tên `project`
 
-bash
+```bash
 django-admin startproject project
 ```
 
-**Step 2 .** Migrate the database
+**Step 2 .** Di chuyển cơ sở dữ liệu
 
-bash
+```bash
 python manage.py migrate
 ```
 
-**Step 3 .** Launch website check
+**Step 3 .** Khởi chạy kiểm tra trang web
 
-bash
+```bash
 python manage.py runserver
 ```
 
-**Step 4 .** Create virtual machine
+**Step 4 .** Tạo máy ảo
 
-bash
+```bash
 python -m venv myenv
 ```
 
-**Step 5 .** Create virtual machine
+**Step 5 .** Tạo máy ảo
 
-bash
+```bash
 python -m venv myenv
 ```
 
-**Step 6 .** Create `.env` file
+**Step 6 .** Tạo file `.env`
 
-bash
+```bash
 touch .env
 ```
 
-**Step 7 .** In the `.env` file
+**Step 7 .** Trong file `.env`
 
-bash
+```bash
 DB_ENGINE=django.db.backends.mysql
 DB_NAME=your_database_name
 DB_USER=your_database_user
@@ -60,142 +65,142 @@ DB_HOST=your_database_host
 DB_PORT=your_database_port
 ```
 
-**Step 8 .** Activate the virtual machine
+**Step 8 .** Kích hoạt máy ảo
 
-bash
+```bash
 .\venv\Scripts\activate
 ```
 
-**Step 9 .** Create file `requirements.txt` and file `Procfile `
+**Step 9 .** Tạo file `requirements.txt` và file `Procfile `
 
-- Create file `requirements.txt`
+- Tạo file `requirements.txt`
 
-bash
-touch requirements.txt
-```
+    ```bash
+    touch requirements.txt
+    ```
 
-- Create file `Procfile`
+- Tạo file `Procfile`
 
-bash
-touch Profile
-```
+    ```bash
+    touch Procfile
+    ```
 
 
-- Contents of file `requirements.txt`
+- Nội dung file `requirements.txt`
 
-python
-Django==5.0.6
-django-heroku==0.3.1
-gunicorn==22.0.0
-```
+    ```python
+    Django==5.0.6
+    django-heroku==0.3.1
+    gunicorn==22.0.0
+    ```
 
-- Contents of the `Procfile` file
+- Nội dung file `Procfile`
 
-python
-web: gunicorn project.wsgi --log-file -
-```
+    ```python
+    web: gunicorn project.wsgi --log-file -
+    ```
 
-**Step 10 .** Make sure `settings.py` contains
+**Step 10 .** Đảm bảo `settings.py` có chứa
 
-- Helps not lose `css`
+- Giúp không bị mất `css`
 
-python
-import django_heroku
-django_heroku.settings(locals())
-```
+  ```python
+  import django_heroku
+  django_heroku.settings(locals())
+  ```
 
-- Make sure to include the domain name
+- Đảm bảo có chứa tên miền
   
-python
-ALLOWED_HOSTS = [
-'project-1233-6f93642d7963.herokuapp.com',
-'127.0.0.1',
-'localhost',
-]
-```
-**Step 11 .** Create dummy data into .json files
+  ```python
+    ALLOWED_HOSTS = [
+        'project-1233-6f93642d7963.herokuapp.com',
+        '127.0.0.1',
+        'localhost',
+    ]
+  ```
+**Step 11 .** Tạo dữ liệu giả vào các file .json
 
-bash
+```bash
 python authentication\fake_data\employees.py
 python authentication\fake_data\users.py
 ```
 
-**Step 12 .** Load data to models
+**Step 12 .** Nạp dữ liệu cho models
 
-bash
+```bash
 python manage.py loaddata 0001_userprofile.json
 python manage.py loaddata 0002_user.json
 python manage.py loaddata 0003_employee.json
 ```
 
-**Step 13 .** Run the program
+**Step 13 .** Chạy chương trình
 
-bash
+```bash
 python manage.py runserver
 ```
 
 ## Deployment
 
-**Step 1 .** Create an app on `Heroku` at [Heroku](https://dashboard.heroku.com/)
+**Step 1 .** Tạo app trên `Heroku` tại [Heroku](https://dashboard.heroku.com/)
 
 
-**Step 2 .** Login to `Heroku` using the following command on `powershell` then press `Enter`
+**Step 2 .** Đăng nhập `Heroku` bằng cách sử dụng câu lệnh sau trên `powershell` sau đó nhấn `Enter`
 
-```
-heroku login
-```
+  ```
+  heroku login
+  ```
 
-**Step 3 .** Create repository
+**Step 3 .** Tạo kho lưu trữ
 
 ```
 git init
 ```
 
-**Step 4 .** Create `.gitignore` file repository
+**Step 4 .** Tạo kho file `.gitignore`
 
 ```
 touch .gitignore
 ```
 
-- File content has
+- Nội dung file có
 
 ```
 .env
 venv/
 ```
 
-**Step 5 .** Connect to `project-1233` the app name you set on `Heroku`
+**Step 5 .** Kết nối với `project-1233` tên app mà bạn đã đặt trên `Heroku`
 
-bash
+```bash
 heroku git:remote -a project-1233
 ```
 
 
-bash
+```bash
 git add .
 ```
 
-bash
+```bash
 git commit -am "make it better"
 ```
 
-bash
+```bash
 git push heroku master
 ```
 
-**Step 6 .** Install the library
+**Step 6 .** Cài đặt thư viện
 
-bash
+```bash
 pip install -r requirements.txt
 ```
 
-**Step 7 .** Note this time do not push the `db.sqlite3` file to `heroku` but connect to `aiven.io`
+**Step 7 .** Chú ý lần này không đẩy file `db.sqlite3` lên `heroku` nữa mà kết nối `aiven.io`
 
-1. An `aiven.io` account is required, you can register an account at [aiven](https://console.aiven.io/)
+1. Tài khoản `aiven.io` là bắt buộc, bạn có thể đăng ký tài khoản tại [aiven](https://console.aiven.io/)
 
-2. Make sure requirements.txt contains the following libraries
+2. Đảm bảo requirements.txt chứa các thư viện sau
 
-python
+```python
 Django==5.0.6
 django-heroku==0.3.1
 gunicorn==22.0.0
@@ -203,46 +208,46 @@ mysqlclient==2.2.4
 python-dotenv==1.0.1
 ```
 
-3. Reinstall the above libraries using
+3. Cài lại các thư viện trên bằng
 
-bash
+```bash
 pip install -r requirements.txt
 ```
 
-4. Make sure to include the domain name in `setting.py`
+4. Đảm bảo chứa tên miền trong `setting.py`
 
-python
+```python
 ALLOWED_HOSTS = ['project-1233-6f93642d7963.herokuapp.com']
 ```
 
-5. Make sure you have these lines in `setting.py`
+5. Đảm bảo có các dòng này trong `setting.py`
 
-python
+```python
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 ```
 
-6. Make sure to have these lines in `setting.py` to get data from `.env` file
+6. Đảm bảo có các dòng này trong `setting.py` để lấy dữ liệu từ file `.env`
 
-python
+```python
 load_dotenv()
 
 DATABASES = {
-"default": {
-"ENGINE": os.getenv('DB_ENGINE'),
-"NAME": os.getenv('DB_NAME'),
-"USER": os.getenv('DB_USER'),
-"PASSWORD": os.getenv('DB_PASSWORD'),
-"HOST": os.getenv('DB_HOST'),
-"PORT": os.getenv('DB_PORT'),
-}
-}
+    "default": {
+        "ENGINE": os.getenv('DB_ENGINE'),
+        "NAME": os.getenv('DB_NAME'),
+        "USER": os.getenv('DB_USER'),
+        "PASSWORD": os.getenv('DB_PASSWORD'),
+        "HOST": os.getenv('DB_HOST'),
+        "PORT": os.getenv('DB_PORT'),
+    }
+}   
 ```
 
-7. Configure `aiven.io` connection
+7. Cấu hình kết nối `aiven.io`
 
-python
+```python
 DB_ENGINE=your_database_engine
 DB_NAME=your_database_name
 DB_USER=your_database_user
@@ -251,43 +256,43 @@ DB_HOST=your_database_host
 DB_PORT=your_database_port
 ```
 
-8. Push code to `heroku` except `db.sqlite3`
+8. Đẩy code lên `heroku` trừ `db.sqlite3`
 
-bash
+```bash
 git add .
 ```
 
-bash
+```bash
 git commit -m "connect aiven.io"
 ```
 
-bash
+```bash
 git push heroku master
 ```
 
-8. Configure `.env` on `heroku`
+8. Cấu hình `.env` trên `heroku`
 
 
 
 ## Send Email
 
-**Step 1 .** Create `authentication`
+**Step 1 .** Tạo `authentication`
 
-bash
+```bash
 python manage.py startapp authentication
 ```
 
-**Step 2 .** Make sure to add `setting.py`
+**Step 2 .** Đảm bảo đã thêm vào `setting.py`
 
-python
+```python
 INSTALLED_APPS = [
-'authentication',
+        'authentication',
 ]
 ```
 
-**Step 3 .** Make sure to add to `project/info.py`
+**Step 3 .** Đảm bảo đã thêm vào `project/info.py`
 
-python
+```python
 EMAIL_USE_TLS=True
 EMAIL_HOST=your_email_host
 EMAIL_HOST_USER=your_email_user
@@ -295,75 +300,75 @@ EMAIL_HOST_PASSWORD=your_email_password
 EMAIL_PORT=587
 ```
 
-**Step 3 .** Make sure to add `project/urls.py`
+**Step 3 .** Đảm bảo đã thêm vào `project/urls.py`
 
-python
+```python
 from django.urls import path, include
 
 urlpatterns = [
-path('admin/', admin.site.urls),
-path('', include('authentication.urls'))
+    path('admin/', admin.site.urls),
+    path('', include('authentication.urls'))
 ]
 ```
 
-**Step 4 .** Make sure to add `project/wsgi.py`
+**Step 4 .** Đảm bảo đã thêm vào `project/wsgi.py`
 
-python
+```python
 app = application
 ```
 
-**Step 4 .** Make sure to add `authentication/token.py`
+**Step 4 .** Đảm bảo đã thêm vào `authentication/token.py`
 
-python
+```python
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 from six import text_type
 
 class TokenGenerator(PasswordResetTokenGenerator):
-def _make_hash_value(self,user,timestamp):
-return (
-text_type(user.pk) + text_type(timestamp)
-# text_type(user.profile.signup_confirmation)
-)
+    def _make_hash_value(self,user,timestamp):
+        return (
+        text_type(user.pk) + text_type(timestamp) 
+        # text_type(user.profile.signup_confirmation)
+        )
 
 generate_token = TokenGenerator()
 ```
 
-**Step 5 .** Create `authentication/urls.py`
+**Step 5 .** Tạo `authentication/urls.py`
 
-python
+```python
 from django.contrib import admin
 from django.urls import path, include
 from . import views
 
 urlpatterns = [
-path('', views.home, name='home'),
-path('signup', views.signup, name='signup'),
-path('activate/<uidb64>/<token>', views.activate, name='activate'),
-path('signin', views.signin, name='signin'),
-path('signout', views.signout, name='signout'),
+    path('', views.home, name='home'),
+    path('signup', views.signup, name='signup'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path('signin', views.signin, name='signin'),
+    path('signout', views.signout, name='signout'),
 ]
 ```
 
-**Step 5 .** Install the library
+**Step 5 .** Cài đặt thư viện
 
-bash
+```bash
 pip install six
 ```
 
-**Step 6 .** Make sure this is there so it can find the templates folder `project/settings.py`
+**Step 6 .** Đảm bảo có đoạn này để nó tìm được thư mục templates `project/settings.py`
 
-python
+```python
 TEMPLATES = [
-{
-'DIRS': ["templates"],
-},
+    {
+        'DIRS': ["templates"],
+    },
 ]
 ```
 
-**Step 7 .** Configure gmail in `project/settings.py`
+**Step 7 .** Cấu hình gmail trong `project/settings.py`
 
-python
+```python
 from . info import *
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
@@ -375,7 +380,7 @@ EMAIL_PORT = EMAIL_PORT
 
 
 <p align="center">
-<img src="https://github.com/megalus/django-google-sso/blob/main/docs/images/django-google-sso.png" alt="Django Google SSO"/>
+  <img src="https://github.com/megalus/django-google-sso/blob/main/docs/images/django-google-sso.png" alt="Django Google SSO"/>
 </p>
 <p align="center">
 <em>Easily integrate Google Authentication into your Django projects</em>
@@ -409,7 +414,7 @@ and [django-admin-sso](https://github.com/matthiask/django-admin-sso/)
 
 ### Install
 
-shell
+```shell
 $ pip install django-google-sso
 ```
 
@@ -417,31 +422,31 @@ $ pip install django-google-sso
 
 1. Add the following to your `settings.py` `INSTALLED_APPS`:
 
-python
+```python
 # settings.py
 
 INSTALLED_APPS = [
-# other django apps
-"django.contrib.messages", # Need for Auth messages
-"django_google_sso", # Add django_google_sso
+    # other django apps
+    "django.contrib.messages",  # Need for Auth messages
+    "django_google_sso",  # Add django_google_sso
 ]
 ```
 
 2. In [Google Console](https://console.cloud.google.com/apis/credentials) at _Api -> Credentials_, retrieve your
-Project Credentials and add them in your `settings.py`:
+   Project Credentials and add them in your `settings.py`:
 
-python
+```python
 GOOGLE_SSO_CLIENT_ID = "your client id here"
 GOOGLE_SSO_PROJECT_ID = "your project id here"
 GOOGLE_SSO_CLIENT_SECRET = "your client secret here"
 ```
 
 3. Add the callback uri `http://localhost:8000/google_sso/callback/` in your Google Console, on the "Authorized Redirect
-URL".
+   URL".
 
 4. Let Django Google SSO auto create users for allowable domains:
 
-python
+```python
 # settings.py
 
 GOOGLE_SSO_ALLOWABLE_DOMAINS = ["example.com"]
@@ -449,22 +454,22 @@ GOOGLE_SSO_ALLOWABLE_DOMAINS = ["example.com"]
 
 5. In `urls.py` please add the **Django-Google-SSO** views:
 
-python
+```python
 # urls.py
 
 from django.urls import include, path
 
 urlpatterns = [
-# other urlpatterns...
-path(
-"google_sso/", include("django_google_sso.urls", namespace="django_google_sso")
-),
+    # other urlpatterns...
+    path(
+        "google_sso/", include("django_google_sso.urls", namespace="django_google_sso")
+    ),
 ]
 ```
 
 6. And run migrations:
 
-shell
+```shell
 $ python manage.py migrate
 ```
 
@@ -475,60 +480,60 @@ Google SSO button.
 
 ## Firebase
 
-Step 1: First you need to go to the [firebase](https://firebase.google.com/) page, account login is required.
+Step 1: Đầu tiên bạn cần vào trang [firebase](https://firebase.google.com/), đăng nhập tài khoản là bắt buộc.
 
-Step 2: Select `Go to console` in the upper right corner of the screen
+Step 2: Chọn `Go to console` ở góc trên phía bên phải màn hình
 
-Step 3: Select `Create a project` to create a new project, name the project and select `Continue`
+Step 3: Chọn `Create a project` để tạo dự án mới, đặt tên cho dự án và chọn `Continue` 
 
-Step 4: Select `Default Account for Firebase`, then select `Create project` wait and select `Continue`
+Step 4: Chọn `Default Account for Firebase`, rồi chọn `Create project` chờ và chọn `Continue`
 
-Step 5: At `Project Overview` select `Storage`
+Step 5: Tại `Project Overview` chọn `Storage` 
 
-[Video tutorial](https://www.youtube.com/watch?v=-IFRVMEhZDc)
+[Video hướng dẫn](https://www.youtube.com/watch?v=-IFRVMEhZDc)
 
 
 
 ## Check
 
-shell
+```shell
 heroku run python manage.py shell --app project-1233
 ```
 
-python
+```python
 from django.apps import apps
 
 auth_models = apps.get_app_config('auth').get_models()
 for model in auth_models:
-print(model)
+    print(model)
 
 ```
 
-python
+```python
 from django.apps import apps
 
 for app in apps.get_app_configs():
-for model in app.get_models():
-if model.__name__ == 'GoogleSSOUser':
-print(f"Found GoogleSSOUser in app: {app.name}")
-print(model)
+    for model in app.get_models():
+        if model.__name__ == 'GoogleSSOUser':
+            print(f"Found GoogleSSOUser in app: {app.name}")
+            print(model)
 ```
 
-shell
+```shell
 heroku run python manage.py migrate --app project-1233
 ```
 
-shell
+```shell
 heroku run python manage.py makemigrations --app chat-123
 ```
 
-shell
+```shell
 heroku run python manage.py shell --app project-1233
 ```
 
-Install additional packages
+Cài thêm package
 
-bash
+```bash
 heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-apt
 
 touch Aptfile
@@ -536,26 +541,26 @@ touch Aptfile
 libgl1-mesa-glx
 ```
 
-bash
+```bash
 python manage.py shell
 ```
 
 
-python
+```python
 from authentication.models import UserProfile
 ```
 
-python
+```python
 profiles = UserProfile.objects.all()
 for profile in profiles:
-print(f"Name: {profile.name}")
-print(f"Picture: {profile.picture}")
-print(f"Age: {profile.age}")
-print(f"Sex: {profile.sex}")
-print(f"Date join: {profile.date_join}")
-print(f"Email: {profile.email}")
-print(f"Status: {profile.data}")
-print("------------")
+    print(f"Name: {profile.name}")
+    print(f"Picture: {profile.picture}")
+    print(f"Age: {profile.age}")
+    print(f"Sex: {profile.sex}")
+    print(f"Date join: {profile.date_join}")
+    print(f"Email: {profile.email}")
+    print(f"Status: {profile.data}")
+    print("------------")
 ```
 
 ## License
