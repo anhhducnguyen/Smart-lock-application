@@ -39,9 +39,10 @@ EMAIL_PORT = EMAIL_PORT
 # ________________________________________
 # google sso
 # ________________________________________
-GOOGLE_SSO_CLIENT_ID = "740073010366-mrsboulhnt2b77o9r9i591r5n5snd9ie.apps.googleusercontent.com"
-GOOGLE_SSO_PROJECT_ID = "flower-shop-428110"
-GOOGLE_SSO_CLIENT_SECRET = "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"
+
+GOOGLE_SSO_CLIENT_ID = os.getenv('GOOGLE_SSO_CLIENT_ID')
+GOOGLE_SSO_PROJECT_ID = os.getenv('GOOGLE_SSO_PROJECT_ID')
+GOOGLE_SSO_CLIENT_SECRET = os.getenv('GOOGLE_SSO_CLIENT_SECRET')
 
 # ________________________________________
 # send mail
