@@ -461,7 +461,6 @@ $ python manage.py migrate
 That's it. Start django on port 8000 and open your browser in `http://localhost:8000/admin/login` and you should see the
 Google SSO button.
 
----
 
 ## Firebase
 
@@ -543,7 +542,6 @@ for profiles in profiles:
  print(f"Date join: {profile.date_join}")
  print(f"Email: {profile.email}")
  print(f"Status: {profile.data}")
- print("------------------------")
 ```
 
 ## License
