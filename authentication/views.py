@@ -33,6 +33,8 @@ from io import BytesIO
 from django.views.generic import RedirectView, TemplateView
 from unfold.views import UnfoldModelAdminViewMixin
 
+
+
 class MyStatistical(UnfoldModelAdminViewMixin, TemplateView):
     title = "ChatGPT"  # required: custom page header title
     permission_required = ()  # required: tuple of permissions

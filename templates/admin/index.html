@@ -49,9 +49,13 @@
                 {% endfor %}
             </div>
             
-            {% component "unfold/components/card.html" %}
+            {% component "unfold/components/card.html" with title=_("Cohort Performance Over Time") %}
                 {% component "unfold/components/chart/cohort.html" with component_class="CohortComponent" %}{% endcomponent %}
             {% endcomponent %}
+
+            
+
+            
 
             {% component "unfold/components/card.html" with title=_("Product performance in last 28 days") %}
                 {% component "unfold/components/chart/bar.html" with data=chart height=320 %}{% endcomponent %}
@@ -95,7 +99,7 @@
                             </h3>
 
                             <div class="ml-auto">
-                                83%
+                                89%
                             </div>
                         </div>
 

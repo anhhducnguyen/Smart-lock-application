@@ -276,31 +276,7 @@ class UserProfileAdmin(unfold_admin.ModelAdmin):
                 name="store_view",
             ),
         ]
-    
-@register_component
-class TrackerComponent(BaseComponent):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        data = []
 
-        for i in range(1, 72):
-            has_value = random.choice([True, True, True, True, False])
-            color = None
-            tooltip = None
-            if has_value:
-                value = random.randint(2, 6)
-                color = f"bg-primary-{value}00 dark:bg-primary-{9 - value}00"
-                tooltip = f"Value {value}"
-
-            data.append(
-                {
-                    "color": color,
-                    "tooltip": tooltip,
-                }
-            )
-
-        context["data"] = data
-        return context
 
 @register_component
 class CohortComponent(BaseComponent):
@@ -372,6 +348,33 @@ class CohortComponent(BaseComponent):
             "headers": headers,
             "rows": rows,
         }
+        return context
+    
+@register_component
+class TrackerComponent(BaseComponent):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        data = []
+
+        for i in range(1, 72):
+            has_value = random.choice([True, True, True, True, False])
+            color = None
+            tooltip = None
+            if has_value:
+                value = random.randint(2, 6)
+                color = f"bg-primary-{value}00 dark:bg-primary-{9 - value}00"
+                tooltip = f"Value {value}"
+
+            data.append(
+                {
+                    "color": color,
+                    "tooltip": tooltip,
+                }
+            )
+
+        context["data"] = data
+        return context
+
 
 
 class EmployeeAdmin(unfold_admin.ModelAdmin):
