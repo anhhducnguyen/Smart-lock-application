@@ -68,10 +68,17 @@ ALLOWED_HOSTS = [
 
 # ALLOWED_HOSTS = []
 
+######################################################################
+# Localization
+######################################################################
+
+
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    "modeltranslation",
 
     "unfold",
 
@@ -87,11 +94,15 @@ INSTALLED_APPS = [
     "django_google_sso",  
 
     "unfold.contrib.filters",
+
+    'debug_toolbar',
     
 
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -190,7 +201,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
 
 TIME_ZONE = 'UTC'
 
@@ -198,6 +211,42 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('de', 'German'),
+    ('vi', 'Vietnamese'),
+    ('fr', 'French'),
+]
+
+# https://docs.djangoproject.com/en/5.1/ref/settings/#date-input-formats
+DATE_INPUT_FORMATS = [
+    "%d.%m.%Y",  # Custom input
+    "%Y-%m-%d",  # '2006-10-25'
+    "%m/%d/%Y",  # '10/25/2006'
+    "%m/%d/%y",  # '10/25/06'
+    "%b %d %Y",  # 'Oct 25 2006'
+    "%b %d, %Y",  # 'Oct 25, 2006'
+    "%d %b %Y",  # '25 Oct 2006'
+    "%d %b, %Y",  # '25 Oct, 2006'
+    "%B %d %Y",  # 'October 25 2006'
+    "%B %d, %Y",  # 'October 25, 2006'
+    "%d %B %Y",  # '25 October 2006'
+    "%d %B, %Y",  # '25 October, 2006'
+]
+
+# https://docs.djangoproject.com/en/5.1/ref/settings/#datetime-input-formats
+DATETIME_INPUT_FORMATS = [
+    "%d.%m.%Y %H:%M:%S",  # Custom input
+    "%Y-%m-%d %H:%M:%S",  # '2006-10-25 14:30:59'
+    "%Y-%m-%d %H:%M:%S.%f",  # '2006-10-25 14:30:59.000200'
+    "%Y-%m-%d %H:%M",  # '2006-10-25 14:30'
+    "%m/%d/%Y %H:%M:%S",  # '10/25/2006 14:30:59'
+    "%m/%d/%Y %H:%M:%S.%f",  # '10/25/2006 14:30:59.000200'
+    "%m/%d/%Y %H:%M",  # '10/25/2006 14:30'
+    "%m/%d/%y %H:%M:%S",  # '10/25/06 14:30:59'
+    "%m/%d/%y %H:%M:%S.%f",  # '10/25/06 14:30:59.000200'
+    "%m/%d/%y %H:%M",  # '10/25/06 14:30'
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -242,15 +291,6 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 UNFOLD = {
-    "EXTENSIONS": {
-        "modeltranslation": {
-            "flags": {
-                "en": "🇬🇧",
-                "fr": "🇫🇷",
-                "nl": "🇧🇪",
-            },
-        },
-    },
     "DASHBOARD_CALLBACK": "project.views.dashboard_callback",
     "LOGIN": {
         "image": lambda request: static("icons/banner-BdwIal-V.jpg"),
@@ -260,7 +300,8 @@ UNFOLD = {
     # "SITE_HEADER": "Smart lock",
 
     # "SITE_SYMBOL": "fingerprint",
-
+    "SHOW_LANGUAGES": True,
+    "ENVIRONMENT": "authentication.utils.environment_callback",
     "SITE_ICON": {
         "light": lambda request: static("logo/pka.png"),  # light mode
         "dark": lambda request: static("logo/pka.png"),   # dark mode
@@ -348,7 +389,12 @@ UNFOLD = {
                         "title": _("Groups"),
                         "icon": "group",
                         "link": reverse_lazy("admin:auth_group_changelist"),
-                    },                  
+                    },   
+                    {
+                        "title": _("Employee"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:authentication_employee_changelist"),
+                    },                
                 ],
             },
             
@@ -418,6 +464,14 @@ cred = credentials.Certificate(firebase_config)
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'smartlock-ff808.appspot.com'
 })
+
+
+######################################################################
+# App
+######################################################################
+LOGIN_USERNAME = os.getenv("LOGIN_USERNAME")
+
+LOGIN_PASSWORD = os.getenv("LOGIN_PASSWORD")
 
 
 

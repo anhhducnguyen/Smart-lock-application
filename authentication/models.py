@@ -90,43 +90,6 @@ class UserProfile(models.Model):
             except Exception as e:
                 print(f"Lỗi khi đẩy ảnh lên Firebase: {e}")
 
-    # def save(self, *args, **kwargs):
-    #     if not self.pk and self.picture:
-    #         # Nếu có link ảnh, tải ảnh về và lưu vào thư mục media
-    #         try:
-    #             response = requests.get(self.picture.url, stream=True)
-    #             if response.status_code == 200:
-    #                 # Tạo tệp tạm thời để lưu ảnh
-    #                 temp_file = NamedTemporaryFile(delete=True)
-    #                 temp_file.write(response.content)
-    #                 temp_file.flush()
-                    
-    #                 # Lưu ảnh vào trường picture
-    #                 file_name = os.path.basename(self.picture.url)
-    #                 self.picture.save(file_name, File(temp_file), save=False)
-    #                 print(f"Ảnh đã được lưu vào thư mục media: {self.picture.path}")
-    #             else:
-    #                 print("Không thể tải ảnh từ link được cung cấp.")
-    #         except Exception as e:
-    #             print(f"Lỗi khi tải ảnh: {e}")
-        
-    #     # Tiếp tục với phương thức lưu như cũ
-    #     super().save(*args, **kwargs)
-        
-    #     # Đẩy ảnh lên Firebase với tên là "0.<định dạng ảnh>"
-    #     if self.picture:
-    #         folder_path = f"images/{self.name}/"
-    #         extension = os.path.splitext(self.picture.path)[-1]  # Lấy định dạng ảnh từ đường dẫn
-    #         bucket = storage.bucket()
-    #         blob = bucket.blob(f"{folder_path}0{extension}")  # Đặt tên ảnh là "0.<định dạng>"
-
-    #         try:
-    #             blob.upload_from_filename(self.picture.path)
-    #             print(f"Ảnh đã được tải lên Firebase tại {folder_path}0{extension}")
-    #         except Exception as e:
-    #             print(f"Lỗi khi đẩy ảnh lên Firebase: {e}")
-    
-    # Tín hiệu để xóa ảnh trên Firebase khi xóa UserProfile
 @receiver(post_delete, sender=UserProfile)
 def delete_picture_on_firebase(sender, instance, **kwargs):
     if instance.picture:
@@ -140,20 +103,3 @@ def delete_picture_on_firebase(sender, instance, **kwargs):
             print(f"Ảnh đã được xóa khỏi Firebase tại {folder_path}0{extension}")
         except Exception as e:
             print(f"Lỗi khi xóa ảnh trên Firebase: {e}")
-
-
-
-
-# from authentication.models import UserProfile
-
-
-# profiles = UserProfile.objects.all()
-# for profile in profiles:
-#     print(f"Name: {profile.name}")
-#     print(f"Picture: {profile.picture}")
-#     print(f"Age: {profile.age}")
-#     print(f"Sex: {profile.sex}")
-#     print(f"Date join: {profile.date_join}")
-#     print(f"Email: {profile.email}")
-#     print(f"Status: {profile.data}")
-#     print("------------")

@@ -14,14 +14,53 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+# from django.contrib import admin
+# from django.urls import path, include
+
+# from django.conf import settings
+# from django.conf.urls.static import static
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('', include('authentication.urls')),
+# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# from django.contrib import admin
+# from django.urls import path, include
+# from django.conf.urls.i18n import i18n_patterns  # Import i18n_patterns
+
+# from django.conf import settings
+# from django.conf.urls.static import static
+
+# urlpatterns = [
+#     # Các URL khác của bạn
+#     path('admin/', admin.site.urls),
+#     path('', include('authentication.urls')),
+# ] + i18n_patterns(
+#     # Các URL quốc tế hóa sẽ được thêm vào đây
+# ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
+from django.urls import include, path
+from django.contrib import admin
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('authentication.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from authentication.sites import authentication_admin_site
+from project.views import HomeView
+
+urlpatterns = (
+    [
+        # path("", HomeView.as_view(), name="home"),
+        path('admin/', admin.site.urls),
+        path('', include('authentication.urls')),
+        path("i18n/", include("django.conf.urls.i18n")),
+        path("__debug__/", include("debug_toolbar.urls")),
+    ]
+    + i18n_patterns(
+        path("admin/", authentication_admin_site.urls),
+    )
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 

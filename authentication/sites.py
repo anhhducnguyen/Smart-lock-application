@@ -3,8 +3,8 @@ from unfold.sites import UnfoldAdminSite
 from .forms import LoginForm
 
 
-class FormulaAdminSite(UnfoldAdminSite):
+class AuthenticationAdminSite(UnfoldAdminSite):
     login_form = LoginForm
 
 
-formula_admin_site = FormulaAdminSite()
+authentication_admin_site = AuthenticationAdminSite()

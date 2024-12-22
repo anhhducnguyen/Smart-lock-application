@@ -9,7 +9,7 @@ from django.templatetags.static import static
 from unfold.decorators import action, display
 from django.urls import path, reverse_lazy
 from unfold.components import BaseComponent, register_component
-from authentication.sites import formula_admin_site
+from authentication.sites import authentication_admin_site
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from unfold.contrib.filters.admin import RangeDateFilter, RangeDateTimeFilter
 from unfold.contrib.filters.admin import (
@@ -167,17 +167,19 @@ class MyInline(TabularInline):
 # class CustomGroupAdmin(ModelAdmin):
 #     search_fields = ('name',)
 
-@admin.register(Group, site=formula_admin_site)
+@admin.register(Group, site=authentication_admin_site)
 class CustomGroupAdmin(BaseGroupAdmin, ModelAdmin):
     pass
 
    
-class CustomGoogleSSOUserAdmin(ModelAdmin):
-    list_display = ('user', 'google_id', 'picture_url', 'locale')
-    search_fields = ('user__username', 'google_id', 'locale')
-    fieldsets = (
-        (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
-    )
+# class CustomGoogleSSOUserAdmin(ModelAdmin):
+#     list_display = ('user', 'google_id', 'picture_url', 'locale')
+#     search_fields = ('user__username', 'google_id', 'locale')
+#     fieldsets = (
+#         (None, {'fields': ('user', 'google_id', 'picture_url', 'locale')}),
+#     )
+
+
 
 from django.contrib import admin
 from .models import Employee, Status, UserProfile
@@ -195,40 +197,11 @@ def get_first_image_url_from_firebase(user_name):
             return blob.public_url
     return None
 
-# @admin.register(UserProfile)
-# class UserProfileAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'first_image_url')  # Hiển thị tên và URL ảnh đầu tiên
-
-#     # Hàm hiển thị ảnh đầu tiên
-#     def first_image_url(self, obj):
-#         url = get_first_image_url_from_firebase(obj.name)
-#         if url:
-#             return format_html(f'<img src="{url}" width="50" height="50" />')  # Hiển thị ảnh thumbnail
-#         return "No Image"
-    
-#     first_image_url.short_description = "First Image"  # Tiêu đề cho cột ảnh
-
-# from unfold import admin as unfold_admin
-# class UserProfileAdmin(unfold_admin.ModelAdmin):
-#     list_display = ('name', 'first_image')  # Hiển thị tên và ảnh đầu tiên
-#     # search_fields = ('name')
-
-#     # Hàm hiển thị ảnh đầu tiên sử dụng Django Unfold
-#     def first_image(self, obj):
-#         # Giả sử get_first_image_url_from_firebase là hàm lấy URL ảnh từ Firebase
-#         url = get_first_image_url_from_firebase(obj.name)
-#         if url:
-#             # Trả về URL cho Unfold để hiển thị ảnh
-#             return url
-#         return "No Image"
-
-#     first_image.short_description = "First Image"  # Tiêu đề cho cột ảnh
-
-# # Đăng ký model
-# admin.site.register(UserProfile, UserProfileAdmin)
-
 from unfold import admin as unfold_admin
 from django.utils.html import mark_safe
+
+# class CustomGoogleSSOUserAdmin(unfold_admin.ModelAdmin):
+#     list_display = ('user', 'google_id', 'picture_url', 'locale')
 
 class UserProfileAdmin(unfold_admin.ModelAdmin):
     list_display = ('display_picture', 'name', 'age', 'sex', 'date_join', 'email', "display_status",)  # Hiển thị tên và ảnh đầu tiên
@@ -415,20 +388,17 @@ class EmployeeAdmin(unfold_admin.ModelAdmin):
 
 admin.site.register(Employee, EmployeeAdmin)
 
-
-
 # Đăng ký model
 admin.site.register(UserProfile, UserProfileAdmin)
-
 admin.site.unregister(User)  
 admin.site.unregister(Group)  
-# admin.site.unregister(GoogleSSOUser)
-# admin.site.register(GoogleSSOUser)
-# admin.site.unregister(UserProfile) 
+
 
 admin.site.register(User, CustomUserAdmin)  
 admin.site.register(Group, CustomGroupAdmin) 
-# admin.site.register(GoogleSSOUser, CustomGoogleSSOUserAdmin)
+
+
+# C:\Users\Admin\AppData\Roaming\Python\Python312\site-packages\django_google_sso\admin.py
 
 
 

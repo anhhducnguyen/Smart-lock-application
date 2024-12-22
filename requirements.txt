@@ -16,3 +16,5 @@ firebase-admin==6.5.0
 Pillow==10.3.0
 requests==2.32.2
 Faker==33.1.0
+django-modeltranslation==0.19.11
+django-debug-toolbar==4.4.6
