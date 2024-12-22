@@ -51,7 +51,7 @@ touch .env
 
 **Step 7 .** In the file `.env`
 
-```bash
+```php
 DB_ENGINE=django.db.backends.mysql
 DB_NAME=your_database_name
 DB_USER=your_database_user
