@@ -375,6 +375,9 @@ class TrackerComponent(BaseComponent):
         context["data"] = data
         return context
 
+import openpyxl
+from django.http import HttpResponse
+from django.contrib import messages
 
 
 class EmployeeAdmin(unfold_admin.ModelAdmin):
@@ -386,9 +389,36 @@ class EmployeeAdmin(unfold_admin.ModelAdmin):
         FullNameFilter,
         GreaterSalaryFilter,
     ]
-    list_filter_submit = True
-    list_fullwidth = True
 
+    actions = ['export_to_excel']
+
+    # def add_to_classrooms(self, request, queryset):
+    #     self.message_user(request, f"Nút đã được nhấn", messages.SUCCESS)
+    # add_to_classrooms.short_description = "Export to Excel"
+    def export_to_excel(self, request, queryset):
+        # Tạo workbook và worksheet
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = 'Employee Data'
+
+        # Đặt tiêu đề cho các cột
+        ws.append(['First Name', 'Last Name', 'Gender', 'Age', 'Salary'])
+
+        # Thêm dữ liệu từ queryset đã được chọn vào file Excel
+        for employee in queryset:
+            ws.append([employee.first_name, employee.last_name, employee.gender, employee.age, employee.salary])
+
+        # Tạo phản hồi HTTP với nội dung Excel
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=selected_employees.xlsx'
+
+        # Lưu workbook vào phản hồi
+        wb.save(response)
+        self.message_user(request, f"{queryset.count()} employees have been exported to Excel", messages.SUCCESS)
+        return response
+
+    export_to_excel.short_description = "Export selected employees to Excel"
+    
 admin.site.register(Employee, EmployeeAdmin)
 
 # Đăng ký model

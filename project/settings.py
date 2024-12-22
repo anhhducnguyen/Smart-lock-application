@@ -358,6 +358,7 @@ UNFOLD = {
                         "title": _("Store"),
                         "icon": "storefront",  # Supported icon set: https://fonts.google.com/icons
                         "link": reverse_lazy("admin:store_view"),
+                        "permission": lambda request: request.user.is_superuser,
                     },
                     {
                         "title": _("ChatGPT"),
