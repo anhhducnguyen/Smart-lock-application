@@ -58,6 +58,13 @@ DB_USER=your_database_user
 DB_PASSWORD=your_database_password
 DB_HOST=your_database_host
 DB_PORT=your_database_port
+
+GOOGLE_SSO_CLIENT_ID=your_google_sso_client_id
+GOOGLE_SSO_PROJECT_ID=your_google_sso_project_id
+GOOGLE_SSO_CLIENT_SECRET=your_google_sso_client_secret
+
+LOGIN_USERNAME=your_login_username
+LOGIN_PASSWORD=your_login_password
 ```
 
 **Step 8 .** Activate the virtual machine
