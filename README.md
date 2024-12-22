@@ -115,9 +115,9 @@ django_heroku.settings(locals())
 
 ``` python
 ALLOWED_HOSTS = [
-'project-1233-6f93642d7963.herokuapp.com',
-'127.0.0.1',
-'localhost',
+  'project-1233-6f93642d7963.herokuapp.com',
+  '127.0.0.1',
+  'localhost',
 ]
 ```
 **Step 11 .** Create dummy data into .json files
@@ -232,13 +232,13 @@ load_dotenv()
 
 DATABASES = {
  "default": {
- "ENGINE": os.getenv('DB_ENGINE'),
- "NAME": os.getenv('DB_NAME'),
- "USER": os.getenv('DB_USER'),
- "PASSWORD": os.getenv('DB_PASSWORD'),
- "HOST": os.getenv('DB_HOST'),
- "PORT": os.getenv('DB_PORT'),
- }
+    "ENGINE": os.getenv('DB_ENGINE'),
+    "NAME": os.getenv('DB_NAME'),
+    "USER": os.getenv('DB_USER'),
+    "PASSWORD": os.getenv('DB_PASSWORD'),
+    "HOST": os.getenv('DB_HOST'),
+    "PORT": os.getenv('DB_PORT'),
+  }
 }
 ```
 
@@ -280,7 +280,7 @@ python manage.py startapp authentication
 
 ```python
 INSTALLED_APPS = [
-'authentication',
+  'authentication',
 ]
 ```
 **Step 3 .** Make sure `project/info.py` is added
@@ -298,8 +298,8 @@ EMAIL_PORT=587
 from django.urls import path, include. include
 
 urlpatterns = [
- path('admin/', admin.site.urls),
- path('', include('authentication.urls'))
+  path('admin/', admin.site.urls),
+  path('', include('authentication.urls'))
 ]
 ```
 
@@ -317,11 +317,11 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from six import text_type
 
 class TokenGenerator(PasswordResetTokenGenerator):
- def _make_hash_value(self,user,timestamp):
- return (
- text_type(user.pk) + text_type(timestamp)
- # text_type(user.profile.signup_confirmation)
- )
+  def _make_hash_value(self,user,timestamp):
+  return (
+  text_type(user.pk) + text_type(timestamp)
+  # text_type(user.profile.signup_confirmation)
+)
 
 generate_token = TokenGenerator()
 ```
@@ -334,11 +334,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-path('', views.home, name='home'),
-path('signup', views.signup, name='signup'),
-path('activate/<uidb64>/<token>', views.activate, name='activate'),
-path('signin', views.signin, name='signin'),
-path('signout', views.signout, name='signout'),
+  path('', views.home, name='home'),
+  path('signup', views.signup, name='signup'),
+  path('activate/<uidb64>/<token>', views.activate, name='activate'),
+  path('signin', views.signin, name='signin'),
+  path('signout', views.signout, name='signout'),
 ]
 ```
 
@@ -352,9 +352,9 @@ pip install six
 
 ```python
 TEMPLATES = [
-{
-'DIRS': ["templates"],
-},
+  {
+    'DIRS': ["templates"],
+  },
 ]
 ```
 **Step 7 .** Configure gmail in `project/settings.py`
