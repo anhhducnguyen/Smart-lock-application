@@ -6,3 +6,4 @@ media/
 config/firebase/smartlock.json
 images/
 fixtures/
+firebase_config.json
