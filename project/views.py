@@ -15,8 +15,11 @@ from authentication.models import Employee
 # Lấy số lượng user từ model
 user_count = User.objects.count()
 
-total_salary = Employee.objects.aggregate(Sum('salary'))['salary__sum']
+# total_salary = Employee.objects.aggregate(Sum('salary'))['salary__sum']
 
+total_salary = Employee.objects.aggregate(Sum('salary'))['salary__sum']
+formatted_salary = f"{total_salary:,}"  # Định dạng với dấu phẩy
+print(formatted_salary)
 
 class HomeView(RedirectView):
     pattern_name = "admin:index"
@@ -75,9 +78,9 @@ def dashboard_callback(request, context):
                     ),
                 },
                 {
-                    "title": "Total Salary",
+                    "title": "Total Salary for Employee",
                     # "metric": f"${intcomma(f"{random.uniform(1000, 9999):.02f}")}",
-                    "metric": f"${total_salary}",
+                    "metric": f"${formatted_salary}",
                     "footer": mark_safe(
                         f'<strong class="text-green-700 font-semibold dark:text-green-400">+{intcomma(f"{random.uniform(1, 9):.02f}")}%</strong>&nbsp;progress from last week'
                     ),

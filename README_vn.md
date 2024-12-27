@@ -566,3 +566,19 @@ for profile in profiles:
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+Linux
+
+sudo dnf update -y
+
+git clone https://github.com/anhhducnguyen/Smart-lock-application
+
+
+sudo dnf install python3-pip -y
+
+
+pip3 install -r requirements.txt
+
+sudo dnf install mysql-devel -y
+sudo dnf install pkg-config -y
+

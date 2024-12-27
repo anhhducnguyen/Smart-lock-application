@@ -86,6 +86,7 @@ class CustomUserAdmin(ModelAdmin):
     #     ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
     #     ('Important dates', {'fields': ('last_login',)}),
     # )
+    actions = ['add_to_students_group']
 
     list_filter = [
         FullNameFilter,
@@ -93,6 +94,34 @@ class CustomUserAdmin(ModelAdmin):
     ]
     list_filter_submit = True
     list_fullwidth = True
+
+    def get_actions(self, request):
+        """
+        Tạo danh sách các action động dựa trên các Group hiện có.
+        """
+        actions = super().get_actions(request)
+        groups = Group.objects.all()
+
+        for group in groups:
+            action_name = f"add_to_group_{group.id}"
+            actions[action_name] = (
+                self._create_action(group),
+                action_name,
+                f"Add selected users to group '{group.name}'"
+            )
+        return actions
+
+    def _create_action(self, group):
+        """
+        Tạo một action cụ thể để thêm user vào group.
+        """
+        def action(modeladmin, request, queryset):
+            for user in queryset:
+                user.groups.add(group)
+            self.message_user(
+                request, f"Selected users have been added to group '{group.name}'.", messages.SUCCESS
+            )
+        return action
 
     # fieldsets = (
     #     (
